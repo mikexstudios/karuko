@@ -2,15 +2,96 @@
 @import "blueprint/reset"
 
 // To configure blueprint, edit the partials/_base.sass file.
-@import "partials/base"
+//@import "partials/base"
 
 // Import all the default blueprint modules so that we can access their mixins.
 @import "blueprint"
 
-// Import the non-default scaffolding module.
-@import "blueprint/scaffolding"
+//==============
+// My Imports
+//==============
+@import compass/utilities/general.scss
+//@import compass/utilities/text.scss
+@import compass/utilities/links.scss
+@import compass/utilities/lists.scss
+@import compass/utilities/tables.scss
+@import compass/css3
 
-// Generate the blueprint framework according to your configuration:
+//==============
+// Typography
+//==============
+$sans_serif_font: Helvetica, Arial, Verdana, sans-serif
+$serif_font: Georgia, Times, Times New Roman, serif
+$monospace_font: Monaco, Courier New, DejaVu Sans Mono, Bitstream Vera Sans Mono, monospace
+$blueprint-font-family: $sans_serif_font
+$blueprint-font-size: 16px
+//@include blueprint-typography
+
+// Generate the blueprint framework according to our configuration:
 @include blueprint
 
-@include blueprint-scaffolding
+//==============
+// My Variables
+//==============
+$container_width: 960px
+$content_width: 800px
+
+body 
+  a, a:link, a:visited 
+    +hover-link
+    color: #03c
+  .logo 
+    font-family: $serif-font
+    font-style: italic
+  //#messages
+  //  +messages-style
+
+  #container 
+    margin: 0 auto
+    min-width: $content_width
+    max-width: $container_width
+    padding: 0 25px
+
+  #header
+    //For making header text elements line up:
+    line-height: 1
+    padding-bottom: 0.3em
+
+    font-family: $serif_font
+    margin-top: 1em
+    margin-bottom: 0.7em
+    border-bottom: 1px solid #ccc
+    text-align: right
+    +clearfix
+    h1
+      margin-left: 5px
+      font-size: 1.25em
+      float: left
+      margin: 0
+      a
+        color: #333
+        text-decoration: none
+    ul#navigation
+      font-variant: small-caps
+      font-size: 1.313em
+      margin-bottom: 0
+      +inline-list
+      li
+        margin-left: 0.4em
+
+  #content
+    width: $content_width
+    margin: 0 auto
+    clear: both
+
+  #footer
+    clear: both
+    //float: left
+    margin-top: 20px
+    margin-bottom: 10px
+    text-align: right
+    font-size: 0.6em
+    font-family: $serif_font
+    color: #ccc
+    a
+      color: #ccc
