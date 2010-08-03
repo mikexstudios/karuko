@@ -1359,11 +1359,53 @@ body #content #worksheet {
 }
 /* line 113, ../src/screen.sass */
 body #content #sidebar {
+  font-family: Georgia, Times, Times New Roman, serif;
   vertical-align: top;
-  width: 135px;
-  padding-left: 1em;
+  width: 145px;
+  padding-left: 0.8em;
 }
-/* line 119, ../src/screen.sass */
+/* line 118, ../src/screen.sass */
+body #content #sidebar .button {
+  margin-bottom: 0.5em;
+}
+/* line 120, ../src/screen.sass */
+body #content #sidebar input[type=text] {
+  width: 130px;
+  font-size: 0.7em;
+  margin-top: -1px;
+  display: block;
+  padding: 4px 3px;
+}
+/* line 126, ../src/screen.sass */
+body #content #sidebar ul {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  list-style: none;
+}
+/* line 11, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.2/frameworks/compass/stylesheets/compass/utilities/lists/_bullets.scss */
+body #content #sidebar ul li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0px;
+}
+/* line 135, ../src/screen.sass */
+body #content #sidebar ul li {
+  padding-left: 0.3em;
+  margin-bottom: 0.1em;
+  color: #9ba0a5;
+}
+/* line 143, ../src/screen.sass */
+body #content #sidebar ul li a {
+  color: #9ba0a5;
+}
+/* line 145, ../src/screen.sass */
+body #content #sidebar ul.last {
+  border-bottom: none;
+}
+/* line 148, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1373,7 +1415,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 128, ../src/screen.sass */
+/* line 157, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }

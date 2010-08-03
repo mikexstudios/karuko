@@ -111,10 +111,39 @@ body
       //float: left
 
     #sidebar
-      //float: right
+      font-family: $serif_font
       vertical-align: top
-      width: 135px
-      padding-left: 1em
+      width: 145px
+      padding-left: 0.8em
+      .button
+        margin-bottom: 0.5em
+      input[type=text]
+        width: 130px
+        font-size: 0.7em
+        margin-top: -1px
+        display: block
+        padding: 4px 3px
+      ul
+        margin: 0
+        //Prevent this white gap from appearing to the left
+        padding: 0
+        border-bottom: 1px solid #ccc
+        padding-bottom: 0.5em
+        margin-bottom: 0.5em
+        +no-bullets
+        //font-size: 0.9em
+        li
+          //Move links slightly to the right to line up better with save button.
+          padding-left: 0.3em
+          margin-bottom: 0.1em
+          //background-color: #f3f5f9
+          //font-weight: bold
+          //@include text-shadow(#ddd)
+          color: #9BA0A5
+          a
+            color: #9BA0A5
+      ul.last
+        border-bottom: none
 
   #footer
     clear: both
