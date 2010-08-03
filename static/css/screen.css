@@ -1333,8 +1333,19 @@ body #container {
   max-width: 960px;
   padding: 0 25px;
 }
+/* line 90, ../src/screen.sass */
+body #content #worksheet_header {
+  font-family: Georgia, Times, Times New Roman, serif;
+  margin-bottom: 0.5em;
+}
 /* line 93, ../src/screen.sass */
+body #content #worksheet_header h1 {
+  font-size: 1.7em;
+  margin-bottom: 0;
+}
+/* line 97, ../src/screen.sass */
 body #content #worksheet {
+  background-color: white;
   width: 80%;
   padding: 0.5em 1em;
   -moz-box-shadow: #999999 1px 1px 5px;
@@ -1342,7 +1353,7 @@ body #content #worksheet {
   -o-box-shadow: #999999 1px 1px 5px;
   box-shadow: #999999 1px 1px 5px;
 }
-/* line 100, ../src/screen.sass */
+/* line 105, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1352,7 +1363,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 109, ../src/screen.sass */
+/* line 114, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }
