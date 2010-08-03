@@ -36,6 +36,7 @@ $blueprint-font-size: 16px
 $container_width: 960px
 $content_width: 800px
 $header_color: #5ba63d
+$sidebar_width: 145px
 
 body 
   background-color: #fafafa
@@ -103,45 +104,45 @@ body
 
     #worksheet
       background-color: white
-      //width: 70%
       padding: 0.5em 1em
       //border: 1px solid #ccc
       //+border-radius(3px)
       @include box-shadow(#999)
-      //float: left
 
     #sidebar
-      font-family: $serif_font
       vertical-align: top
-      width: 145px
+      font-family: $serif_font
+      width: $sidebar_width
       padding-left: 0.8em
       .button
         margin-bottom: 0.5em
+      //Search box
       input[type=text]
-        width: 130px
-        font-size: 0.7em
-        margin-top: -1px
         display: block
+        width: 100%
+        margin-top: -1px
+        font-size: 0.7em
         padding: 4px 3px
       ul
         margin: 0
         //Prevent this white gap from appearing to the left
         padding: 0
-        border-bottom: 1px solid #ccc
         padding-bottom: 0.5em
         margin-bottom: 0.5em
+        border-bottom: 1px solid #ccc
         +no-bullets
-        //font-size: 0.9em
         li
           //Move links slightly to the right to line up better with save button.
           padding-left: 0.3em
           margin-bottom: 0.1em
-          //background-color: #f3f5f9
-          //font-weight: bold
           //@include text-shadow(#ddd)
-          color: #9BA0A5
+          //Slightly darker than link color:
+          color: #80878d
           a
             color: #9BA0A5
+          a:hover
+            //Darker than link color
+            color: #80878d
       ul.last
         border-bottom: none
 
