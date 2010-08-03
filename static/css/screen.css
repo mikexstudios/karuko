@@ -1255,12 +1255,12 @@ textarea {
   height: 250px;
 }
 
-/* line 39, ../src/screen.sass */
+/* line 40, ../src/screen.sass */
 body {
   background-color: #fafafa;
   min-width: 800px;
 }
-/* line 43, ../src/screen.sass */
+/* line 44, ../src/screen.sass */
 body a, body a:link, body a:visited {
   text-decoration: none;
   color: #0033cc;
@@ -1269,17 +1269,12 @@ body a, body a:link, body a:visited {
 body a:hover, body a:link:hover, body a:visited:hover {
   text-decoration: underline;
 }
-/* line 46, ../src/screen.sass */
+/* line 47, ../src/screen.sass */
 body .logo {
   font-family: Georgia, Times, Times New Roman, serif;
   font-style: italic;
 }
-/* line 52, ../src/screen.sass */
-body #container {
-  margin: 0 auto;
-  max-width: 960px;
-}
-/* line 57, ../src/screen.sass */
+/* line 53, ../src/screen.sass */
 body #header {
   line-height: 1;
   padding-bottom: 0.3em;
@@ -1296,19 +1291,19 @@ body #header {
 body #header {
   display: block;
 }
-/* line 69, ../src/screen.sass */
+/* line 65, ../src/screen.sass */
 body #header h1 {
   margin-left: 5px;
   font-size: 1.25em;
   float: left;
   margin: 0;
 }
-/* line 74, ../src/screen.sass */
+/* line 70, ../src/screen.sass */
 body #header h1 a {
   color: #eef7ea;
   text-decoration: none;
 }
-/* line 77, ../src/screen.sass */
+/* line 73, ../src/screen.sass */
 body #header ul#navigation {
   font-variant: small-caps;
   font-size: 1.313em;
@@ -1324,21 +1319,30 @@ body #header ul#navigation li {
   padding: 0px;
   display: inline;
 }
-/* line 82, ../src/screen.sass */
+/* line 78, ../src/screen.sass */
 body #header ul#navigation li {
   margin-left: 0.4em;
 }
-/* line 84, ../src/screen.sass */
+/* line 80, ../src/screen.sass */
 body #header ul#navigation li a {
   color: #eef7ea;
 }
-/* line 87, ../src/screen.sass */
-body #content {
-  width: 800px;
+/* line 83, ../src/screen.sass */
+body #container {
   margin: 0 auto;
-  clear: both;
+  max-width: 960px;
+  padding: 0 25px;
 }
-/* line 92, ../src/screen.sass */
+/* line 93, ../src/screen.sass */
+body #content #worksheet {
+  width: 80%;
+  padding: 0.5em 1em;
+  -moz-box-shadow: #999999 1px 1px 5px;
+  -webkit-box-shadow: #999999 1px 1px 5px;
+  -o-box-shadow: #999999 1px 1px 5px;
+  box-shadow: #999999 1px 1px 5px;
+}
+/* line 100, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1348,7 +1352,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 101, ../src/screen.sass */
+/* line 109, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }

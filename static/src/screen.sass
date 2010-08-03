@@ -35,6 +35,7 @@ $blueprint-font-size: 16px
 //==============
 $container_width: 960px
 $content_width: 800px
+$header_color: #88ca6e
 
 body 
   background-color: #fafafa
@@ -49,18 +50,13 @@ body
   //#messages
   //  +messages-style
 
-  #container 
-    margin: 0 auto
-    //min-width: $content_width
-    max-width: $container_width
-
   #header
     //For making header text elements line up:
     line-height: 1
     padding-bottom: 0.3em
     font-family: $serif_font
 
-    background-color: #88ca6e
+    background-color: $header_color
     padding: 0.6em 1.2em 0.5em
     margin-bottom: 0.7em
     border-bottom: 1px solid #ccc
@@ -84,10 +80,22 @@ body
         a
           color: #eef7ea
 
-  #content
-    width: $content_width
+  #container 
     margin: 0 auto
-    clear: both
+    //min-width: $content_width
+    max-width: $container_width
+    padding: 0 25px
+
+  #content
+    //min-width: $content_width
+    //margin: 0 auto
+    //clear: both
+    #worksheet
+      width: 80%
+      padding: 0.5em 1em
+      //border: 1px solid #ccc
+      //+border-radius(3px)
+      @include box-shadow(#999)
 
   #footer
     clear: both
