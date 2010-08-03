@@ -82,9 +82,10 @@ body
 
   #container 
     margin: 0 auto
-    //min-width: $content_width
+    min-width: $content_width
     max-width: $container_width
-    padding: 0 25px
+    padding: 0 1em 0 1.5em
+    border: 1px solid #ccc
 
   #content
     #worksheet_header
@@ -96,11 +97,16 @@ body
 
     #worksheet
       background-color: white
-      width: 80%
+      width: 70%
       padding: 0.5em 1em
+      margin-right: 1em
       //border: 1px solid #ccc
       //+border-radius(3px)
       @include box-shadow(#999)
+      float: left
+
+    #sidebar
+      //float: right
 
   #footer
     clear: both

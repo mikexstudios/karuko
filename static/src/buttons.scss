@@ -59,4 +59,8 @@ a.button, button {
     @include fancy-button-padding(2px, 6px, 2px); }
   &.spade {
     @include fancy-button-colors-custom($blue);
-    @include fancy-button-padding(2px, 8px, 2px); } }
+    @include fancy-button-padding(2px, 8px, 2px); } 
+  &.smaller {
+    @include fancy-button-size(16px, 6px, 1px);
+  }
+}
