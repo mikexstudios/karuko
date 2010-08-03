@@ -37,6 +37,9 @@ $container_width: 960px
 $content_width: 800px
 
 body 
+  background-color: #fafafa
+  min-width: $content_width
+
   a, a:link, a:visited 
     +hover-link
     color: #03c
@@ -48,17 +51,17 @@ body
 
   #container 
     margin: 0 auto
-    min-width: $content_width
+    //min-width: $content_width
     max-width: $container_width
-    padding: 0 25px
 
   #header
     //For making header text elements line up:
     line-height: 1
     padding-bottom: 0.3em
-
     font-family: $serif_font
-    margin-top: 1em
+
+    background-color: #88ca6e
+    padding: 0.6em 1.2em 0.5em
     margin-bottom: 0.7em
     border-bottom: 1px solid #ccc
     text-align: right
@@ -69,7 +72,7 @@ body
       float: left
       margin: 0
       a
-        color: #333
+        color: #eef7ea
         text-decoration: none
     ul#navigation
       font-variant: small-caps
@@ -78,6 +81,8 @@ body
       +inline-list
       li
         margin-left: 0.4em
+        a
+          color: #eef7ea
 
   #content
     width: $content_width

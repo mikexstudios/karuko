@@ -1255,7 +1255,12 @@ textarea {
   height: 250px;
 }
 
-/* line 40, ../src/screen.sass */
+/* line 39, ../src/screen.sass */
+body {
+  background-color: #fafafa;
+  min-width: 800px;
+}
+/* line 43, ../src/screen.sass */
 body a, body a:link, body a:visited {
   text-decoration: none;
   color: #0033cc;
@@ -1264,24 +1269,23 @@ body a, body a:link, body a:visited {
 body a:hover, body a:link:hover, body a:visited:hover {
   text-decoration: underline;
 }
-/* line 43, ../src/screen.sass */
+/* line 46, ../src/screen.sass */
 body .logo {
   font-family: Georgia, Times, Times New Roman, serif;
   font-style: italic;
 }
-/* line 49, ../src/screen.sass */
+/* line 52, ../src/screen.sass */
 body #container {
   margin: 0 auto;
-  min-width: 800px;
   max-width: 960px;
-  padding: 0 25px;
 }
-/* line 55, ../src/screen.sass */
+/* line 57, ../src/screen.sass */
 body #header {
   line-height: 1;
   padding-bottom: 0.3em;
   font-family: Georgia, Times, Times New Roman, serif;
-  margin-top: 1em;
+  background-color: #88ca6e;
+  padding: 0.6em 1.2em 0.5em;
   margin-bottom: 0.7em;
   border-bottom: 1px solid #cccccc;
   text-align: right;
@@ -1292,19 +1296,19 @@ body #header {
 body #header {
   display: block;
 }
-/* line 66, ../src/screen.sass */
+/* line 69, ../src/screen.sass */
 body #header h1 {
   margin-left: 5px;
   font-size: 1.25em;
   float: left;
   margin: 0;
 }
-/* line 71, ../src/screen.sass */
+/* line 74, ../src/screen.sass */
 body #header h1 a {
-  color: #333333;
+  color: #eef7ea;
   text-decoration: none;
 }
-/* line 74, ../src/screen.sass */
+/* line 77, ../src/screen.sass */
 body #header ul#navigation {
   font-variant: small-caps;
   font-size: 1.313em;
@@ -1320,17 +1324,21 @@ body #header ul#navigation li {
   padding: 0px;
   display: inline;
 }
-/* line 79, ../src/screen.sass */
+/* line 82, ../src/screen.sass */
 body #header ul#navigation li {
   margin-left: 0.4em;
 }
-/* line 82, ../src/screen.sass */
+/* line 84, ../src/screen.sass */
+body #header ul#navigation li a {
+  color: #eef7ea;
+}
+/* line 87, ../src/screen.sass */
 body #content {
   width: 800px;
   margin: 0 auto;
   clear: both;
 }
-/* line 87, ../src/screen.sass */
+/* line 92, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1340,7 +1348,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 96, ../src/screen.sass */
+/* line 101, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }
