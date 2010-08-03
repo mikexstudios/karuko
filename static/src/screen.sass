@@ -85,28 +85,36 @@ body
     min-width: $content_width
     max-width: $container_width
     padding: 0 1em 0 1.5em
-    border: 1px solid #ccc
+    //border: 1px solid #ccc
 
   #content
+    //@include inner-table-borders(1px, #7a98c6)
+    //@include outer-table-borders(2px)
+    th, td
+      //Let each cell control its own padding
+      padding: 0
+  
     #worksheet_header
       font-family: $serif_font
-      margin-bottom: 0.5em
+      padding-bottom: 0.5em
       h1
         font-size: 1.7em
         margin-bottom: 0
 
     #worksheet
       background-color: white
-      width: 70%
+      //width: 70%
       padding: 0.5em 1em
-      margin-right: 1em
       //border: 1px solid #ccc
       //+border-radius(3px)
       @include box-shadow(#999)
-      float: left
+      //float: left
 
     #sidebar
       //float: right
+      vertical-align: top
+      width: 135px
+      padding-left: 1em
 
   #footer
     clear: both
