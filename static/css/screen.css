@@ -1364,21 +1364,46 @@ body #content #worksheet .calculation {
   font-size: 0.9em;
 }
 /* line 119, ../src/screen.sass */
-body #content #worksheet .calculation .input {
-  font-weight: bold;
+body #content #worksheet .calculation td {
+  padding-bottom: 0.6em;
 }
 /* line 122, ../src/screen.sass */
+body #content #worksheet .calculation td.line {
+  width: 70px;
+  padding-right: 1em;
+  text-align: right;
+  font-size: 0.7em;
+  line-height: 1;
+}
+/* line 129, ../src/screen.sass */
+body #content #worksheet .calculation td.entry {
+  line-height: 1;
+  padding-top: 4px;
+}
+/* line 133, ../src/screen.sass */
+body #content #worksheet .calculation .input .line {
+  color: #549a38;
+}
+/* line 136, ../src/screen.sass */
+body #content #worksheet .calculation .input .entry {
+  font-weight: bold;
+}
+/* line 139, ../src/screen.sass */
+body #content #worksheet .calculation .output .line {
+  color: #e57564;
+}
+/* line 143, ../src/screen.sass */
 body #content #sidebar {
   vertical-align: top;
   font-family: Georgia, Times, Times New Roman, serif;
   width: 145px;
   padding-left: 0.8em;
 }
-/* line 127, ../src/screen.sass */
+/* line 148, ../src/screen.sass */
 body #content #sidebar .button {
   margin-bottom: 0.5em;
 }
-/* line 130, ../src/screen.sass */
+/* line 151, ../src/screen.sass */
 body #content #sidebar input[type=text] {
   display: block;
   width: 97%;
@@ -1387,7 +1412,7 @@ body #content #sidebar input[type=text] {
   font-size: 0.7em;
   padding: 4px 3px;
 }
-/* line 137, ../src/screen.sass */
+/* line 158, ../src/screen.sass */
 body #content #sidebar ul {
   margin: 0;
   padding: 0;
@@ -1402,25 +1427,25 @@ body #content #sidebar ul li {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 145, ../src/screen.sass */
+/* line 166, ../src/screen.sass */
 body #content #sidebar ul li {
   padding-left: 0.3em;
   margin-bottom: 0.1em;
   color: #80878d;
 }
-/* line 152, ../src/screen.sass */
+/* line 173, ../src/screen.sass */
 body #content #sidebar ul li a {
   color: #9ba0a5;
 }
-/* line 154, ../src/screen.sass */
+/* line 175, ../src/screen.sass */
 body #content #sidebar ul li a:hover {
   color: #80878d;
 }
-/* line 157, ../src/screen.sass */
+/* line 178, ../src/screen.sass */
 body #content #sidebar ul.last {
   border-bottom: none;
 }
-/* line 160, ../src/screen.sass */
+/* line 181, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1430,7 +1455,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 169, ../src/screen.sass */
+/* line 190, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }
