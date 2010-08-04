@@ -114,11 +114,26 @@ body
       //      necessary.
       //height: 500px
 
+      .between
+        //The margin and the height must add up to 0.6em, the spacing between cells.
+        margin-top: 0.1em
+        //TODO: If we make the hover area larger (including the whitespace around
+        //      the between div, then we can shrink this height into 1px, maybe.
+        height: 0.2em
+        margin-bottom: 0.3em
+        cursor: text
+        //border: 1px solid #ccc
+      .between:hover
+        background-color: #ccc
+
       //Styles common to all cells regardless if they are calculation or text.
       .cell
         font-family: $monospace_font
         font-size: 0.9em
-        margin-bottom: 0.6em
+        //We do not set margin-bottom since the between divs handle the spacing
+        //between cells.
+        //margin-bottom: 0.6em
+        margin-bottom: 0
         td
           padding-bottom: 0.4em
         //This is the In [0]/Out[0] line.

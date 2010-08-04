@@ -1358,17 +1358,28 @@ body #content #worksheet {
   -o-box-shadow: #999999 1px 1px 5px;
   box-shadow: #999999 1px 1px 5px;
 }
-/* line 118, ../src/screen.sass */
+/* line 117, ../src/screen.sass */
+body #content #worksheet .between {
+  margin-top: 0.1em;
+  height: 0.2em;
+  margin-bottom: 0.3em;
+  cursor: text;
+}
+/* line 126, ../src/screen.sass */
+body #content #worksheet .between:hover {
+  background-color: #cccccc;
+}
+/* line 130, ../src/screen.sass */
 body #content #worksheet .cell {
   font-family: Monaco, Courier New, DejaVu Sans Mono, Bitstream Vera Sans Mono, monospace;
   font-size: 0.9em;
-  margin-bottom: 0.6em;
+  margin-bottom: 0;
 }
-/* line 122, ../src/screen.sass */
+/* line 137, ../src/screen.sass */
 body #content #worksheet .cell td {
   padding-bottom: 0.4em;
 }
-/* line 125, ../src/screen.sass */
+/* line 140, ../src/screen.sass */
 body #content #worksheet .cell td.line {
   width: 60px;
   padding-right: 1em;
@@ -1376,16 +1387,16 @@ body #content #worksheet .cell td.line {
   font-size: 0.7em;
   line-height: 1;
 }
-/* line 132, ../src/screen.sass */
+/* line 147, ../src/screen.sass */
 body #content #worksheet .cell td.entry {
   line-height: 1;
   padding-top: 3px;
 }
-/* line 136, ../src/screen.sass */
+/* line 151, ../src/screen.sass */
 body #content #worksheet .cell .input .entry {
   font-weight: bold;
 }
-/* line 138, ../src/screen.sass */
+/* line 153, ../src/screen.sass */
 body #content #worksheet .cell .input .entry textarea {
   width: 97%;
   height: 1em;
@@ -1399,30 +1410,30 @@ body #content #worksheet .cell .input .entry textarea {
   resize: none;
   outline: none;
 }
-/* line 155, ../src/screen.sass */
+/* line 170, ../src/screen.sass */
 body #content #worksheet .calculation {
   border-right: 3px solid #cccccc;
 }
-/* line 158, ../src/screen.sass */
+/* line 173, ../src/screen.sass */
 body #content #worksheet .calculation .input .line {
   color: #549a38;
 }
-/* line 162, ../src/screen.sass */
+/* line 177, ../src/screen.sass */
 body #content #worksheet .calculation .output .line {
   color: #e57564;
 }
-/* line 166, ../src/screen.sass */
+/* line 181, ../src/screen.sass */
 body #content #sidebar {
   vertical-align: top;
   font-family: Georgia, Times, Times New Roman, serif;
   width: 145px;
   padding-left: 0.8em;
 }
-/* line 171, ../src/screen.sass */
+/* line 186, ../src/screen.sass */
 body #content #sidebar .button {
   margin-bottom: 0.5em;
 }
-/* line 174, ../src/screen.sass */
+/* line 189, ../src/screen.sass */
 body #content #sidebar input[type=text] {
   display: block;
   width: 97%;
@@ -1431,7 +1442,7 @@ body #content #sidebar input[type=text] {
   font-size: 0.7em;
   padding: 4px 3px;
 }
-/* line 181, ../src/screen.sass */
+/* line 196, ../src/screen.sass */
 body #content #sidebar ul {
   margin: 0;
   padding: 0;
@@ -1446,25 +1457,25 @@ body #content #sidebar ul li {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 189, ../src/screen.sass */
+/* line 204, ../src/screen.sass */
 body #content #sidebar ul li {
   padding-left: 0.3em;
   margin-bottom: 0.1em;
   color: #80878d;
 }
-/* line 196, ../src/screen.sass */
+/* line 211, ../src/screen.sass */
 body #content #sidebar ul li a {
   color: #9ba0a5;
 }
-/* line 198, ../src/screen.sass */
+/* line 213, ../src/screen.sass */
 body #content #sidebar ul li a:hover {
   color: #80878d;
 }
-/* line 201, ../src/screen.sass */
+/* line 216, ../src/screen.sass */
 body #content #sidebar ul.last {
   border-bottom: none;
 }
-/* line 204, ../src/screen.sass */
+/* line 219, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1474,7 +1485,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 213, ../src/screen.sass */
+/* line 228, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }
