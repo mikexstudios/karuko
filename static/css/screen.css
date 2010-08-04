@@ -1350,6 +1350,7 @@ body #content #worksheet_header h1 {
 }
 /* line 105, ../src/screen.sass */
 body #content #worksheet {
+  vertical-align: top;
   background-color: white;
   padding: 0.5em 1em;
   -moz-box-shadow: #999999 1px 1px 5px;
@@ -1357,18 +1358,18 @@ body #content #worksheet {
   -o-box-shadow: #999999 1px 1px 5px;
   box-shadow: #999999 1px 1px 5px;
 }
-/* line 112, ../src/screen.sass */
+/* line 113, ../src/screen.sass */
 body #content #sidebar {
   vertical-align: top;
   font-family: Georgia, Times, Times New Roman, serif;
   width: 145px;
   padding-left: 0.8em;
 }
-/* line 117, ../src/screen.sass */
+/* line 118, ../src/screen.sass */
 body #content #sidebar .button {
   margin-bottom: 0.5em;
 }
-/* line 120, ../src/screen.sass */
+/* line 121, ../src/screen.sass */
 body #content #sidebar input[type=text] {
   display: block;
   width: 97%;
@@ -1377,7 +1378,7 @@ body #content #sidebar input[type=text] {
   font-size: 0.7em;
   padding: 4px 3px;
 }
-/* line 127, ../src/screen.sass */
+/* line 128, ../src/screen.sass */
 body #content #sidebar ul {
   margin: 0;
   padding: 0;
@@ -1392,25 +1393,25 @@ body #content #sidebar ul li {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 135, ../src/screen.sass */
+/* line 136, ../src/screen.sass */
 body #content #sidebar ul li {
   padding-left: 0.3em;
   margin-bottom: 0.1em;
   color: #80878d;
 }
-/* line 142, ../src/screen.sass */
+/* line 143, ../src/screen.sass */
 body #content #sidebar ul li a {
   color: #9ba0a5;
 }
-/* line 144, ../src/screen.sass */
+/* line 145, ../src/screen.sass */
 body #content #sidebar ul li a:hover {
   color: #80878d;
 }
-/* line 147, ../src/screen.sass */
+/* line 148, ../src/screen.sass */
 body #content #sidebar ul.last {
   border-bottom: none;
 }
-/* line 150, ../src/screen.sass */
+/* line 151, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1420,7 +1421,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 159, ../src/screen.sass */
+/* line 160, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }
