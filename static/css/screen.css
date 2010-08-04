@@ -1358,18 +1358,27 @@ body #content #worksheet {
   -o-box-shadow: #999999 1px 1px 5px;
   box-shadow: #999999 1px 1px 5px;
 }
-/* line 117, ../src/screen.sass */
+/* line 116, ../src/screen.sass */
+body #content #worksheet .calculation {
+  font-family: Monaco, Courier New, DejaVu Sans Mono, Bitstream Vera Sans Mono, monospace;
+  font-size: 0.9em;
+}
+/* line 119, ../src/screen.sass */
+body #content #worksheet .calculation .input {
+  font-weight: bold;
+}
+/* line 122, ../src/screen.sass */
 body #content #sidebar {
   vertical-align: top;
   font-family: Georgia, Times, Times New Roman, serif;
   width: 145px;
   padding-left: 0.8em;
 }
-/* line 122, ../src/screen.sass */
+/* line 127, ../src/screen.sass */
 body #content #sidebar .button {
   margin-bottom: 0.5em;
 }
-/* line 125, ../src/screen.sass */
+/* line 130, ../src/screen.sass */
 body #content #sidebar input[type=text] {
   display: block;
   width: 97%;
@@ -1378,7 +1387,7 @@ body #content #sidebar input[type=text] {
   font-size: 0.7em;
   padding: 4px 3px;
 }
-/* line 132, ../src/screen.sass */
+/* line 137, ../src/screen.sass */
 body #content #sidebar ul {
   margin: 0;
   padding: 0;
@@ -1393,25 +1402,25 @@ body #content #sidebar ul li {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 140, ../src/screen.sass */
+/* line 145, ../src/screen.sass */
 body #content #sidebar ul li {
   padding-left: 0.3em;
   margin-bottom: 0.1em;
   color: #80878d;
 }
-/* line 147, ../src/screen.sass */
+/* line 152, ../src/screen.sass */
 body #content #sidebar ul li a {
   color: #9ba0a5;
 }
-/* line 149, ../src/screen.sass */
+/* line 154, ../src/screen.sass */
 body #content #sidebar ul li a:hover {
   color: #80878d;
 }
-/* line 152, ../src/screen.sass */
+/* line 157, ../src/screen.sass */
 body #content #sidebar ul.last {
   border-bottom: none;
 }
-/* line 155, ../src/screen.sass */
+/* line 160, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1421,7 +1430,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 164, ../src/screen.sass */
+/* line 169, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }
