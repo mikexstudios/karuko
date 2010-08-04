@@ -13,6 +13,22 @@
         <link href="/css/ie6.css" media="screen, projection" rel="stylesheet" type="text/css" />
      <![endif]-->
     <link href="static/css/buttons.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //Take the window height and subtract the top position of the #worksheet
+            //to find out how much more space we need to fill.
+            var fill = $(window).height() - $('#worksheet').offset().top;
+            //Correction factor (for margins and padding and other things).
+            fill = fill - 40;
+            //Because we are using tables, the table already enforces a 
+            //minimum #worksheet height. So don't set a height unless it's positive.
+            if (fill > 0) {
+                $('#worksheet').css('height', fill);
+            }
+        });
+    </script>
 </head>
 
 <body id="home" class="">
@@ -41,13 +57,6 @@
 
 <tr>
     <td id="worksheet">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-        sint occaecat cupidatat non proident, sunt in culpa qui officia
-        deserunt mollit anim id est laborum.</p>
     </td>
     <td id="sidebar">
         <a href="" id="save_worksheet" class="button smaller light">Save Now</a>
