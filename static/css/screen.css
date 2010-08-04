@@ -1371,12 +1371,13 @@ body #content #sidebar .button {
 /* line 120, ../src/screen.sass */
 body #content #sidebar input[type=text] {
   display: block;
-  width: 100%;
+  width: 97%;
   margin-top: -1px;
+  margin-left: -0.3em;
   font-size: 0.7em;
   padding: 4px 3px;
 }
-/* line 126, ../src/screen.sass */
+/* line 127, ../src/screen.sass */
 body #content #sidebar ul {
   margin: 0;
   padding: 0;
@@ -1391,25 +1392,25 @@ body #content #sidebar ul li {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 134, ../src/screen.sass */
+/* line 135, ../src/screen.sass */
 body #content #sidebar ul li {
   padding-left: 0.3em;
   margin-bottom: 0.1em;
   color: #80878d;
 }
-/* line 141, ../src/screen.sass */
+/* line 142, ../src/screen.sass */
 body #content #sidebar ul li a {
   color: #9ba0a5;
 }
-/* line 143, ../src/screen.sass */
+/* line 144, ../src/screen.sass */
 body #content #sidebar ul li a:hover {
   color: #80878d;
 }
-/* line 146, ../src/screen.sass */
+/* line 147, ../src/screen.sass */
 body #content #sidebar ul.last {
   border-bottom: none;
 }
-/* line 149, ../src/screen.sass */
+/* line 150, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1419,7 +1420,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 158, ../src/screen.sass */
+/* line 159, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }
