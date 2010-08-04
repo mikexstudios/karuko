@@ -113,18 +113,17 @@ body
       //NOTE: The table automatically enforces a minimum height. So this isn't
       //      necessary.
       //height: 500px
-      .calculation
-        //@include inner-table-borders(1px, #7a98c6)
-        //@include outer-table-borders(2px)
+
+      //Styles common to all cells regardless if they are calculation or text.
+      .cell
         font-family: $monospace_font
         font-size: 0.9em
-        border-right: 3px solid #ccc
         margin-bottom: 0.6em
         td
           padding-bottom: 0.4em
         //This is the In [0]/Out[0] line.
         td.line
-          width: 70px
+          width: 60px
           padding-right: 1em
           text-align: right
           //Smaller monospace font gives lighter typeface.
@@ -134,11 +133,15 @@ body
           line-height: 1
           padding-top: 3px
         .input
+          .entry
+            font-weight: bold
+
+      .calculation
+        border-right: 3px solid #ccc
+        .input
           .line
             //Green
             color: #549a38
-          .entry
-            font-weight: bold
         .output
           .line
             //Red
