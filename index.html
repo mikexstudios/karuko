@@ -14,9 +14,9 @@
      <![endif]-->
     <link href="static/css/buttons.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
     <script type="text/javascript" src="static/js/autoresize.jquery.js"></script>
-    <script type="text/javascript" src="static/js/fieldselection.jquery.js"></script>
+    <script type="text/javascript" src="static/js/jquery.caret.1.02.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             //Take the window height and subtract the top position of the #worksheet
@@ -49,7 +49,7 @@
                     //start and end in the selection in case user selects a
                     //range.
                     if (e.keyCode == 38) { //up
-                        var position = $(this).getSelection().start;
+                        var position = $(this).caret().start;
                         //Calculate if the cursor is on the first line.
                         if (position <= lines[0].length) {
                             //TODO: Crude traversing. Clean this up later.
@@ -60,10 +60,14 @@
                             //creates two textareas. We will make this more elegant
                             //later.
                             prev = prev.find('textarea:last');
-                            prev.focus();
+                            prev.caret(position, position);
+                            //Need to return false so that the caret position 
+                            //remains set. Otherwise, the caret will jump to 
+                            //position 0.
+                            return false;
                         }
                     } else { //down
-                        var position = $(this).getSelection().end;
+                        var position = $(this).caret().end;
                         //Calculate if the cursor is on the last line by summing
                         //the number of characters before the last line and 
                         //comparing to cursor position.
@@ -74,11 +78,12 @@
                             //Correction since each "newline" also takes a position.
                             last_line_offset += 1;
                         });
-                        console.log(position + ' ' + last_line_offset);
                         if (position >= last_line_offset) {
                             var next = $(this).closest('table').next().next();
                             next = next.find('textarea:last');
-                            next.focus();
+                            var caret_position = position - last_line_offset;
+                            next.caret(caret_position, caret_position);
+                            return false;
                         }
                     }
                 }
