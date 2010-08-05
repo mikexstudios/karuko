@@ -52,7 +52,15 @@
                         var position = $(this).getSelection().start;
                         //Calculate if the cursor is on the first line.
                         if (position <= lines[0].length) {
-                            alert('skip up');
+                            //TODO: Crude traversing. Clean this up later.
+                            //The first prev takes us to the between div. The
+                            //next prev takes us to the previous table.
+                            var prev = $(this).closest('table').prev().prev();
+                            //We have :last since the autoresizer jQuery plugin
+                            //creates two textareas. We will make this more elegant
+                            //later.
+                            prev = prev.find('textarea:last');
+                            prev.focus();
                         }
                     } else { //down
                         var position = $(this).getSelection().end;
@@ -68,7 +76,9 @@
                         });
                         console.log(position + ' ' + last_line_offset);
                         if (position >= last_line_offset) {
-                            alert('skip down');
+                            var next = $(this).closest('table').next().next();
+                            next = next.find('textarea:last');
+                            next.focus();
                         }
                     }
                 }
