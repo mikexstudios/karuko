@@ -16,6 +16,7 @@
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript" src="static/js/autoresize.jquery.js"></script>
+    <script type="text/javascript" src="static/js/fieldselection.jquery.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             //Take the window height and subtract the top position of the #worksheet
@@ -35,7 +36,45 @@
                 extraSpace: 0,
                 limit: 9999 //dummy large value
             });
+
+            //Handle keypress events inside of cell. This should be heavily
+            //optimized, but can do that later.
+            $('#worksheet .entry textarea').live('keydown', function(e) {
+                //Only handle up and down arrows.
+                if (e.keyCode == 38 || e.keyCode == 40) { //up or down
+                    //Split textarea value into individual lines
+                    var lines = $(this).val().split('\n');
+
+                    //Get cursor position. We differentiate between selecting
+                    //start and end in the selection in case user selects a
+                    //range.
+                    if (e.keyCode == 38) { //up
+                        var position = $(this).getSelection().start;
+                        //Calculate if the cursor is on the first line.
+                        if (position <= lines[0].length) {
+                            alert('skip up');
+                        }
+                    } else { //down
+                        var position = $(this).getSelection().end;
+                        //Calculate if the cursor is on the last line by summing
+                        //the number of characters before the last line and 
+                        //comparing to cursor position.
+                        var last_line_offset = 0;
+                        //Only sum for lines before the last line.
+                        $.each(lines.slice(0, -1), function(i, v) {
+                            last_line_offset += v.length;
+                            //Correction since each "newline" also takes a position.
+                            last_line_offset += 1;
+                        });
+                        console.log(position + ' ' + last_line_offset);
+                        if (position >= last_line_offset) {
+                            alert('skip down');
+                        }
+                    }
+                }
+            });
         });
+        
     </script>
 </head>
 
@@ -71,7 +110,7 @@
         <table id="cell-1" class="calculation cell">
             <tr class="input">
                 <td class="line">In [0]:</td>
-                <td class="entry">1+1</td>
+                <td class="entry"><textarea>1+1</textarea></td>
             </tr>
             <tr class="output">
                 <td class="line">Out[0]:</td>
@@ -93,7 +132,7 @@
         <table id="cell-2" class="calculation cell">
             <tr class="input">
                 <td class="line">In [1]:</td>
-                <td class="entry">2*2</td>
+                <td class="entry"><textarea>2*2</textarea></td>
             </tr>
             <tr class="output">
                 <td class="line">Out[1]:</td>
@@ -106,7 +145,7 @@
         <table id="cell-3" class="cell">
             <tr class="input">
                 <td class="line"></td>
-                <td class="entry">3</td>
+                <td class="entry"><textarea>3</textarea></td>
             </tr>
         </table>
 
