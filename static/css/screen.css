@@ -1359,7 +1359,7 @@ body #content #worksheet {
   box-shadow: #999999 1px 1px 5px;
 }
 /* line 117, ../src/screen.sass */
-body #content #worksheet .between {
+body #content #worksheet .new-cell {
   margin-top: 0.1em;
   height: 0.2em;
   margin-bottom: 0.3em;
@@ -1368,7 +1368,7 @@ body #content #worksheet .between {
   cursor: text;
 }
 /* line 128, ../src/screen.sass */
-body #content #worksheet .between:hover {
+body #content #worksheet .new-cell:hover {
   background-color: #cccccc;
 }
 /* line 132, ../src/screen.sass */
