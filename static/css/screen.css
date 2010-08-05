@@ -1402,7 +1402,7 @@ body #content #worksheet .cell .input .entry {
 /* line 157, ../src/screen.sass */
 body #content #worksheet .cell .input .entry textarea {
   width: 97%;
-  height: 1em;
+  height: 19px;
   padding: 0;
   margin: 0;
   font-family: Monaco, Courier New, DejaVu Sans Mono, Bitstream Vera Sans Mono, monospace;
@@ -1413,30 +1413,30 @@ body #content #worksheet .cell .input .entry textarea {
   resize: none;
   outline: none;
 }
-/* line 174, ../src/screen.sass */
+/* line 177, ../src/screen.sass */
 body #content #worksheet .calculation {
   border-right: 3px solid #cccccc;
 }
-/* line 177, ../src/screen.sass */
+/* line 180, ../src/screen.sass */
 body #content #worksheet .calculation .input .line {
   color: #549a38;
 }
-/* line 181, ../src/screen.sass */
+/* line 184, ../src/screen.sass */
 body #content #worksheet .calculation .output .line {
   color: #e57564;
 }
-/* line 185, ../src/screen.sass */
+/* line 188, ../src/screen.sass */
 body #content #sidebar {
   vertical-align: top;
   font-family: Georgia, Times, Times New Roman, serif;
   width: 145px;
   padding-left: 0.8em;
 }
-/* line 190, ../src/screen.sass */
+/* line 193, ../src/screen.sass */
 body #content #sidebar .button {
   margin-bottom: 0.5em;
 }
-/* line 193, ../src/screen.sass */
+/* line 196, ../src/screen.sass */
 body #content #sidebar input[type=text] {
   display: block;
   width: 97%;
@@ -1445,7 +1445,7 @@ body #content #sidebar input[type=text] {
   font-size: 0.7em;
   padding: 4px 3px;
 }
-/* line 200, ../src/screen.sass */
+/* line 203, ../src/screen.sass */
 body #content #sidebar ul {
   margin: 0;
   padding: 0;
@@ -1460,25 +1460,25 @@ body #content #sidebar ul li {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 208, ../src/screen.sass */
+/* line 211, ../src/screen.sass */
 body #content #sidebar ul li {
   padding-left: 0.3em;
   margin-bottom: 0.1em;
   color: #80878d;
 }
-/* line 215, ../src/screen.sass */
+/* line 218, ../src/screen.sass */
 body #content #sidebar ul li a {
   color: #9ba0a5;
 }
-/* line 217, ../src/screen.sass */
+/* line 220, ../src/screen.sass */
 body #content #sidebar ul li a:hover {
   color: #80878d;
 }
-/* line 220, ../src/screen.sass */
+/* line 223, ../src/screen.sass */
 body #content #sidebar ul.last {
   border-bottom: none;
 }
-/* line 223, ../src/screen.sass */
+/* line 226, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1488,7 +1488,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 232, ../src/screen.sass */
+/* line 235, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }
