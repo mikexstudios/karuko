@@ -16,12 +16,30 @@ $(document).ready(function() {
     //height of the screen.
     worksheet_vertical_fill();
 
-    //NOTE: This only applies to existing textareas.
-    $('#worksheet .entry textarea').autoResize({
-        animate: false, 
-        extraSpace: 0,
-        limit: 9999 //dummy large value
+    //Whenever a textarea is focused, set up events for it.
+    //BUG: For some reason, all new textareas when first focused, are focused
+    //     twice. When `live` is changed to `blur`, this problem doesn't exist.
+    $('#worksheet .entry textarea').live('focus', function(e) {
+        console.log('focused');
+
+        $(this).autoGrow();
+        //$(this).autoResize({
+        //    animate: false, 
+        //    extraSpace: 0,
+        //    limit: 9999 //dummy large value
+        //});
     });
+    //Unbind events when textarea is unfocused.
+    $('#worksheet .entry textarea').live('blur', function(e) {
+        console.log('blurred');
+    });
+
+    //NOTE: This only applies to existing textareas.
+    //$('#worksheet .entry textarea').autoResize({
+    //    animate: false, 
+    //    extraSpace: 0,
+    //    limit: 9999 //dummy large value
+    //});
 
     //Handle keypress events inside of cell. This should be heavily
     //optimized, but can do that later.
@@ -105,5 +123,7 @@ $(document).ready(function() {
 
     //Set focus on first first cell. (We get the next() cell after the 
     //first cell since the autoresizer creates another textarea.
-    $('#worksheet .entry textarea:first').next().focus();
+    //$('#worksheet .entry textarea:first').next().focus();
+    //$('#worksheet .entry textarea:first').next().focus();
+    $('#worksheet .entry textarea:first').focus();
 });
