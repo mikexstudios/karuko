@@ -17,6 +17,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
     <script type="text/javascript" src="static/js/jquery.autoresize.js"></script>
     <script type="text/javascript" src="static/js/jquery.caret.1.02.js"></script>
+    <script type="text/javascript" src="static/js/jquery.hotkeys.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             //Take the window height and subtract the top position of the #worksheet
@@ -87,6 +88,33 @@
                         }
                     }
                 }
+            });
+
+            //Execute cell when user presses shift+return. Right now, has to be bound
+            //to each textarea. Look into making this use `live`.
+            $('#worksheet .entry textarea').bind('keydown', 'shift+return', function(e) {
+                //Don't let the enter create a newline.
+                e.preventDefault();
+                //Send calculation to server.
+                $(this).val('sent!');
+                //Display notification to user that calculation is running.
+
+                //Set up callback so that the output can be displayed. Note that
+                //we don't display the output cell until the output has been 
+                //received.
+
+                //NOTE: The callback should also set the In numbering.
+
+                //Set up next input cell and put cursor there.
+                $(this).closest('table').after(
+                    '<table id="cell-1" class="calculation cell"></table>'
+                );
+                //Create the table using our template. This is easier than
+                //statically coding this in JS.
+                $('#cell-1').html($('#new_cell_template').html());
+                $('#cell-1 .entry textarea').focus();
+
+                //NOTE: Need to also add events on this newly created textarea.
             });
 
 
@@ -168,6 +196,15 @@
 </div>
 
 </div> <!-- container -->
+
+<div id="templates">
+    <table id="new_cell_template">
+        <tr class="input">
+            <td class="line"></td>
+            <td class="entry"><textarea></textarea></td>
+        </tr>
+    </table>
+</div>
 
 </body>
 </html>
