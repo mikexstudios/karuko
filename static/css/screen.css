@@ -1363,7 +1363,7 @@ body #content #worksheet {
   box-shadow: #999999 1px 1px 5px;
 }
 /* line 121, ../src/screen.sass */
-body #content #worksheet .new-cell {
+body #content #worksheet .new_cell_bar {
   margin-top: 0.1em;
   height: 0.2em;
   margin-bottom: 0.3em;
@@ -1372,7 +1372,7 @@ body #content #worksheet .new-cell {
   cursor: text;
 }
 /* line 132, ../src/screen.sass */
-body #content #worksheet .new-cell:hover {
+body #content #worksheet .new_cell_bar:hover {
   background-color: #cccccc;
 }
 /* line 136, ../src/screen.sass */
