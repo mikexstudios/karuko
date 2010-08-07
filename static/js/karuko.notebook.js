@@ -69,9 +69,7 @@ $(document).ready(function() {
     worksheet_vertical_fill();
 
     //Whenever a textarea is focused, set up events for it.
-    //BUG: For some reason, all new textareas when first focused, are focused
-    //     twice. When `live` is changed to `blur`, this problem doesn't exist.
-    $('#worksheet .entry textarea').live('focus', function(e) {
+    $('#worksheet .entry textarea').live('focusin', function(e) {
         console.log('focused');
 
         //Make the textarea auto expand on newlines.
@@ -81,22 +79,46 @@ $(document).ready(function() {
         //bind each key here.
         $(this).bind('keydown.karuko', 'shift+return', execute_cell);
         $(this).bind('keydown.karuko', 'up', function(e) {
-            focus_prev(this);
-            
-            //Need to return false so that the caret position remains set.
-            //Otherwise, the caret will jump to position 0.
-            return false;
+            //Need to determine if the start of the cursor selection is on the
+            //first line.
+            var lines = $(this).val().split('\n');
+            var position = $(this).caret().start;
+            //Calculate if the cursor is on the first line.
+            if (position <= lines[0].length) {
+                focus_prev(this);
+                
+                //Need to prevent default so that the caret position remains set.
+                //Otherwise, the caret will jump to position 0.
+                e.preventDefault();
+            }
         });
         $(this).bind('keydown.karuko', 'down', function(e) {
-            focus_next(this);
-            
-            //Need to return false so that the caret position remains set.
-            //Otherwise, the caret will jump to position 0.
-            return false;
+            var lines = $(this).val().split('\n');
+            var position = $(this).caret().end;
+            //Calculate if the cursor is on the last line by summing the number
+            //of characters before the last line and comparing to cursor
+            //position.
+            var last_line_offset = 0;
+            //Only sum for lines before the last line.
+            $.each(lines.slice(0, -1), function(i, v) {
+                last_line_offset += v.length;
+                //Correction since each "newline" also takes a position.
+                last_line_offset += 1;
+            });
+            if (position >= last_line_offset) {
+                focus_next(this);
+                
+                //Need to prevent default so that the caret position remains set.
+                //Otherwise, the caret will jump to position 0.
+                e.preventDefault();
+            }
         });
+
     });
     //Unbind events when textarea is unfocused.
-    $('#worksheet .entry textarea').live('blur', function(e) {
+    $('#worksheet .entry textarea').live('focusout', function(e) {
+        console.log('blurred');
+
         //Unbind the textarea auto expand.
         $(this).unbind('keyup.autogrow');
 
@@ -106,6 +128,5 @@ $(document).ready(function() {
 
     //Set focus on first first cell. (We get the next() cell after the 
     //first cell since the autoresizer creates another textarea.
-    //Disabled focusing for now since this triggers live events twice...
-    //$('#worksheet .entry textarea:first').focus();
+    $('#worksheet .entry textarea:first').focus();
 });
