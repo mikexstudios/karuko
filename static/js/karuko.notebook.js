@@ -43,11 +43,40 @@ $(document).ready(function() {
     $('#worksheet .entry textarea').live('focus', function(e) {
         //Make the textarea auto expand on newlines.
         $(this).autoGrow();
+
+        //Since jquery hotkeys can't be used with `live`, we need to manually
+        //bind each key here.
+        $(this).bind('keydown.karuko', 'shift+return', function(e) {
+            //Don't let the enter create a newline.
+            e.preventDefault();
+            //Send calculation to server.
+            $(this).val('sent!');
+            //Display notification to user that calculation is running.
+
+            //Set up callback so that the output can be displayed. Note that
+            //we don't display the output cell until the output has been 
+            //received.
+
+            //NOTE: The callback should also set the In numbering.
+
+            //Set up next input cell and put cursor there.
+            $(this).closest('table').after(
+                '<table id="cell-1" class="calculation cell"></table>'
+            );
+            //Create the table using our template. This is easier than
+            //statically coding this in JS.
+            $('#cell-1').html($('#new_cell_template').html());
+            $('#cell-1 .entry textarea').focus();
+
+            //NOTE: Need to also add events on this newly created textarea.
+        });
     });
     //Unbind events when textarea is unfocused.
     $('#worksheet .entry textarea').live('blur', function(e) {
         //Unbind the textarea auto expand.
         $(this).unbind('keyup.autogrow');
+
+        $(this).unbind('keydown.karuko');
     });
 
     //Handle keypress events inside of cell. This should be heavily
@@ -92,34 +121,6 @@ $(document).ready(function() {
             }
         }
     });
-
-    //Execute cell when user presses shift+return. Right now, has to be bound
-    //to each textarea. Look into making this use `live`.
-    $('#worksheet .entry textarea').bind('keydown', 'shift+return', function(e) {
-        //Don't let the enter create a newline.
-        e.preventDefault();
-        //Send calculation to server.
-        $(this).val('sent!');
-        //Display notification to user that calculation is running.
-
-        //Set up callback so that the output can be displayed. Note that
-        //we don't display the output cell until the output has been 
-        //received.
-
-        //NOTE: The callback should also set the In numbering.
-
-        //Set up next input cell and put cursor there.
-        $(this).closest('table').after(
-            '<table id="cell-1" class="calculation cell"></table>'
-        );
-        //Create the table using our template. This is easier than
-        //statically coding this in JS.
-        $('#cell-1').html($('#new_cell_template').html());
-        $('#cell-1 .entry textarea').focus();
-
-        //NOTE: Need to also add events on this newly created textarea.
-    });
-
 
     //Set focus on first first cell. (We get the next() cell after the 
     //first cell since the autoresizer creates another textarea.
