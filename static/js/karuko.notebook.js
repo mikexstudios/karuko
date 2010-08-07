@@ -1,3 +1,10 @@
+(function($){
+    //Custom namespace
+    $.karuko = {
+        last_cell_id: 1 //used for numbering cells
+    };
+})(jQuery);
+
 function worksheet_vertical_fill() {
     //Take the window height and subtract the top position of the #worksheet
     //to find out how much more space we need to fill.
@@ -35,6 +42,24 @@ function focus_next(curr) {
     next.focus();
 }
 
+function get_largest_cell_id() {
+    var cell_id = 0;
+    var curr_id = 0;
+    //Determine the largest cell id number.
+    $('#worksheet .cell').each(function(i, v) {
+        //Get id of cell, like 'cell-1'. Then extract the integer part.
+        curr_id = parseInt(v.id.split('-')[1]);
+        if (cell_id < curr_id) cell_id = curr_id;
+    });
+
+    return cell_id;
+}
+
+function get_next_cell_id() {
+    $.karuko.last_cell_id += 1;
+    return $.karuko.last_cell_id;
+}
+
 function execute_cell(event) {
     console.log('execute');
     //Don't let the enter create a newline.
@@ -51,26 +76,31 @@ function execute_cell(event) {
     //NOTE: The callback should also set the In numbering.
 
     //Set up next input cell and put cursor there.
+    var new_cell_id = get_next_cell_id();
     $(this).closest('table').after(
         '<div class="new_cell_bar"></div> \
-        <table id="cell-1" class="calculation cell"></table>'
+        <table id="cell-'+new_cell_id+'" class="calculation cell"></table>'
     );
     //Create the table using our template. This is easier than
     //statically coding this in JS.
-    $('#cell-1').html($('#new_cell_template').html());
-    $('#cell-1 .entry textarea').focus();
+    $('#cell-'+new_cell_id).html($('#new_cell_template').html());
+    $('#cell-'+new_cell_id+' .entry textarea').focus();
 
     //NOTE: Need to also add events on this newly created textarea.
 }
 
 $(document).ready(function() {
+    //Initialize our counter for cells by finding the largest cell number in the
+    //existing worksheet.
+    $.karuko.last_cell_id = get_largest_cell_id();
+
     //If the worksheet length isn't long enough, extend it to fill the vertical
     //height of the screen.
     worksheet_vertical_fill();
 
     //Whenever a textarea is focused, set up events for it.
     $('#worksheet .entry textarea').live('focusin', function(e) {
-        console.log('focused');
+        //console.log('focused');
 
         //Make the textarea auto expand on newlines.
         $(this).autoGrow();
@@ -78,6 +108,7 @@ $(document).ready(function() {
         //Since jquery hotkeys can't be used with `live`, we need to manually
         //bind each key here.
         $(this).bind('keydown.karuko', 'shift+return', execute_cell);
+
         $(this).bind('keydown.karuko', 'up', function(e) {
             //Need to determine if the start of the cursor selection is on the
             //first line.
@@ -117,7 +148,7 @@ $(document).ready(function() {
     });
     //Unbind events when textarea is unfocused.
     $('#worksheet .entry textarea').live('focusout', function(e) {
-        console.log('blurred');
+        //console.log('blurred');
 
         //Unbind the textarea auto expand.
         $(this).unbind('keyup.autogrow');
