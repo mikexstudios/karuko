@@ -2,7 +2,7 @@
 
 //Public Method
 $.fn.autoGrow = function() {
-    //Private variables
+    //The point of colsDefault is to help in calculating line wrapping.
     var colsDefault = 0;
     
     //Helper functions
@@ -13,6 +13,7 @@ $.fn.autoGrow = function() {
     
         for (var i=lines.length-1; i>=0; --i)
         {
+            //Accumulate lines taking account of linewraps.
             linesCount += Math.floor((lines[i].length / colsDefault) + 1);
         }
     
