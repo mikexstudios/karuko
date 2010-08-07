@@ -12,6 +12,7 @@ function worksheet_vertical_fill() {
 }
 
 function focus_prev(curr) {
+    //console.log('focus prev');
     //NOTE: Right now we are only handling textareas and not the new_cell
     //      in-betweens.
     //TODO: Crude traversing. Clean this up later.
@@ -25,6 +26,7 @@ function focus_prev(curr) {
     prev.focus();
 }
 function focus_next(curr) {
+    //console.log('focus next');
     var next = $(curr).closest('table').next().next();
     next = next.find('.entry textarea');
     //Check to see if we found a textarea, otherwise bail.
@@ -49,7 +51,8 @@ function execute_cell(event) {
 
     //Set up next input cell and put cursor there.
     $(this).closest('table').after(
-        '<table id="cell-1" class="calculation cell"></table>'
+        '<div class="new_cell_bar"></div> \
+        <table id="cell-1" class="calculation cell"></table>'
     );
     //Create the table using our template. This is easier than
     //statically coding this in JS.
