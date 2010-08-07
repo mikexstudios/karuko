@@ -11,6 +11,27 @@ function worksheet_vertical_fill() {
     }
 }
 
+function focus_prev(curr) {
+    //NOTE: Right now we are only handling textareas and not the new_cell
+    //      in-betweens.
+    //TODO: Crude traversing. Clean this up later.
+    //The first prev takes us to the between div. The next prev takes us to the
+    //previous table.
+    var prev = $(curr).closest('table').prev().prev();
+    prev = prev.find('.entry textarea');
+    //Check to see if we found a textarea, otherwise bail.
+    if (prev.length <= 0) return;
+    //Now move cursor there.
+    prev.focus();
+}
+function focus_next(curr) {
+    var next = $(curr).closest('table').next().next();
+    next = next.find('.entry textarea');
+    //Check to see if we found a textarea, otherwise bail.
+    if (next.length <= 0) return;
+    next.focus();
+}
+
 $(document).ready(function() {
     //If the worksheet length isn't long enough, extend it to fill the vertical
     //height of the screen.
@@ -20,26 +41,14 @@ $(document).ready(function() {
     //BUG: For some reason, all new textareas when first focused, are focused
     //     twice. When `live` is changed to `blur`, this problem doesn't exist.
     $('#worksheet .entry textarea').live('focus', function(e) {
-        console.log('focused');
-
+        //Make the textarea auto expand on newlines.
         $(this).autoGrow();
-        //$(this).autoResize({
-        //    animate: false, 
-        //    extraSpace: 0,
-        //    limit: 9999 //dummy large value
-        //});
     });
     //Unbind events when textarea is unfocused.
     $('#worksheet .entry textarea').live('blur', function(e) {
-        console.log('blurred');
+        //Unbind the textarea auto expand.
+        $(this).unbind('keyup.autogrow');
     });
-
-    //NOTE: This only applies to existing textareas.
-    //$('#worksheet .entry textarea').autoResize({
-    //    animate: false, 
-    //    extraSpace: 0,
-    //    limit: 9999 //dummy large value
-    //});
 
     //Handle keypress events inside of cell. This should be heavily
     //optimized, but can do that later.
@@ -56,15 +65,8 @@ $(document).ready(function() {
                 var position = $(this).caret().start;
                 //Calculate if the cursor is on the first line.
                 if (position <= lines[0].length) {
-                    //TODO: Crude traversing. Clean this up later.
-                    //The first prev takes us to the between div. The
-                    //next prev takes us to the previous table.
-                    var prev = $(this).closest('table').prev().prev();
-                    //We have :last since the autoresizer jQuery plugin
-                    //creates two textareas. We will make this more elegant
-                    //later.
-                    prev = prev.find('textarea:last');
-                    prev.caret(position, position);
+                    focus_prev(this);
+
                     //Need to return false so that the caret position 
                     //remains set. Otherwise, the caret will jump to 
                     //position 0.
@@ -83,10 +85,8 @@ $(document).ready(function() {
                     last_line_offset += 1;
                 });
                 if (position >= last_line_offset) {
-                    var next = $(this).closest('table').next().next();
-                    next = next.find('textarea:last');
-                    var caret_position = position - last_line_offset;
-                    next.caret(caret_position, caret_position);
+                    focus_next(this);
+
                     return false;
                 }
             }
