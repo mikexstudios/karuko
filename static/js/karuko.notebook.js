@@ -25,6 +25,7 @@ function focus_prev(curr) {
     //Now move cursor there.
     prev.focus();
 }
+
 function focus_next(curr) {
     //console.log('focus next');
     var next = $(curr).closest('table').next().next();
@@ -71,12 +72,28 @@ $(document).ready(function() {
     //BUG: For some reason, all new textareas when first focused, are focused
     //     twice. When `live` is changed to `blur`, this problem doesn't exist.
     $('#worksheet .entry textarea').live('focus', function(e) {
+        console.log('focused');
+
         //Make the textarea auto expand on newlines.
         $(this).autoGrow();
 
         //Since jquery hotkeys can't be used with `live`, we need to manually
         //bind each key here.
         $(this).bind('keydown.karuko', 'shift+return', execute_cell);
+        $(this).bind('keydown.karuko', 'up', function(e) {
+            focus_prev(this);
+            
+            //Need to return false so that the caret position remains set.
+            //Otherwise, the caret will jump to position 0.
+            return false;
+        });
+        $(this).bind('keydown.karuko', 'down', function(e) {
+            focus_next(this);
+            
+            //Need to return false so that the caret position remains set.
+            //Otherwise, the caret will jump to position 0.
+            return false;
+        });
     });
     //Unbind events when textarea is unfocused.
     $('#worksheet .entry textarea').live('blur', function(e) {
@@ -86,48 +103,6 @@ $(document).ready(function() {
         $(this).unbind('keydown.karuko');
     });
 
-    //Handle keypress events inside of cell. This should be heavily
-    //optimized, but can do that later.
-    $('#worksheet .entry textarea').live('keydown', function(e) {
-        //Only handle up and down arrows.
-        if (e.keyCode == 38 || e.keyCode == 40) { //up or down
-            //Split textarea value into individual lines
-            var lines = $(this).val().split('\n');
-
-            //Get cursor position. We differentiate between selecting
-            //start and end in the selection in case user selects a
-            //range.
-            if (e.keyCode == 38) { //up
-                var position = $(this).caret().start;
-                //Calculate if the cursor is on the first line.
-                if (position <= lines[0].length) {
-                    focus_prev(this);
-
-                    //Need to return false so that the caret position 
-                    //remains set. Otherwise, the caret will jump to 
-                    //position 0.
-                    return false;
-                }
-            } else { //down
-                var position = $(this).caret().end;
-                //Calculate if the cursor is on the last line by summing
-                //the number of characters before the last line and 
-                //comparing to cursor position.
-                var last_line_offset = 0;
-                //Only sum for lines before the last line.
-                $.each(lines.slice(0, -1), function(i, v) {
-                    last_line_offset += v.length;
-                    //Correction since each "newline" also takes a position.
-                    last_line_offset += 1;
-                });
-                if (position >= last_line_offset) {
-                    focus_next(this);
-
-                    return false;
-                }
-            }
-        }
-    });
 
     //Set focus on first first cell. (We get the next() cell after the 
     //first cell since the autoresizer creates another textarea.
