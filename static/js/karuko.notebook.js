@@ -32,6 +32,33 @@ function focus_next(curr) {
     next.focus();
 }
 
+function execute_cell(event) {
+    console.log('execute');
+    //Don't let the enter create a newline.
+    event.preventDefault();
+
+    //Send calculation to server.
+    $(this).val('sent!');
+    //Display notification to user that calculation is running.
+
+    //Set up callback so that the output can be displayed. Note that
+    //we don't display the output cell until the output has been 
+    //received.
+
+    //NOTE: The callback should also set the In numbering.
+
+    //Set up next input cell and put cursor there.
+    $(this).closest('table').after(
+        '<table id="cell-1" class="calculation cell"></table>'
+    );
+    //Create the table using our template. This is easier than
+    //statically coding this in JS.
+    $('#cell-1').html($('#new_cell_template').html());
+    $('#cell-1 .entry textarea').focus();
+
+    //NOTE: Need to also add events on this newly created textarea.
+}
+
 $(document).ready(function() {
     //If the worksheet length isn't long enough, extend it to fill the vertical
     //height of the screen.
@@ -46,30 +73,7 @@ $(document).ready(function() {
 
         //Since jquery hotkeys can't be used with `live`, we need to manually
         //bind each key here.
-        $(this).bind('keydown.karuko', 'shift+return', function(e) {
-            //Don't let the enter create a newline.
-            e.preventDefault();
-            //Send calculation to server.
-            $(this).val('sent!');
-            //Display notification to user that calculation is running.
-
-            //Set up callback so that the output can be displayed. Note that
-            //we don't display the output cell until the output has been 
-            //received.
-
-            //NOTE: The callback should also set the In numbering.
-
-            //Set up next input cell and put cursor there.
-            $(this).closest('table').after(
-                '<table id="cell-1" class="calculation cell"></table>'
-            );
-            //Create the table using our template. This is easier than
-            //statically coding this in JS.
-            $('#cell-1').html($('#new_cell_template').html());
-            $('#cell-1 .entry textarea').focus();
-
-            //NOTE: Need to also add events on this newly created textarea.
-        });
+        $(this).bind('keydown.karuko', 'shift+return', execute_cell);
     });
     //Unbind events when textarea is unfocused.
     $('#worksheet .entry textarea').live('blur', function(e) {
@@ -124,7 +128,6 @@ $(document).ready(function() {
 
     //Set focus on first first cell. (We get the next() cell after the 
     //first cell since the autoresizer creates another textarea.
-    //$('#worksheet .entry textarea:first').next().focus();
-    //$('#worksheet .entry textarea:first').next().focus();
-    $('#worksheet .entry textarea:first').focus();
+    //Disabled focusing for now since this triggers live events twice...
+    //$('#worksheet .entry textarea:first').focus();
 });
