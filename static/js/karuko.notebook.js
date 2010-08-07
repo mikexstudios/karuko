@@ -1,7 +1,10 @@
 (function($){
     //Custom namespace
     $.karuko = {
-        last_cell_id: 1 //used for numbering cells
+        last_cell_id: 1, //used for numbering cells
+        calc_server: 'http://live.sympy.org/shell.do',
+        //Session obj identifier for the GAE model. Hard-coded for now.
+        session_key: 'agpzeW1weS1saXZlcg8LEgdTZXNzaW9uGJXxcAw'
     };
 })(jQuery);
 
@@ -66,7 +69,16 @@ function execute_cell(event) {
     event.preventDefault();
 
     //Send calculation to server.
-    $(this).val('sent!');
+    var payload = {
+        statement: escape($.trim($(this).val())), 
+        session: $.karuko.session_key
+    };
+    $.get($.karuko.calc_server, payload, function(data) {
+        //PROBLEM: Can't to straight cross-domain call like this. We need to 
+        //modify the GAE app to return JSONP.
+        console.log(data);
+    });
+    //$(this).val('sent!');
     //Display notification to user that calculation is running.
 
     //Set up callback so that the output can be displayed. Note that
