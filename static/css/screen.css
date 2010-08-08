@@ -1398,12 +1398,13 @@ body #content #worksheet .cell td.line {
 /* line 156, ../src/screen.sass */
 body #content #worksheet .cell td.entry {
   line-height: 1;
+  white-space: pre;
 }
-/* line 159, ../src/screen.sass */
+/* line 160, ../src/screen.sass */
 body #content #worksheet .cell .input .entry {
   font-weight: bold;
 }
-/* line 161, ../src/screen.sass */
+/* line 162, ../src/screen.sass */
 body #content #worksheet .cell .input .entry textarea {
   width: 97%;
   height: auto;
@@ -1417,30 +1418,30 @@ body #content #worksheet .cell .input .entry textarea {
   resize: none;
   outline: none;
 }
-/* line 182, ../src/screen.sass */
+/* line 183, ../src/screen.sass */
 body #content #worksheet .calculation {
   border-right: 3px solid #cccccc;
 }
-/* line 185, ../src/screen.sass */
+/* line 186, ../src/screen.sass */
 body #content #worksheet .calculation .input .line {
   color: #549a38;
 }
-/* line 189, ../src/screen.sass */
+/* line 190, ../src/screen.sass */
 body #content #worksheet .calculation .output .line {
   color: #e57564;
 }
-/* line 193, ../src/screen.sass */
+/* line 194, ../src/screen.sass */
 body #content #sidebar {
   vertical-align: top;
   font-family: Georgia, Times, Times New Roman, serif;
   width: 145px;
   padding-left: 0.8em;
 }
-/* line 198, ../src/screen.sass */
+/* line 199, ../src/screen.sass */
 body #content #sidebar .button {
   margin-bottom: 0.5em;
 }
-/* line 201, ../src/screen.sass */
+/* line 202, ../src/screen.sass */
 body #content #sidebar input[type=text] {
   display: block;
   width: 97%;
@@ -1449,7 +1450,7 @@ body #content #sidebar input[type=text] {
   font-size: 0.7em;
   padding: 4px 3px;
 }
-/* line 208, ../src/screen.sass */
+/* line 209, ../src/screen.sass */
 body #content #sidebar ul {
   margin: 0;
   padding: 0;
@@ -1464,25 +1465,25 @@ body #content #sidebar ul li {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 216, ../src/screen.sass */
+/* line 217, ../src/screen.sass */
 body #content #sidebar ul li {
   padding-left: 0.3em;
   margin-bottom: 0.1em;
   color: #80878d;
 }
-/* line 223, ../src/screen.sass */
+/* line 224, ../src/screen.sass */
 body #content #sidebar ul li a {
   color: #9ba0a5;
 }
-/* line 225, ../src/screen.sass */
+/* line 226, ../src/screen.sass */
 body #content #sidebar ul li a:hover {
   color: #80878d;
 }
-/* line 228, ../src/screen.sass */
+/* line 229, ../src/screen.sass */
 body #content #sidebar ul.last {
   border-bottom: none;
 }
-/* line 231, ../src/screen.sass */
+/* line 232, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1492,7 +1493,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 240, ../src/screen.sass */
+/* line 241, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }
