@@ -2,9 +2,9 @@
     //Custom namespace
     $.karuko = {
         last_cell_id: 1, //used for numbering cells
-        calc_server: 'http://live.sympy.org/shell.do',
+        calc_server: 'http://mtest.appspot.com/shell.do?callback=?',
         //Session obj identifier for the GAE model. Hard-coded for now.
-        session_key: 'agpzeW1weS1saXZlcg8LEgdTZXNzaW9uGJXxcAw'
+        session_key: 'agVtdGVzdHIPCxIHU2Vzc2lvbhjO2iQM'
     };
 })(jQuery);
 
@@ -73,12 +73,21 @@ function execute_cell(event) {
         statement: escape($.trim($(this).val())), 
         session: $.karuko.session_key
     };
-    $.get($.karuko.calc_server, payload, function(data) {
-        //PROBLEM: Can't to straight cross-domain call like this. We need to 
-        //modify the GAE app to return JSONP.
-        console.log(data);
+    $this = $(this); //Alias so we can refer to current cell inside getJSON callback.
+    $.getJSON($.karuko.calc_server, payload, function(data) {
+        //Insert output tr after input tr.
+        var input_tr = $this.closest('tr.input');
+        input_tr.after(
+            $('#output_tr_template tbody').html()
+        );
+        //Insert our data into output tr
+        var output_tr = input_tr.next();
+        //TODO: Better way of numbering lines.
+        output_tr.children('.line').text('Out ['+($.karuko.last_cell_id-1)+']:');
+        output_tr.children('.entry').text(data.out);
+
+        //console.log(data.out);
     });
-    //$(this).val('sent!');
     //Display notification to user that calculation is running.
 
     //Set up callback so that the output can be displayed. Note that
