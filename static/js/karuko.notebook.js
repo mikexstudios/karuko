@@ -70,9 +70,11 @@ function execute_cell(event) {
 
     //Send calculation to server.
     var payload = {
-        statement: escape($.trim($(this).val())), 
+        //statement: escape($.trim($(this).val())), 
+        statement: $.trim($(this).val()), 
         session: $.karuko.session_key
     };
+
     $this = $(this); //Alias so we can refer to current cell inside getJSON callback.
     $.getJSON($.karuko.calc_server, payload, function(data) {
         //Insert output tr after input tr.
