@@ -77,18 +77,21 @@ function execute_cell(event) {
 
     $this = $(this); //Alias so we can refer to current cell inside getJSON callback.
     $.getJSON($.karuko.calc_server, payload, function(data) {
-        //Insert output tr after input tr.
-        var input_tr = $this.closest('tr.input');
-        input_tr.after(
-            $('#output_tr_template tbody').html()
-        );
-        //Insert our data into output tr
-        var output_tr = input_tr.next();
-        //TODO: Better way of numbering lines.
-        output_tr.children('.line').text('Out ['+($.karuko.last_cell_id-1)+']:');
-        output_tr.children('.entry').text(data.out);
+        //If there is no output, then don't show output cell
+        if (data.out != '') {
+            //Insert output tr after input tr.
+            var input_tr = $this.closest('tr.input');
+            input_tr.after(
+                $('#output_tr_template tbody').html()
+            );
+            //Insert our data into output tr
+            var output_tr = input_tr.next();
+            //TODO: Better way of numbering lines.
+            output_tr.children('.line').text('Out ['+($.karuko.last_cell_id-1)+']:');
+            output_tr.children('.entry').text(data.out);
 
-        //console.log(data.out);
+            //console.log(data.out);
+        }
     });
     //Display notification to user that calculation is running.
 
