@@ -46,8 +46,8 @@ function focus_next(curr) {
 }
 
 function get_largest_cell_id() {
-    var cell_id = 0;
-    var curr_id = 0;
+    var cell_id = 1;
+    var curr_id = 1;
     //Determine the largest cell id number.
     $('#worksheet .cell').each(function(i, v) {
         //Get id of cell, like 'cell-1'. Then extract the integer part.
@@ -68,6 +68,21 @@ function execute_cell(event) {
     //Don't let the enter create a newline.
     event.preventDefault();
 
+    //No matter what, once a cell has been executed, assign a number to it.
+    $(this).parent('.entry').prev('.line').text('In ['+($.karuko.last_cell_id)+']:');
+      
+    //Set up next input cell and put cursor there.
+    var new_cell_id = get_next_cell_id();
+    $(this).closest('table').after(
+        '<div class="new_cell_bar"></div> \
+        <table id="cell-'+new_cell_id+'" class="calculation cell"></table>'
+    );
+    //Create the table using our template. This is easier than
+    //statically coding this in JS.
+    $('#cell-'+new_cell_id).html($('#new_cell_template').html());
+    $('#cell-'+new_cell_id+' .entry textarea').focus();
+    //NOTE: Need to also add events on this newly created textarea.
+
     //Send calculation to server.
     var payload = {
         //statement: escape($.trim($(this).val())), 
@@ -87,7 +102,7 @@ function execute_cell(event) {
             //Insert our data into output tr
             var output_tr = input_tr.next();
             //TODO: Better way of numbering lines.
-            output_tr.children('.line').text('Out ['+($.karuko.last_cell_id-1)+']:');
+            output_tr.children('.line').text('Out['+($.karuko.last_cell_id-1)+']:');
             output_tr.children('.entry').text(data.out);
 
             //console.log(data.out);
@@ -101,18 +116,6 @@ function execute_cell(event) {
 
     //NOTE: The callback should also set the In numbering.
 
-    //Set up next input cell and put cursor there.
-    var new_cell_id = get_next_cell_id();
-    $(this).closest('table').after(
-        '<div class="new_cell_bar"></div> \
-        <table id="cell-'+new_cell_id+'" class="calculation cell"></table>'
-    );
-    //Create the table using our template. This is easier than
-    //statically coding this in JS.
-    $('#cell-'+new_cell_id).html($('#new_cell_template').html());
-    $('#cell-'+new_cell_id+' .entry textarea').focus();
-
-    //NOTE: Need to also add events on this newly created textarea.
 }
 
 $(document).ready(function() {
