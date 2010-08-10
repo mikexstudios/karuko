@@ -1,4 +1,55 @@
 (function($){
+$.fn.worksheet = function (options) {
+    var settings = $.extend({
+        //Use JSONP server to get around cross-domain requests.
+        calc_server: 'http://mtest.appspot.com/shell.do?callback=?',
+        //Session obj identifier for the GAE model. Hard-coded for now.
+        session_key: 'agVtdGVzdHIPCxIHU2Vzc2lvbhjO2iQM'
+    }, options);
+
+    //Variables
+    var last_cell_id = 0; //keeps track of our last cell id
+    var active_cell_id = 0; //is set to help select next/prev cells
+    var cell_list = []; //array of cell objects
+    
+    function initialize() {
+        //Add first cell to page.
+        cell = add_cell();
+        //Focus cell
+        cell.focus();
+    }
+
+    function get_next_cell_id() {
+        last_cell_id += 1;
+        return last_cell_id;
+    }
+      
+    //Defaults to adding new cell at end of cell list.
+    function add_cell(position) {
+        //TODO: Implement `position`
+        if (position) {
+            return;
+        }
+
+        //Otherwise, add cell to end of worksheet
+        var cell_id = get_next_cell_id();
+        var new_cell = $('#new_cell_template').clone();
+        new_cell.attr('id', 'cell-'+cell_id);
+        //TODO: Vary the class depending on the content.
+        new_cell.addClass('calculation');
+        $(this).append(new_cell);
+
+        return new_cell;
+    }
+
+    this.each(function(){
+        initialize();
+    });
+    return this; //for jQuery chaining
+} //end worksheet
+})(jQuery);
+
+(function($){
 
 function Worksheet(selector, options) {
     var defaults = {
@@ -16,7 +67,7 @@ function Worksheet(selector, options) {
 $.extend(Worksheet.prototype, {
     //class vars
     _test_var: '',
-    _last_cell_id: 1, //used for numbering cells
+    //_last_cell_id: 1, //used for numbering cells
 
     _last_cell_id: 0, //keeps track of our last cell id
     _active_cell_id: 0, //is set to help select next/prev cells
@@ -54,7 +105,7 @@ $.extend(Worksheet.prototype, {
     }
 });
 
-$.fn.worksheet = function (options) {
+$.fn.worksheet2 = function (options) {
     return new Worksheet(this, options);
 }
 
