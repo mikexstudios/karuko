@@ -1,3 +1,23 @@
+var Cell = Class.$extend({
+    __init__: function(worksheet /* $('#worksheet') */, id /* int */) {
+        this.$worksheet = worksheet; //jQuery object that selects #worksheet
+        this.id = id;
+        
+        //Create cell element and store it as a jQuery wrapped class var.
+        this.$el = $('#new_cell_template').clone();
+        this.$el.attr('id', 'cell-'+this.id);
+        //TODO: Vary the class depending on the content.
+        this.$el.addClass('calculation');
+    },
+
+    /**
+     * Triggers focus on the cell's input textarea.
+     */
+    focus: function() {
+        this.$el.find('.entry textarea').focus(); 
+    }
+});
+
 var Worksheet = Class.$extend({
     settings: {
         //Use JSONP server to get around cross-domain requests.
@@ -17,8 +37,7 @@ var Worksheet = Class.$extend({
           
         //Add first cell to page.
         cell = this.add_cell();
-        //TODO: Focus cell
-        //cell.focus();
+        cell.focus();
     },
 
     get_next_cell_id: function() {
@@ -35,13 +54,11 @@ var Worksheet = Class.$extend({
 
         //Otherwise, add cell to end of worksheet
         var cell_id = this.get_next_cell_id();
-        var new_cell = $('#new_cell_template').clone();
-        new_cell.attr('id', 'cell-'+cell_id);
-        //TODO: Vary the class depending on the content.
-        new_cell.addClass('calculation');
-        this.$el.append(new_cell);
+        var cell = new Cell(this.el, cell_id);
+        //Add cell's DOM element to end of worksheet.
+        this.$el.append(cell.$el);
 
-        return new_cell;
+        return cell;
     }
 });
 
