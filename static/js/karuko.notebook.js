@@ -1,4 +1,66 @@
 (function($){
+
+function Worksheet(selector, options) {
+    var defaults = {
+        //Use JSONP server to get around cross-domain requests.
+        calc_server: 'http://mtest.appspot.com/shell.do?callback=?',
+        //Session obj identifier for the GAE model. Hard-coded for now.
+        session_key: 'agVtdGVzdHIPCxIHU2Vzc2lvbhjO2iQM'
+    };
+
+    this.options = $.extend(defaults, options);
+    this.element = $($(selector).get(0));
+    this.initialize();
+}
+
+$.extend(Worksheet.prototype, {
+    //class vars
+    _test_var: '',
+    _last_cell_id: 1, //used for numbering cells
+
+    _last_cell_id: 0, //keeps track of our last cell id
+    _active_cell_id: 0, //is set to help select next/prev cells
+    _cell_list: [], //array of cell objects
+
+
+    initialize: function() {
+        //Add first cell to page.
+        cell = this.add_cell();
+        //Focus cell
+        cell.focus();
+    },
+
+    get_next_cell_id: function() {
+        this._last_cell_id += 1;
+        return this._last_cell_id;
+    },
+
+    //Defaults to adding new cell at end of cell list.
+    add_cell: function(position) {
+        //TODO: Implement `position`
+        if (position) {
+            return;
+        }
+
+        //Otherwise, add cell to end of worksheet
+        var cell_id = this.get_next_cell_id();
+        var new_cell = $('#new_cell_template').clone();
+        new_cell.attr('id', 'cell-'+cell_id);
+        //TODO: Vary the class depending on the content.
+        new_cell.addClass('calculation');
+        this.element.append(new_cell);
+
+        return new_cell;
+    }
+});
+
+$.fn.worksheet = function (options) {
+    return new Worksheet(this, options);
+}
+
+})(jQuery);
+
+(function($){
     //Custom namespace
     $.karuko = {
         last_cell_id: 1, //used for numbering cells
@@ -119,13 +181,11 @@ function execute_cell(event) {
 }
 
 $(document).ready(function() {
-    //Initialize our counter for cells by finding the largest cell number in the
-    //existing worksheet.
-    $.karuko.last_cell_id = get_largest_cell_id();
-
     //If the worksheet length isn't long enough, extend it to fill the vertical
     //height of the screen.
     worksheet_vertical_fill();
+
+    $('#worksheet').worksheet();
 
     //Whenever a textarea is focused, set up events for it.
     $('#worksheet .entry textarea').live('focusin', function(e) {
