@@ -8,13 +8,28 @@ var Cell = Class.$extend({
         this.$el.attr('id', 'cell-'+this.id);
         //TODO: Vary the class depending on the content.
         this.$el.addClass('calculation');
+
+        //Set some more helpful class variables
+        this.$entry = this.$el.find('.entry');
     },
 
     /**
      * Triggers focus on the cell's input textarea.
      */
     focus: function() {
-        this.$el.find('.entry textarea').focus(); 
+        this.$entry.children('textarea').focus(); 
+    },
+
+    execute: function() {
+        console.log('executed');
+    },
+
+    /**
+     * Called when cell is focused.
+     *
+     * Sets up textarea autoexpander and keybindings.
+     */
+    on_focus: function() {
     }
 });
 
