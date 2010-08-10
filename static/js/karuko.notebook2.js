@@ -1,3 +1,21 @@
+var InputArea = Class.$extend({
+    __init__: function(cell /* Cell obj */) {
+        this.cell = cell; //Cell obj this InputArea is associated with
+        
+        //Create textarea element and store it as a jQuery wrapped class var.
+        //IDEA: Maybe move this textarea snippet out to a template instead of
+        //      hard coding this in JS?
+        this.cell.$entry.append('<textarea rows="1"></textarea>');
+        this.$el = this.cell.$entry.children('textarea');
+
+        //Add events to this input area.
+    },
+
+    on_focus: function() {
+
+    }
+});
+
 var Cell = Class.$extend({
     __init__: function(worksheet /* $('#worksheet') */, id /* int */) {
         this.$worksheet = worksheet; //jQuery object that selects #worksheet
@@ -8,9 +26,12 @@ var Cell = Class.$extend({
         this.$el.attr('id', 'cell-'+this.id);
         //TODO: Vary the class depending on the content.
         this.$el.addClass('calculation');
-
+          
         //Set some more helpful class variables
         this.$entry = this.$el.find('.entry');
+
+        //Create InputArea in Cell's .entry table cell
+        this.input_area = new InputArea(this);
     },
 
     /**
@@ -48,7 +69,9 @@ var Worksheet = Class.$extend({
     __init__: function(selector /* $('#worksheet') */, options) {
         this.$el = selector; //jQuery object that selects #worksheet
         $.extend(this.settings, options);
-
+        
+        //TODO: Replace individual focus events on textarea to live/dispatch
+        //events on #worksheet.
           
         //Add first cell to page.
         cell = this.add_cell();
