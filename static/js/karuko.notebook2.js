@@ -203,6 +203,14 @@ var Cell = Class.$extend({
     },
 
     /**
+     * Returns prev cell object after this cell. If prev cell does not exist,
+     * returns undefined.
+     */
+    prev: function() {
+        return this.worksheet.prev_cell(this.id);
+    },
+
+    /**
      * Returns next cell object after this cell. If next cell does not exist,
      * returns undefined.
      */
@@ -378,6 +386,19 @@ var Worksheet = Class.$extend({
         //We use jQ's selector to grab the next cell. Then we use the DOM to
         //Obj bridge to get the object.
         return $('#cell-' + cell_id).data('Cell');
+    },
+
+    /**
+     * Returns prev cell object before the given cell_id. If prev cell does not
+     * exist, returns undefined.
+     */
+    prev_cell: function(cell_id) {
+        //Determine the index of the given cell_id
+        var i = this.cell_list.indexOf(cell_id);
+        //Get prev cell id
+        var prev_cell_id = this.cell_list[i-1];
+
+        return this.get_cell(prev_cell_id);
     },
 
     /**
