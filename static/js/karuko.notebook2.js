@@ -46,6 +46,10 @@ var InputArea = Class.$extend({
         this.$el.bind('keydown.inputarea', 'down', $.proxy(this.on_down, this));
         //this.$el.bind('keydown.inputarea', 'left', $.proxy(this.on_up, this));
         //this.$el.bind('keydown.inputarea', 'right', $.proxy(this.on_up, this));
+
+        //Tell the worksheet that this cell is currently active.
+        //TODO: Figure out a better way to do this.
+        this.cell.worksheet.active_cell = this.cell.id;
     },
 
     /**
@@ -199,6 +203,13 @@ var Cell = Class.$extend({
     },
 
     /**
+     * Returns next cell object.
+     */
+    //next: function() {
+
+    //},
+
+    /**
      * Triggers focus on the cell's input textarea.
      */
     focus: function() {
@@ -334,6 +345,11 @@ var Worksheet = Class.$extend({
     //may not necessarily be calculations (they can be text), we can't just
     //use the cell's id to number the calculations.
     last_calculation_id: 0,
+    //Keeps track of the currently focused cell. Helps in determining next
+    //and prev cells.
+    active_cell: 0,
+    //An array of cell ids in the order in which they exist on the page.
+    cell_list: [],
 
 
     __init__: function(selector /* $('#worksheet') */, options) {
@@ -381,6 +397,9 @@ var Worksheet = Class.$extend({
         var cell = new Cell(this, cell_id);
         //Add cell's DOM element to end of worksheet.
         this.$el.append(cell.$el);
+
+        //Add cell's id to cell list.
+        this.cell_list.push(cell_id);
 
         return cell;
     }
