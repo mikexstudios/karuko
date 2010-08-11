@@ -12,12 +12,14 @@ var InputArea = Class.$extend({
         //callback functions.
         this.$el.bind('focusin.inputarea', $.proxy(this.on_focusin, this));
         this.$el.bind('focusout.inputarea', $.proxy(this.on_focusout, this));
+        this.$el.bind('keydown.inputarea', 'shift+return', 
+                      $.proxy(this.on_execute, this));
     },
 
     /**
      * Called when textarea gets focus.
      */
-    on_focusin: function() {
+    on_focusin: function(e) {
         console.log('focusin');
         $this = this.$el; //for convenience
         
@@ -32,12 +34,25 @@ var InputArea = Class.$extend({
     /**
      * Called when textarea loses focus.
      */
-    on_focusout: function() {
+    on_focusout: function(e) {
         console.log('focusout');
         $this = this.$el; //for convenience
 
         //Unbind the textarea auto-expander.
         $this.unbind('keyup.autogrow');
+    },
+
+    /**
+     * Called when shift+return keydown event is triggered.
+     */
+    on_execute: function(e) {
+        //Don't let the enter keypress create a newline.
+        e.preventDefault();
+
+        //We change the context that `cell.execute` gets to `this.cell` since
+        //that method was originally intended to run within the `Cell` object
+        //context.
+        $.proxy(this.cell.execute, this.cell)();
     }
 });
 
@@ -66,6 +81,11 @@ var Cell = Class.$extend({
         this.$entry.children('textarea').focus(); 
     },
 
+    /**
+     * Sends cell input to calculation servers and sets up cell for result.
+     *
+     * Is also called from shift+return keydown binding (set in InputArea).
+     */
     execute: function() {
         console.log('executed');
     },
