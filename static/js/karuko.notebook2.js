@@ -76,6 +76,21 @@ var InputArea = Class.$extend({
      */
     on_up: function(e) {
         console.log('up');
+
+        //Need to determine if the start of the cursor selection is on the
+        //first line. Using start takes into account selections in textarea.
+        var lines = this.get_value().split('\n');
+        var position = this.$el.caret().start; //uses jquery.caret plugin
+
+        //Calculate if the cursor is on the first line.
+        if (position <= lines[0].length) {
+            //Need to prevent default so that the caret position remains set.
+            //Otherwise, the caret will jump to position 0 (beginning of line).
+            e.preventDefault();
+
+            console.log('focus prev');
+            //focus_prev(this);
+        }
     },
 
     /**
@@ -85,6 +100,29 @@ var InputArea = Class.$extend({
      */
     on_down: function(e) {
         console.log('down');
+
+        var lines = this.get_value().split('\n');
+        var position = this.$el.caret().end;
+
+        //Calculate if the cursor is on the last line by summing the number
+        //of characters before the last line and comparing to cursor
+        //position.
+        var last_line_offset = 0;
+        //Only sum for lines before the last line.
+        $.each(lines.slice(0, -1), function(i, v) {
+            last_line_offset += v.length;
+            //Correction since each "newline" also takes a position.
+            last_line_offset += 1;
+        });
+
+        if (position >= last_line_offset) {
+            //Need to prevent default so that the caret position remains set.
+            //Otherwise, the caret will jump to end of line.
+            e.preventDefault();
+
+            console.log('focus next');
+            //focus_next(this);
+        }
     }
 });
 
