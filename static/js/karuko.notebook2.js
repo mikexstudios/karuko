@@ -94,7 +94,19 @@ var Cell = Class.$extend({
      * cell.
      */
     set_in_number: function(x) {
+        this.in_number = x;
         this.$input_line.text('In [' + x +']:');
+    },
+
+    /**
+     * (For calculation cells) Sets and displays the Out[_] numbering of the
+     * cell. If output sub-cell does not exist, then nothing will happen.
+     */
+    set_out_number: function(x) {
+        this.out_number = x;
+        if (this.$output_line != undefined) {
+            this.$output_line.text('Out[' + x +']:');
+        }
     },
 
     /**
@@ -116,6 +128,10 @@ var Cell = Class.$extend({
             //Output sub-cell does not exist. We need to create it.
             this.$output = $('#output_tr_template tr.output').clone();
             this.$el.append(this.$output);
+
+            //Also set some helper selectors
+            this.$output_line = this.$output.children('td.line');
+            this.$output_entry = this.$output.children('td.entry');
         }
 
         this.$output.children('.entry').text(val);
@@ -171,8 +187,16 @@ var Cell = Class.$extend({
         //If there is no output, then don't show output cell
         if (data.out != '') {
             //console.log(data.out);
+
             //Insert output tr after input tr.
             this.set_output(data.out);
+              
+            //Assign Out[_] number to cell. It should be what the server
+            //returns. However, for now, we will just set it to the In 
+            //cell number.
+            //NOTE: This must come after `this.set_output` since that method
+            //      creates the output sub-cell if it doesn't already exist.
+            this.set_out_number(this.in_number);
         }
     }
 });
