@@ -162,15 +162,16 @@ var InputArea = Class.$extend({
         console.log('down');
 
         //Using end takes into account selections in textarea.
-        //row = this.get_cursor_coordinates('end').y;
-        //if (row) {
-        //    //Need to prevent default so that the caret position remains set.
-        //    //Otherwise, the caret will jump to end of line.
-        //    e.preventDefault();
+        row = this.get_cursor_coordinates('end').y;
+        //We subtract 1 from the textarea's rows since our row count starts at 0.
+        if (row >= this.$el.get(0).rows - 1) {
+            //Need to prevent default so that the caret position remains set.
+            //Otherwise, the caret will jump to end of line.
+            e.preventDefault();
 
-        //    console.log('focus next');
-        //    //focus_next(this);
-        //}
+            console.log('focus next');
+            //focus_next(this);
+        }
     }
 });
 
