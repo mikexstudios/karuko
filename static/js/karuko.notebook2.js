@@ -127,7 +127,7 @@ var Cell = Class.$extend({
     get_output: function() {
         //TODO: Shorten all of this with tertiary compare?
         if (this.$output) {
-            return this.$output.children('.entry').val();
+            return this.$output.children('.entry').text();
         }
           
         //Otherwise, did not found .output sub-cell.
