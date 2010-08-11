@@ -22,7 +22,7 @@ var InputArea = Class.$extend({
      * Returns value of the textarea.
      */
     get_value: function() {
-        return $.trim(this.$el.val());
+        return this.$el.val();
     },
 
     /**
@@ -44,8 +44,8 @@ var InputArea = Class.$extend({
                       $.proxy(this.on_execute, this));
         this.$el.bind('keydown.inputarea', 'up', $.proxy(this.on_up, this));
         this.$el.bind('keydown.inputarea', 'down', $.proxy(this.on_down, this));
-        this.$el.bind('keydown.inputarea', 'left', $.proxy(this.on_up, this));
-        this.$el.bind('keydown.inputarea', 'right', $.proxy(this.on_up, this));
+        //this.$el.bind('keydown.inputarea', 'left', $.proxy(this.on_up, this));
+        //this.$el.bind('keydown.inputarea', 'right', $.proxy(this.on_up, this));
     },
 
     /**
@@ -78,6 +78,7 @@ var InputArea = Class.$extend({
     /**
      * Returns an object with two attributes: .x and .y where .x is the column
      * that the cursor is on and .y is the row the cursor is on.
+     * NOTE: Both x and y start counting at zero.
      *
      * @param type Important when there is a selection in the textarea. Then
      *             there are two positions for the cursor: the start or end
@@ -95,8 +96,6 @@ var InputArea = Class.$extend({
             var cursor_position = this.$el.caret().end; 
         }
 
-        //console.log(cursor_position);
-          
         //We iterate through each line accumulating the number of characters
         //(including the newline) until we reach the reported cursor position.
         //We keep track of two variables: calculated position of the start of
@@ -140,11 +139,11 @@ var InputArea = Class.$extend({
           
         //Need to determine if the start of the cursor selection is on the
         //first line. Using start takes into account selections in textarea.
-        var lines = this.get_value().split('\n');
-        var position = this.$el.caret().start; //uses jquery.caret plugin
+        row = this.get_cursor_coordinates('start').y;
 
         //Calculate if the cursor is on the first line.
-        if (position <= lines[0].length) {
+        //NOTE: We start row counting from 0.
+        if (row <= 0) {
             //Need to prevent default so that the caret position remains set.
             //Otherwise, the caret will jump to position 0 (beginning of line).
             e.preventDefault();
@@ -162,28 +161,16 @@ var InputArea = Class.$extend({
     on_down: function(e) {
         console.log('down');
 
-        var lines = this.get_value().split('\n');
-        var position = this.$el.caret().end;
+        //Using end takes into account selections in textarea.
+        //row = this.get_cursor_coordinates('end').y;
+        //if (row) {
+        //    //Need to prevent default so that the caret position remains set.
+        //    //Otherwise, the caret will jump to end of line.
+        //    e.preventDefault();
 
-        //Calculate if the cursor is on the last line by summing the number
-        //of characters before the last line and comparing to cursor
-        //position.
-        var last_line_offset = 0;
-        //Only sum for lines before the last line.
-        $.each(lines.slice(0, -1), function(i, v) {
-            last_line_offset += v.length;
-            //Correction since each "newline" also takes a position.
-            last_line_offset += 1;
-        });
-
-        if (position >= last_line_offset) {
-            //Need to prevent default so that the caret position remains set.
-            //Otherwise, the caret will jump to end of line.
-            e.preventDefault();
-
-            console.log('focus next');
-            //focus_next(this);
-        }
+        //    console.log('focus next');
+        //    //focus_next(this);
+        //}
     }
 });
 
