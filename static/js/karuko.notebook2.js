@@ -12,8 +12,6 @@ var InputArea = Class.$extend({
         //callback functions.
         this.$el.bind('focusin.inputarea', $.proxy(this.on_focusin, this));
         this.$el.bind('focusout.inputarea', $.proxy(this.on_focusout, this));
-        this.$el.bind('keydown.inputarea', 'shift+return', 
-                      $.proxy(this.on_execute, this));
     },
 
     /**
@@ -36,6 +34,12 @@ var InputArea = Class.$extend({
         //      to expand the textarea. We should replace this with a more 
         //      responsive solution.
         $this.autoGrow();
+        
+        //Add keyboard events.
+        this.$el.bind('keydown.inputarea', 'shift+return', 
+                      $.proxy(this.on_execute, this));
+        this.$el.bind('keydown.inputarea', 'up', $.proxy(this.on_up, this));
+        this.$el.bind('keydown.inputarea', 'down', $.proxy(this.on_down, this));
     },
 
     /**
@@ -47,6 +51,9 @@ var InputArea = Class.$extend({
 
         //Unbind the textarea auto-expander.
         $this.unbind('keyup.autogrow');
+
+        //Unbind our keybindings.
+        $this.unbind('keydown.inputarea');
     },
 
     /**
@@ -60,6 +67,24 @@ var InputArea = Class.$extend({
         //that method was originally intended to run within the `Cell` object
         //context.
         $.proxy(this.cell.execute, this.cell)();
+    },
+
+    /**
+     * Called when up keydown event is triggered. When the cursor on the first
+     * line of the textarea and the up arrow is pressed, then the cursor should
+     * skip to the above textarea (if one exists).
+     */
+    on_up: function(e) {
+        console.log('up');
+    },
+
+    /**
+     * Called when down keydown event is triggered. When the cursor on the last
+     * line of the textarea and the down arrow is pressed, then the cursor should
+     * skip to the below textarea (if one exists).
+     */
+    on_down: function(e) {
+        console.log('down');
     }
 });
 
