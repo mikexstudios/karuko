@@ -443,6 +443,12 @@ var Worksheet = Class.$extend({
         var cell = new Cell(this, cell_id);
         //Add cell's DOM element to end of worksheet.
         this.$el.append(cell.$el);
+          
+        //Also insert a 'insert_new_cell' div after this cell.
+        //TODO: Make insert_new_cell have its own class.
+        var insert_new_cell = $('#insert_cell_template').clone();
+        insert_new_cell.attr('id', 'insert_cell-' + cell_id);
+        this.$el.append(insert_new_cell);
 
         //Add cell's id to cell list.
         this.cell_list.push(cell_id);
