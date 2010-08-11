@@ -9,10 +9,22 @@ var InputArea = Class.$extend({
         this.$el = this.cell.$entry.children('textarea');
 
         //Add events to this input area.
+        this.$el.bind('focusin.inputarea', this.on_focusin);
+        this.$el.bind('focusout.inputarea', this.on_focusout);
     },
 
-    on_focus: function() {
+    /**
+     * Called when textarea gets focus.
+     */
+    on_focusin: function() {
+        console.log('focusin');
+    },
 
+    /**
+     * Called when textarea loses focus.
+     */
+    on_focusout: function() {
+        console.log('focusout');
     }
 });
 
