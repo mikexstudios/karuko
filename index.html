@@ -52,6 +52,11 @@
 
 <tr>
     <td id="worksheet">
+        <!-- Every new cell that's inserted also has an .insert_cell div
+        placed after it. So we need to manually put one at the top of the
+        worksheet. -->
+        <!-- TODO: Handle this in Worksheet init -->
+        <div class="insert_cell"></div>
     </td>
 
     <td id="sidebar">
@@ -97,6 +102,8 @@
         </tr>
     </tbody>
     </table>
+
+    <div id="insert_cell_template" class="insert_cell"></div>
 </div>
 
 </body>
