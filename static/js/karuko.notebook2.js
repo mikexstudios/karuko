@@ -203,11 +203,12 @@ var Cell = Class.$extend({
     },
 
     /**
-     * Returns next cell object.
+     * Returns next cell object after this cell. If next cell does not exist,
+     * returns undefined.
      */
-    //next: function() {
-
-    //},
+    next: function() {
+        return this.worksheet.next_cell(this.id);
+    },
 
     /**
      * Triggers focus on the cell's input textarea.
@@ -367,6 +368,29 @@ var Worksheet = Class.$extend({
         //Add first cell to page.
         cell = this.add_cell();
         cell.focus();
+    },
+
+    /**
+     * Given a cell_id (int), returns Cell object associated with that id.
+     * Returns undefined if cell does not exist.
+     */
+    get_cell: function(cell_id) {
+        //We use jQ's selector to grab the next cell. Then we use the DOM to
+        //Obj bridge to get the object.
+        return $('#cell-' + cell_id).data('Cell');
+    },
+
+    /**
+     * Returns next cell object after the given cell_id. If next cell does not
+     * exist, returns undefined.
+     */
+    next_cell: function(cell_id) {
+        //Determine the index of the given cell_id
+        var i = this.cell_list.indexOf(cell_id);
+        //Get next cell id
+        var next_cell_id = this.cell_list[i+1];
+
+        return this.get_cell(next_cell_id);
     },
 
     /**
