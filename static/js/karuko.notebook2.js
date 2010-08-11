@@ -139,7 +139,7 @@ var InputArea = Class.$extend({
      * skip to the above textarea (if one exists).
      */
     on_up: function(e) {
-        console.log('up');
+        //console.log('up');
           
         //Need to determine if the start of the cursor selection is on the
         //first line. Using start takes into account selections in textarea.
@@ -152,8 +152,12 @@ var InputArea = Class.$extend({
             //Otherwise, the caret will jump to position 0 (beginning of line).
             e.preventDefault();
 
-            console.log('focus prev');
-            //focus_prev(this);
+            //Focus on prev cell.
+            try {
+                this.cell.prev().focus();
+                //We want to catch undefined method error in case the previous
+                //cell does not exist.
+            } catch (error) {}
         }
     },
 
@@ -163,7 +167,7 @@ var InputArea = Class.$extend({
      * skip to the below textarea (if one exists).
      */
     on_down: function(e) {
-        console.log('down');
+        //console.log('down');
 
         //Using end takes into account selections in textarea.
         row = this.get_cursor_coordinates('end').y;
@@ -173,8 +177,12 @@ var InputArea = Class.$extend({
             //Otherwise, the caret will jump to end of line.
             e.preventDefault();
 
-            console.log('focus next');
-            //focus_next(this);
+            //Focus on next cell.
+            try {
+                this.cell.next().focus();
+                //We want to catch undefined method error in case the next
+                //cell does not exist.
+            } catch (error) {}
         }
     }
 });
