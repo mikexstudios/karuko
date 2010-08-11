@@ -57,8 +57,8 @@ var InputArea = Class.$extend({
 });
 
 var Cell = Class.$extend({
-    __init__: function(worksheet /* $('#worksheet') */, id /* int */) {
-        this.$worksheet = worksheet; //jQuery object that selects #worksheet
+    __init__: function(worksheet /* Worksheet obj */, id /* int */) {
+        this.worksheet = worksheet; //Worksheet obj
         this.id = id;
         
         //Create cell element and store it as a jQuery wrapped class var.
@@ -68,6 +68,7 @@ var Cell = Class.$extend({
         this.$el.addClass('calculation');
           
         //Set some more helpful class variables
+        this.$line = this.$el.find('.line');
         this.$entry = this.$el.find('.entry');
 
         //Create InputArea in Cell's .entry table cell
@@ -82,20 +83,33 @@ var Cell = Class.$extend({
     },
 
     /**
+     * (For calculation cells) Sets and displays the In [_] numbering of the
+     * cell.
+     */
+    set_in_number: function(x) {
+        this.$line.text('In [' + x +']:');
+    },
+
+    /**
      * Sends cell input to calculation servers and sets up cell for result.
      *
      * Is also called from shift+return keydown binding (set in InputArea).
      */
     execute: function() {
-        console.log('executed');
-    },
+        console.log('cell execute');
 
-    /**
-     * Called when cell is focused.
-     *
-     * Sets up textarea autoexpander and keybindings.
-     */
-    on_focus: function() {
+        //Assign In number to cell.
+        var in_num = this.worksheet.get_next_calculation_id();
+        this.set_in_number(in_num);
+
+        //Display notification that calculation is running.
+        
+        //Setup next/new cell and put cursor there.
+        
+        //Send calculation to server. The callback function is responsible for
+        //creating the output cell.
+
+
     }
 });
 
@@ -108,7 +122,14 @@ var Worksheet = Class.$extend({
     },
 
     //Class vars
+    //==========
     last_cell_id: 0, //keeps track of our last cell id
+    //A counter for numbering the In [_] calculation cells. `In` numbering 
+    //should start at 1. Thus, this counter is initialized to 0 and will
+    //increment to 1 upon calling get_next_calculation_id(). Because cells
+    //may not necessarily be calculations (they can be text), we can't just
+    //use the cell's id to number the calculations.
+    last_calculation_id: 0,
 
 
     __init__: function(selector /* $('#worksheet') */, options) {
@@ -123,9 +144,20 @@ var Worksheet = Class.$extend({
         cell.focus();
     },
 
+    /**
+     * Returns int of the next cell's id.
+     */
     get_next_cell_id: function() {
         this.last_cell_id += 1;
         return this.last_cell_id;
+    },
+
+    /**
+     * Returns int of the next numbering for `In [_]` calculation cells.
+     */
+    get_next_calculation_id: function() {
+        this.last_calculation_id += 1;
+        return this.last_calculation_id;
     },
       
     //Defaults to adding new cell at end of cell list.
@@ -137,7 +169,7 @@ var Worksheet = Class.$extend({
 
         //Otherwise, add cell to end of worksheet
         var cell_id = this.get_next_cell_id();
-        var cell = new Cell(this.el, cell_id);
+        var cell = new Cell(this, cell_id);
         //Add cell's DOM element to end of worksheet.
         this.$el.append(cell.$el);
 
