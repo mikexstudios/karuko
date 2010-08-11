@@ -317,7 +317,7 @@ var Cell = Class.$extend({
             //console.log(data.out);
 
             //Insert output tr after input tr.
-            this.set_output(data.out);
+            this.set_output($.trim(data.out));
               
             //Assign Out[_] number to cell. It should be what the server
             //returns. However, for now, we will just set it to the In 
