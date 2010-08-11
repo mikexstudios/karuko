@@ -5,8 +5,8 @@ var InputArea = Class.$extend({
         //Create textarea element and store it as a jQuery wrapped class var.
         //IDEA: Maybe move this textarea snippet out to a template instead of
         //      hard coding this in JS?
-        this.cell.$entry.append('<textarea rows="1"></textarea>');
-        this.$el = this.cell.$entry.children('textarea');
+        this.cell.$input_entry.append('<textarea rows="1"></textarea>');
+        this.$el = this.cell.$input_entry.children('textarea');
 
         //Add events to this input area. We use proxy to pass `this` to the
         //callback functions.
@@ -75,8 +75,8 @@ var Cell = Class.$extend({
         this.$el.addClass('calculation');
           
         //Set some more helpful class variables
-        this.$line = this.$el.find('.line');
-        this.$entry = this.$el.find('.entry');
+        this.$input_line = this.$el.find('.line');
+        this.$input_entry = this.$el.find('.entry');
 
         //Create InputArea in Cell's .entry table cell
         this.input_area = new InputArea(this);
@@ -86,7 +86,7 @@ var Cell = Class.$extend({
      * Triggers focus on the cell's input textarea.
      */
     focus: function() {
-        this.$entry.children('textarea').focus(); 
+        this.$input_entry.children('textarea').focus(); 
     },
 
     /**
@@ -94,7 +94,7 @@ var Cell = Class.$extend({
      * cell.
      */
     set_in_number: function(x) {
-        this.$line.text('In [' + x +']:');
+        this.$input_line.text('In [' + x +']:');
     },
 
     /**
