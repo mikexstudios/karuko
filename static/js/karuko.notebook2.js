@@ -8,9 +8,10 @@ var InputArea = Class.$extend({
         this.cell.$entry.append('<textarea rows="1"></textarea>');
         this.$el = this.cell.$entry.children('textarea');
 
-        //Add events to this input area.
-        this.$el.bind('focusin.inputarea', this.on_focusin);
-        this.$el.bind('focusout.inputarea', this.on_focusout);
+        //Add events to this input area. We use proxy to pass `this` to the
+        //callback functions.
+        this.$el.bind('focusin.inputarea', $.proxy(this.on_focusin, this));
+        this.$el.bind('focusout.inputarea', $.proxy(this.on_focusout, this));
     },
 
     /**
@@ -18,6 +19,14 @@ var InputArea = Class.$extend({
      */
     on_focusin: function() {
         console.log('focusin');
+        $this = this.$el; //for convenience
+        
+        //Make the textarea auto expand on newlines.
+        //TODO: This plugin still suffers from the blinking text problem since
+        //      there is slight lag when the function calculates whether or not
+        //      to expand the textarea. We should replace this with a more 
+        //      responsive solution.
+        $this.autoGrow();
     },
 
     /**
@@ -25,6 +34,10 @@ var InputArea = Class.$extend({
      */
     on_focusout: function() {
         console.log('focusout');
+        $this = this.$el; //for convenience
+
+        //Unbind the textarea auto-expander.
+        $this.unbind('keyup.autogrow');
     }
 });
 
