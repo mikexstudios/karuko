@@ -25,18 +25,34 @@ var Cell = Class.$extend({
     },
 
     /**
-     * Returns prev cell object before this cell. If prev cell does not exist,
+     * Returns prev InputCell object before this cell. If does not exist,
      * returns undefined.
      */
-    prev: function() {
+    prev_inputcell: function() {
+        //return this.worksheet.prev_cell(this.id);
+    },
+
+    /**
+     * Returns prev Cell object before this cell. If prev cell does not exist,
+     * returns undefined.
+     */
+    prev_cell: function() {
         return this.worksheet.prev_cell(this.id);
+    },
+
+    /**
+     * Returns next InputCell object after this cell. If does not exist,
+     * returns undefined.
+     */
+    next_inputcell: function() {
+        //return this.worksheet.next_cell(this.id);
     },
 
     /**
      * Returns next cell object after this cell. If next cell does not exist,
      * returns undefined.
      */
-    next: function() {
+    next_cell: function() {
         return this.worksheet.next_cell(this.id);
     },
 

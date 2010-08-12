@@ -148,7 +148,7 @@ var InputArea = Class.$extend({
 
             //Focus on prev cell.
             try {
-                this.cell.prev().focus();
+                this.cell.prev_cell().focus();
                 //We want to catch undefined method error in case the previous
                 //cell does not exist.
             } catch (error) {}
@@ -173,7 +173,7 @@ var InputArea = Class.$extend({
 
             //Focus on next cell.
             try {
-                this.cell.next().focus();
+                this.cell.next_cell().focus();
                 //We want to catch undefined method error in case the next
                 //cell does not exist.
             } catch (error) {}
