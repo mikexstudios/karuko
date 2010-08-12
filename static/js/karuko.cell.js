@@ -25,7 +25,7 @@ var Cell = Class.$extend({
     },
 
     /**
-     * Returns prev cell object after this cell. If prev cell does not exist,
+     * Returns prev cell object before this cell. If prev cell does not exist,
      * returns undefined.
      */
     prev: function() {
