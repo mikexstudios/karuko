@@ -30,14 +30,13 @@ var InputArea = Class.$extend({
      */
     on_focusin: function(e) {
         //console.log('focusin');
-        $this = this.$el; //for convenience
         
         //Make the textarea auto expand on newlines.
         //TODO: This plugin still suffers from the blinking text problem since
         //      there is slight lag when the function calculates whether or not
         //      to expand the textarea. We should replace this with a more 
         //      responsive solution.
-        $this.autoGrow();
+        this.$el.autoGrow();
         
         //Add keyboard events.
         this.$el.bind('keydown.inputarea', 'shift+return', 
@@ -53,13 +52,12 @@ var InputArea = Class.$extend({
      */
     on_focusout: function(e) {
         //console.log('focusout');
-        $this = this.$el; //for convenience
 
         //Unbind the textarea auto-expander.
-        $this.unbind('keyup.autogrow');
+        this.$el.unbind('keyup.autogrow');
 
         //Unbind our keybindings.
-        $this.unbind('keydown.inputarea');
+        this.$el.unbind('keydown.inputarea');
     },
 
     /**
