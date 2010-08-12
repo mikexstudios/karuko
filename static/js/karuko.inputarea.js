@@ -29,7 +29,7 @@ var InputArea = Class.$extend({
      * Called when textarea gets focus.
      */
     on_focusin: function(e) {
-        console.log('focusin');
+        //console.log('focusin');
         $this = this.$el; //for convenience
         
         //Make the textarea auto expand on newlines.
@@ -52,7 +52,7 @@ var InputArea = Class.$extend({
      * Called when textarea loses focus.
      */
     on_focusout: function(e) {
-        console.log('focusout');
+        //console.log('focusout');
         $this = this.$el; //for convenience
 
         //Unbind the textarea auto-expander.

@@ -14,6 +14,11 @@ var InsertCell = Class.$extend({
         this.$el.attr('id', 'insert_cell-' + id);
         //Bridge from DOM obj to this class.
         this.$el.data('InsertCell', this);
+          
+        //Add events to this div. We use `proxy` to pass `this` to the callback
+        //functions.
+        this.$el.bind('focusin.insertcell', $.proxy(this.on_focusin, this));
+        this.$el.bind('focusout.insertcell', $.proxy(this.on_focusout, this));
     },
 
     /**
@@ -37,6 +42,14 @@ var InsertCell = Class.$extend({
      */
     on_focusin: function(e) {
         console.log('focusin');
+        $this = this.$el; //for convenience
+
+        //Display bar (similar to when we hover over it using mouse)
+        //NOTE: We can't trigger a CSS hover using jQuery's mouseover or hover.
+        //      Thus, we resort to setting a css class.
+        $this.addClass('insert_cell_hover');
+
+        //Bind keyboard keys for moving or creating new cell
     },
 
     /**
@@ -44,6 +57,9 @@ var InsertCell = Class.$extend({
      */
     on_focusout: function(e) {
         console.log('focusout');
+
+        //Remove display bar.
+        $this.removeClass('insert_cell_hover');
     },
     
 });

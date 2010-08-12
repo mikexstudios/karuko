@@ -129,7 +129,11 @@ body
         margin-right: -0.95em
         cursor: text
         //border: 1px solid #ccc
-      .insert_cell:hover
+        //Remove outline when focused
+        outline: none
+      //Since we can't trigger CSS hover with jQuery, we instead use the hack of
+      //adding/removing class attr to the insert_cell div.
+      .insert_cell:hover, .insert_cell_hover
         background-color: #ccc
 
       //Styles common to all cells regardless if they are calculation or text.
