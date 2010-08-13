@@ -58,6 +58,11 @@ var InputArea = Class.$extend({
 
         //Unbind our keybindings.
         this.$el.unbind('keydown.inputarea');
+
+        //Is the input empty? If so, let's remove the cell.
+        if (this.get_value() == '') {
+            this.cell.remove();
+        }
     },
 
     /**
@@ -150,7 +155,7 @@ var InputArea = Class.$extend({
             try {
                 this.cell.prev_insertcell().focus();
                 //We want to catch undefined method error in case the previous
-                //cell does not exist.
+                //InsertCell does not exist.
             } catch (error) {}
         }
     },
@@ -175,7 +180,7 @@ var InputArea = Class.$extend({
             try {
                 this.cell.next_insertcell().focus();
                 //We want to catch undefined method error in case the next
-                //cell does not exist.
+                //InsertCell does not exist.
             } catch (error) {}
         }
     }

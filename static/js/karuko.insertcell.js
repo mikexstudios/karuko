@@ -48,7 +48,7 @@ var InsertCell = Class.$extend({
      * Called when this div gets focus.
      */
     on_focusin: function(e) {
-        console.log('focusin');
+        //console.log('focusin');
 
         //Display bar (similar to when we hover over it using mouse)
         //NOTE: We can't trigger a CSS hover using jQuery's mouseover or hover.
@@ -67,7 +67,7 @@ var InsertCell = Class.$extend({
      * Called when this div gets focus.
      */
     on_focusout: function(e) {
-        console.log('focusout');
+        //console.log('focusout');
 
         //Remove display bar.
         this.$el.removeClass('insert_cell_hover');
@@ -81,7 +81,11 @@ var InsertCell = Class.$extend({
         //The previous cell is the cell with this InsertCell's same id. So
         //we don't use the worksheet.prev_cell method (which will skip us 
         //two cells back).
-        this.worksheet.get_cell(this.id).focus();
+        try {
+            this.worksheet.get_cell(this.id).focus();
+            //We want to catch undefined method error in case the previous
+            //cell does not exist.
+        } catch (error) {}
     },
 
     /**
@@ -89,7 +93,11 @@ var InsertCell = Class.$extend({
      */
     on_down: function(e) {
         //console.log('down');
-        this.worksheet.next_cell(this.id).focus();
+        try {
+            this.worksheet.next_cell(this.id).focus();
+            //We want to catch undefined method error in case the previous
+            //cell does not exist.
+        } catch (error) {}
     }
     
 });
