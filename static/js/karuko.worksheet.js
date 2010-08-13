@@ -47,6 +47,15 @@ var Worksheet = Class.$extend({
     },
 
     /**
+     * Given a cell_id (int), returns the Cell's position on the page starting
+     * from 1 (being the first cell on the page). If Cell with given cell_id
+     * does not exist, returns undefined.
+     */
+    get_cell_position: function(cell_id) {
+        return this.cell_list.indexOf(cell_id);
+    },
+
+    /**
      * Given a cell_id (int), returns Cell object associated with that id.
      * Returns undefined if cell does not exist.
      */
@@ -62,7 +71,7 @@ var Worksheet = Class.$extend({
      */
     prev_cell: function(cell_id) {
         //Determine the index of the given cell_id
-        var i = this.cell_list.indexOf(cell_id);
+        var i = this.get_cell_position(cell_id);
         //Get prev cell id
         var prev_cell_id = this.cell_list[i-1];
 
@@ -75,7 +84,7 @@ var Worksheet = Class.$extend({
      */
     next_cell: function(cell_id) {
         //Determine the index of the given cell_id
-        var i = this.cell_list.indexOf(cell_id);
+        var i = this.get_cell_position(cell_id);
         //Get next cell id
         var next_cell_id = this.cell_list[i+1];
 
@@ -92,7 +101,7 @@ var Worksheet = Class.$extend({
         //need to determine the previous cell's ID first.
           
         //Determine the index of the given cell_id
-        var i = this.cell_list.indexOf(cell_id);
+        var i = this.get_cell_position(cell_id);
         //If the index is 0. That is, the given cell_id refers to the top-most
         //cell of the worksheet, then our previous cell_id is 0. This is a special
         //case that we need to account for since we don't actually have a cell
@@ -179,7 +188,7 @@ var Worksheet = Class.$extend({
             cell.$el.remove();
 
             //Remove Cell from cell_list. First, find out what index it is.
-            var i = this.cell_list.indexOf(cell_id);
+            var i = this.get_cell_position(cell_id);
             this.cell_list.splice(i, i+1); //Slice it out of the array
 
             //Also remove the corresponding InsertCell after this Cell
