@@ -25,6 +25,17 @@ var Cell = Class.$extend({
     },
 
     /**
+     * Removes this Cell from DOM. 
+     * //NOTE: Does not remove Cell from Worksheet's cell_list.
+     */
+    remove: function() {
+        //Remove DOM object from #worksheet
+        //this.$el.remove();
+
+        this.worksheet.remove_cell(this.id);
+    },
+
+    /**
      * Returns prev InsertCell object before this cell. If does not exist,
      * returns undefined.
      */

@@ -166,5 +166,21 @@ var Worksheet = Class.$extend({
         this.cell_list.push(cell_id);
 
         return cell;
+    },
+
+    /**
+     * Removes Cell (given its id) from Worksheet (both this object and DOM).
+     */
+    remove_cell: function(cell_id) {
+        var cell = this.get_cell(cell_id);
+        if (cell) {
+            //Remove DOM object from #worksheet
+            //cell.remove();
+            cell.$el.remove();
+
+            //Remove Cell from cell_list. First, find out what index it is.
+            var i = this.cell_list.indexOf(cell_id);
+            this.cell_list.splice(i, i+1); //Slice it out of the array
+        }
     }
 });
