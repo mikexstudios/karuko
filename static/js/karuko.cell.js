@@ -149,9 +149,9 @@ var Cell = Class.$extend({
 
         //Display notification that calculation is running.
         
-        //Setup next/new cell and put cursor there.
-        cell = this.worksheet.add_cell();
-        cell.focus();
+        //Put cursor on the InsertCell div that comes after this cell. This
+        //sets the stage if the user wants to input the next calculation.
+        this.next_insertcell().focus();
         
         //Send calculation to server. The callback function is responsible for
         //creating the output cell.
