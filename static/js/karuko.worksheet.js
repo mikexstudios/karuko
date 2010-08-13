@@ -181,6 +181,10 @@ var Worksheet = Class.$extend({
             //Remove Cell from cell_list. First, find out what index it is.
             var i = this.cell_list.indexOf(cell_id);
             this.cell_list.splice(i, i+1); //Slice it out of the array
+
+            //Also remove the corresponding InsertCell after this Cell
+            var insertcell = this.get_insertcell(cell_id);
+            insertcell.$el.remove();
         }
     }
 });
