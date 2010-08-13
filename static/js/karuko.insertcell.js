@@ -94,9 +94,11 @@ var InsertCell = Class.$extend({
         //trigger keypress.
         console.log('keypress');
 
-        //Insert new cell after this InsertCell and put cursor there.
-        //TODO: Add support for inserting after a given cell id.
-        var cell = this.worksheet.add_cell();
+        //Insert new cell after this InsertCell and put cursor there. First,
+        //we need to get the position of this InsertCell.
+        var position = this.worksheet.get_cell_position(this.id);
+        console.log(position);
+        var cell = this.worksheet.add_cell(position);
         cell.focus();
     },
 

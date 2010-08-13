@@ -52,6 +52,12 @@ var Worksheet = Class.$extend({
      * does not exist, returns undefined.
      */
     get_cell_position: function(cell_id) {
+        //Special case: A cell_id of 0 is *always* at position 0 (top of page).
+        //We don't actually have a cell of id = 0, but we have an InsertCell
+        //that has an id of 0.
+        if (cell_id <= 0) {
+            return 0;
+        }
         return this.cell_list.indexOf(cell_id);
     },
 
@@ -63,6 +69,16 @@ var Worksheet = Class.$extend({
         //We use jQ's selector to grab the cell. Then we use the DOM to
         //Obj bridge to get the object.
         return $('#cell-' + cell_id).data('Cell');
+    },
+
+    /**
+     * Given a position in the Worksheet cell_list, returns Cell object at that
+     * position.  Returns undefined if cell does not exist at that position.
+     */
+    get_cell_at_position: function(position) {
+        //Get Cell's ID at given position
+        var cell_id = this.cell_list[position];
+        return this.get_cell(cell_id);
     },
 
     /**
@@ -152,27 +168,58 @@ var Worksheet = Class.$extend({
         return this.last_calculation_id;
     },
       
-    //Defaults to adding new cell at end of cell list.
+    /**
+     * Creates and adds a new Cell and InsertCell object to the Worksheet
+     * (along with the DOM object). If position is given, then the new objects
+     * will be inserted at that position in the cell_list with 0 being the
+     * first/top-most position. If no position is given, then the new objs
+     * will be inserted at the end of the list.
+     *
+     * @return Cell The newly added Cell object.
+     */
     add_cell: function(position) {
-        //TODO: Implement `position`
-        if (position) {
-            return;
-        }
-
-        //Otherwise, add Cell to end of worksheet
+        //Create new Cell object with a new ID.
         var cell_id = this.get_next_cell_id();
         var cell = new Cell(this, cell_id);
-        //Add cell's DOM element to end of worksheet.
-        this.$el.append(cell.$el);
-          
-        //Also insert an InsertCell after this Cell.
-        //NOTE: The InsertCell should have the same id as the cell it comes
-        //      after. This is necessary for traversing.
-        var insert_cell = new InsertCell(this, cell_id);
-        this.$el.append(insert_cell.$el);
 
-        //Add cell's id to cell list.
-        this.cell_list.push(cell_id);
+        //Create new InsertCell obj with the same id as the Cell.
+        var insert_cell = new InsertCell(this, cell_id);
+
+        //If position is given, new objects will be inserted there. Otherwise,
+        //will be inserted at the end of the Worksheet.
+        if (position) {
+            //If position is 0, then we insert at the top of the worksheet.
+            //Otherwise, insert the objs *after* the existing cell at the given
+            //position. 
+            //NOTE: This is consistent with how splice works when inserting 
+            //      into Arrays.
+            //Add cell's id to cell list.
+            this.cell_list.splice(position, 0, cell_id);
+            if (position <= 0) {
+                this.$el.prepend(cell.$el);
+                this.$el.prepend(insert_cell.$el);
+
+            } else {
+                //Otherwise, we insert *after* the existing Cell with the given
+                //position. First, we need to get the existing Cell at that
+                //position.
+                var existing_cell = this.get_cell_at_position(position);
+                //Now insert our new objects after this existing Cell.
+                existing_cell.$el.after(cell.$el);
+                existing_cell.$el.after(insert_cell.$el);
+            }
+        } else {
+            //Add cell's DOM element to end of worksheet.
+            this.$el.append(cell.$el);
+              
+            //Also insert an InsertCell after this Cell.
+            //NOTE: The InsertCell should have the same id as the cell it comes
+            //      after. This is necessary for traversing.
+            this.$el.append(insert_cell.$el);
+
+            //Add cell's id to end of cell list.
+            this.cell_list.push(cell_id);
+        }
 
         return cell;
     },

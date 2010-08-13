@@ -59,7 +59,8 @@ var InputArea = Class.$extend({
         //Unbind our keybindings.
         this.$el.unbind('keydown.inputarea');
 
-        //Is the input empty? If so, let's remove the cell.
+        //Is the input empty AND is this not the first cell on the page? If so,
+        //let's remove the cell.
         if (this.get_value() == '') {
             this.cell.remove();
         }
