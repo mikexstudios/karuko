@@ -60,7 +60,14 @@ var InsertCell = Class.$extend({
         this.$el.bind('keydown.insertcell', 'down', $.proxy(this.on_down, this));
 
         //Keybinding for creating new cell (any visible character will trigger
-        //this event).
+        //this event). We use the namespace so that we can unbind just this
+        //event after it has been used.
+        //IMPORTANT: We bind to 'keypress' instead of 'keydown' since the former:
+        //           1. Ignores modifier keys (such as arrows, shift, etc.)
+        //           2. Places charCode instead of keyCode in event.which. This
+        //              means that we can convert charCode into its corresponding
+        //              character accurately. (If we ever need to do so.)
+        this.$el.bind('keypress.insertcell', $.proxy(this.on_keypress, this));
     },
 
     /**
@@ -68,9 +75,27 @@ var InsertCell = Class.$extend({
      */
     on_focusout: function(e) {
         //console.log('focusout');
+        
+        //Unbind keypress events
+        this.$el.unbind('keydown.insertcell');
+        this.$el.unbind('keypress.insertcell');
 
         //Remove display bar.
         this.$el.removeClass('insert_cell_hover');
+    },
+
+    /**
+     * Called when any keydown event is triggered. Checks to see if user's
+     * input is a non-modifier key (that is, not a shift, alt, arrow, etc. 
+     * key).
+     */
+    on_keypress: function(e) {
+        //POSSIBLE BUG: On Mac, Control+character key combination will
+        //trigger keypress.
+        console.log('keypress');
+
+        //Insert new cell after this InsertCell and put cursor there.
+            
     },
 
     /**
