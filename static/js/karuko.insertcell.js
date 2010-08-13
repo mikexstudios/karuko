@@ -22,6 +22,13 @@ var InsertCell = Class.$extend({
     },
 
     /**
+     * Triggers focus on the InsertCell's div.
+     */
+    focus: function() {
+        this.$el.focus(); 
+    },
+
+    /**
      * Returns prev cell object before this insert cell div. If prev cell does
      * not exist, returns undefined.
      */

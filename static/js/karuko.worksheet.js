@@ -33,8 +33,15 @@ var Worksheet = Class.$extend({
         
         //TODO: Replace individual focus events on textarea to live/dispatch
         //events on #worksheet.
+
+        //Add first InsertCell to page with ID of 0. We need to do this since
+        //all new cells create an InsertCell *after* itself, but we have a 
+        //single case here where we want to put an InsertCell in the Worksheet
+        //when there are no Cells created yet.
+        var insert_cell = new InsertCell(this, 0);
+        this.$el.append(insert_cell.$el);
           
-        //Add first cell to page.
+        //Add first Cell to page.
         cell = this.add_cell();
         cell.focus();
     },
@@ -44,7 +51,7 @@ var Worksheet = Class.$extend({
      * Returns undefined if cell does not exist.
      */
     get_cell: function(cell_id) {
-        //We use jQ's selector to grab the next cell. Then we use the DOM to
+        //We use jQ's selector to grab the cell. Then we use the DOM to
         //Obj bridge to get the object.
         return $('#cell-' + cell_id).data('Cell');
     },
@@ -73,6 +80,51 @@ var Worksheet = Class.$extend({
         var next_cell_id = this.cell_list[i+1];
 
         return this.get_cell(next_cell_id);
+    },
+
+    /**
+     * Returns prev InsertCell object before the given cell_id. If does not
+     * exist, returns undefined.
+     */
+    prev_insertcell: function(cell_id) {
+        //Moving to the previous InsertCell means that we are moving to the
+        //InsertCell associated with the previous cell id. Therefore, we 
+        //need to determine the previous cell's ID first.
+          
+        //Determine the index of the given cell_id
+        var i = this.cell_list.indexOf(cell_id);
+        //If the index is 0. That is, the given cell_id refers to the top-most
+        //cell of the worksheet, then our previous cell_id is 0. This is a special
+        //case that we need to account for since we don't actually have a cell
+        //with cell_id = 0 BUT we have an insert_cell-0 at the top of the
+        //worksheet.
+        if (i > 0) {
+            //Get prev cell id
+            var prev_cell_id = this.cell_list[i-1];
+        } else {
+            var prev_cell_id = 0;
+        }
+
+        return this.get_insertcell(prev_cell_id);
+    },
+
+    /**
+     * Returns next InsertCell object after the given cell_id. If does not
+     * exist, returns undefined.
+     */
+    next_insertcell: function(cell_id) {
+        //The next InsertCell from the given cell_id has the same cell_id.
+        return this.get_insertcell(cell_id);
+    },
+
+    /**
+     * Returns the InsertCell object associated with the given cell_id. If does
+     * not exist, returns undefined.
+     */
+    get_insertcell: function(cell_id) {
+        //We use jQ's selector to grab the InsertCell DOM. Then we use the DOM
+        //to Obj bridge to get the object.
+        return $('#insert_cell-' + cell_id).data('InsertCell');
     },
 
     /**

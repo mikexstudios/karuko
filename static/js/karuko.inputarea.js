@@ -146,9 +146,9 @@ var InputArea = Class.$extend({
             //Otherwise, the caret will jump to position 0 (beginning of line).
             e.preventDefault();
 
-            //Focus on prev cell.
+            //Focus on prev InsertCell.
             try {
-                this.cell.prev_cell().focus();
+                this.cell.prev_insertcell().focus();
                 //We want to catch undefined method error in case the previous
                 //cell does not exist.
             } catch (error) {}
@@ -171,9 +171,9 @@ var InputArea = Class.$extend({
             //Otherwise, the caret will jump to end of line.
             e.preventDefault();
 
-            //Focus on next cell.
+            //Focus on next InsertCell.
             try {
-                this.cell.next_cell().focus();
+                this.cell.next_insertcell().focus();
                 //We want to catch undefined method error in case the next
                 //cell does not exist.
             } catch (error) {}

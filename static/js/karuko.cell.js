@@ -25,11 +25,11 @@ var Cell = Class.$extend({
     },
 
     /**
-     * Returns prev InputCell object before this cell. If does not exist,
+     * Returns prev InsertCell object before this cell. If does not exist,
      * returns undefined.
      */
-    prev_inputcell: function() {
-        //return this.worksheet.prev_cell(this.id);
+    prev_insertcell: function() {
+        return this.worksheet.prev_insertcell(this.id);
     },
 
     /**
@@ -41,11 +41,11 @@ var Cell = Class.$extend({
     },
 
     /**
-     * Returns next InputCell object after this cell. If does not exist,
+     * Returns next InsertCell object after this cell. If does not exist,
      * returns undefined.
      */
-    next_inputcell: function() {
-        //return this.worksheet.next_cell(this.id);
+    next_insertcell: function() {
+        return this.worksheet.next_insertcell(this.id);
     },
 
     /**
