@@ -55,9 +55,9 @@ var Worksheet = Class.$extend({
         //Special case: A cell_id of 0 is *always* at position 0 (top of page).
         //We don't actually have a cell of id = 0, but we have an InsertCell
         //that has an id of 0.
-        if (cell_id <= 0) {
-            return 0;
-        }
+        //if (cell_id <= 0) {
+        //    return 0;
+        //}
         return this.cell_list.indexOf(cell_id);
     },
 
@@ -153,6 +153,19 @@ var Worksheet = Class.$extend({
     },
 
     /**
+     * Given a position in the Worksheet cell_list, returns InsertCell object
+     * at that position. Returns undefined if InsertCell does not exist at that
+     * position.
+     */
+    get_insertcell_at_position: function(position) {
+        //Get Cell's ID at given position
+        var cell_id = this.cell_list[position];
+        //Return the InsertCell associated with the Cell's ID
+        return this.get_insertcell(cell_id);
+    },
+
+
+    /**
      * Returns int of the next cell's id.
      */
     get_next_cell_id: function() {
@@ -171,7 +184,7 @@ var Worksheet = Class.$extend({
     /**
      * Creates and adds a new Cell and InsertCell object to the Worksheet
      * (along with the DOM object). If position is given, then the new objects
-     * will be inserted at that position in the cell_list with 0 being the
+     * will be inserted at after that position in the cell_list with -1 being the
      * first/top-most position. If no position is given, then the new objs
      * will be inserted at the end of the list.
      *
@@ -188,26 +201,37 @@ var Worksheet = Class.$extend({
         //If position is given, new objects will be inserted there. Otherwise,
         //will be inserted at the end of the Worksheet.
         if (position) {
-            //If position is 0, then we insert at the top of the worksheet.
+            //If position is -1, then we insert at the top of the worksheet.
             //Otherwise, insert the objs *after* the existing cell at the given
-            //position. 
-            //NOTE: This is consistent with how splice works when inserting 
-            //      into Arrays.
-            //Add cell's id to cell list.
-            this.cell_list.splice(position, 0, cell_id);
-            if (position <= 0) {
-                this.$el.prepend(cell.$el);
-                this.$el.prepend(insert_cell.$el);
+            //position. For instance, position = 0 means inserting the new
+            //cell after the first Cell in the worksheet (in position = 1).
+            if (position <= -1) {
+                //The InsertCell with id of 0 serves as our top anchor point to
+                //insert after. Note that to have the InsertCell appear *after*
+                //the Cell, we insert it before the Cell so that it gets pushed
+                //down when we insert the Cell.
+                $('#insert_cell-0').after(insert_cell.$el);
+                $('#insert_cell-0').after(cell.$el);
 
             } else {
-                //Otherwise, we insert *after* the existing Cell with the given
-                //position. First, we need to get the existing Cell at that
-                //position.
-                var existing_cell = this.get_cell_at_position(position);
-                //Now insert our new objects after this existing Cell.
-                existing_cell.$el.after(cell.$el);
-                existing_cell.$el.after(insert_cell.$el);
+                //Otherwise, we insert *after* the existing Cell's InsertCell
+                //with the given position. First, we need to get the existing
+                //InsertCell at that position.
+                var existing_insertcell = this.get_insertcell_at_position(position);
+                //Now insert our new objects after this existing Cell. Note
+                //that to have the InsertCell appear *after* the Cell, we
+                //insert it before the Cell so that it gets pushed down when we
+                //insert the Cell.
+                existing_insertcell.$el.after(insert_cell.$el);
+                existing_insertcell.$el.after(cell.$el);
             }
+              
+            //Add cell's id to cell list. Note that to make position work with
+            //splice indexes, we need to add 1 since we map position = -1 to
+            //splice index 0, position = 0 to splice index 1, etc.
+            this.cell_list.splice(position + 1, 0, cell_id);
+            console.log(this.cell_list);
+
         } else {
             //Add cell's DOM element to end of worksheet.
             this.$el.append(cell.$el);
