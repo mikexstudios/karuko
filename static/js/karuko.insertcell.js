@@ -100,7 +100,6 @@ var InsertCell = Class.$extend({
         //TODO: Fix disparity of position. get_cell_position returns 
         //      -1 for top of page, 0 for InsertCell between the first and
         //      second cell, etc.
-        console.log(position);
         var cell = this.worksheet.add_cell(position);
         cell.focus();
     },

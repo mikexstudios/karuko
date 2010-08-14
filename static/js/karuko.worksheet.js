@@ -230,7 +230,6 @@ var Worksheet = Class.$extend({
             //splice indexes, we need to add 1 since we map position = -1 to
             //splice index 0, position = 0 to splice index 1, etc.
             this.cell_list.splice(position + 1, 0, cell_id);
-            console.log(this.cell_list);
 
         } else {
             //Add cell's DOM element to end of worksheet.
@@ -260,7 +259,7 @@ var Worksheet = Class.$extend({
 
             //Remove Cell from cell_list. First, find out what index it is.
             var i = this.get_cell_position(cell_id);
-            this.cell_list.splice(i, i+1); //Slice it out of the array
+            this.cell_list.splice(i, 1); //Remove cell id from array
 
             //Also remove the corresponding InsertCell after this Cell
             var insertcell = this.get_insertcell(cell_id);
