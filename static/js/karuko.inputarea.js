@@ -62,7 +62,16 @@ var InputArea = Class.$extend({
         //Is the input empty AND is this not the first cell on the page? If so,
         //let's remove the cell.
         if (this.get_value() == '') {
+            //Get the previous InsertCell before we remove this Cell. (Otherwise,
+            //the index of the previous InsertCell will be wrong.)
+            var prev_insertcell = this.cell.prev_insertcell();
+
             this.cell.remove();
+
+            //Now place focus on the InsertCell element before this Cell.
+            //NOTE: If user clicks on something else, then this focus won't
+            //      apply. This is expected behavior; we want this to happen.
+            prev_insertcell.focus();
         }
     },
 

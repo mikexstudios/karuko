@@ -264,11 +264,6 @@ var Worksheet = Class.$extend({
             //Remove Cell from cell_list. First, find out what index it is.
             var i = this.get_cell_position(cell_id);
             this.cell_list.splice(i, 1); //Remove cell id from array
-
-            //Now place focus on the InsertCell element before this removed
-            //Cell.
-            var insertcell = this.get_insertcell_at_position(i-1);
-            insertcell.focus();
         }
     }
 });
