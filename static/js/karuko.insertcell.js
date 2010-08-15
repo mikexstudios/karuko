@@ -96,9 +96,9 @@ var InsertCell = Class.$extend({
         //Insert new cell after this InsertCell and put cursor there. First,
         //we need to get the position of this InsertCell.
         var position = this.worksheet.get_cell_position(this.id);
-        //TODO: Fix disparity of position. get_cell_position returns 
-        //      -1 for top of page, 0 for InsertCell between the first and
-        //      second cell, etc.
+        //Note that get_cell_position returns -1 for top of page, 0 for
+        //InsertCell between the first and second cell, 1 for the InsertCell
+        //between the 2nd and 3rd Cell, etc.
         var cell = this.worksheet.add_cell(position);
         cell.focus();
 
