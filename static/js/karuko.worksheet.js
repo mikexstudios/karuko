@@ -206,8 +206,10 @@ var Worksheet = Class.$extend({
         var insert_cell = new InsertCell(this, cell_id);
 
         //If position is given, new objects will be inserted there. Otherwise,
-        //will be inserted at the end of the Worksheet.
-        if (position != undefined) {
+        //will be inserted at the end of the Worksheet if position is undefined
+        //OR if position specifies adding a cell to the end of the Worksheet.
+        var position_of_last_cell = this.get_num_cells() - 1;
+        if (position != undefined && position < position_of_last_cell) {
             //If position is -1, then we insert at the top of the worksheet.
             //Otherwise, insert the objs *after* the existing cell at the given
             //position. For instance, position = 0 means inserting the new
