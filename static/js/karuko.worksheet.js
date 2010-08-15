@@ -62,6 +62,13 @@ var Worksheet = Class.$extend({
     },
 
     /**
+     * Returns int of number of Cells in Worksheet's cell_list.
+     */
+    get_num_cells: function() {
+        return this.cell_list.length;
+    },
+
+    /**
      * Given a cell_id (int), returns Cell object associated with that id.
      * Returns undefined if cell does not exist.
      */

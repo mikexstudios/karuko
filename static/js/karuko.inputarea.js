@@ -75,9 +75,15 @@ var InputArea = Class.$extend({
         //when this Cell is the first and only cell on the page. We don't want
         //the Cell in this case to be removed either.
         if (this.is_modified == false) {
-            //TODO: Check if this Cell is the last one in the Worksheet. If so,
-            //then don't automatically remove.
-
+            //Check if this Cell is the last one in the Worksheet. If so, then
+            //don't automatically remove.
+            var position = this.cell.worksheet.get_cell_position(this.cell.id);
+            var num_cells = this.cell.worksheet.get_num_cells();
+            if (position + 1 >= num_cells) {
+                return; //Don't continue with removing Cell.
+            }
+            //Otherwise, this is not the last Cell in the Worksheet.
+              
             //Get the previous InsertCell before we remove this Cell. (Otherwise,
             //the index of the previous InsertCell will be wrong.)
             var prev_insertcell = this.cell.prev_insertcell();
