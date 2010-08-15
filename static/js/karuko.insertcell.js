@@ -101,6 +101,15 @@ var InsertCell = Class.$extend({
         //      second cell, etc.
         var cell = this.worksheet.add_cell(position);
         cell.focus();
+
+        //Edge case: When we create a new Cell and focus on it, the good thing
+        //is that the user's keypress key will automatically be put into this
+        //new Cell's InputArea. However, this keypress doesn't trigger the
+        //InputArea's keypress event. This is weird but can probably be
+        //explained by the fact that our keypress was never on the newly added
+        //Cell.  Therefore, we manually trigger that the InputArea is modified
+        //here.
+        cell.input_area.is_modified = true;
     },
 
     /**

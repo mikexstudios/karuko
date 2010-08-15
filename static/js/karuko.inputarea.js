@@ -1,4 +1,10 @@
 var InputArea = Class.$extend({
+    //Keeps track of if this InputArea has ever been typed in. Once a keypress is
+    //made, this will be set to true. This variable is important in keeping track
+    //if the Cell should be auto-removed. That is, new Cells that have never been
+    //typed in yet should be removed when focus is lost.
+    is_modified: false,
+
     __init__: function(cell /* Cell obj */) {
         this.cell = cell; //Cell obj this InputArea is associated with
         
@@ -16,6 +22,10 @@ var InputArea = Class.$extend({
         //callback functions.
         this.$el.bind('focusin.inputarea', $.proxy(this.on_focusin, this));
         this.$el.bind('focusout.inputarea', $.proxy(this.on_focusout, this));
+
+        //We add this keypress event here since we want it to be a one-time
+        //event that is removed once it is called.
+        this.$el.bind('keypress.inputarea', $.proxy(this.on_keypress, this));
     },
 
     /**
@@ -59,9 +69,15 @@ var InputArea = Class.$extend({
         //Unbind our keybindings.
         this.$el.unbind('keydown.inputarea');
 
-        //Is the input empty AND is this not the first cell on the page? If so,
-        //let's remove the cell.
-        if (this.get_value() == '') {
+        //New cells that have never been typed in should be automatically removed
+        //from the worksheet when focus is removed EXCEPT for when this Cell is
+        //the last one in the Worksheet. Note that this also covers the case
+        //when this Cell is the first and only cell on the page. We don't want
+        //the Cell in this case to be removed either.
+        if (this.is_modified == false) {
+            //TODO: Check if this Cell is the last one in the Worksheet. If so,
+            //then don't automatically remove.
+
             //Get the previous InsertCell before we remove this Cell. (Otherwise,
             //the index of the previous InsertCell will be wrong.)
             var prev_insertcell = this.cell.prev_insertcell();
@@ -193,5 +209,25 @@ var InputArea = Class.$extend({
                 //InsertCell does not exist.
             } catch (error) {}
         }
+    },
+
+    /**
+     * Called when keypress event is triggered. That is, if user's input is a
+     * non-modifier key (that is, not a shift, alt, arrow, etc.  key).
+     *
+     * IMPORTANT: When user keypresses on InsertCell element which creates a
+     * new Cell (and InputArea), that keypress doesn't register through the
+     * InsertCell's textarea's keypress event binding. Thus, we had to manually
+     * trigger a keypress on InsertCell when we did that. See insertcell.js'
+     * on_keypress method.
+     */
+    on_keypress: function(e) {
+        console.log('keypress inputarea');
+
+        //Set flag that this InputArea has been typed in.
+        this.is_modified = true;
+        
+        //Unbind this keypress event.
+        this.$el.unbind('keypress.inputarea');
     }
 });
