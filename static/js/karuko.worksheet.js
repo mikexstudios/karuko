@@ -44,9 +44,6 @@ var Worksheet = Class.$extend({
         //Add first Cell to page.
         cell = this.add_cell();
         cell.focus();
-        //We trigger the keypress event on the Cell's InputArea so that it won't
-        //be automatically removed.
-        cell.input_area.$el.keypress();
     },
 
     /**
@@ -252,6 +249,12 @@ var Worksheet = Class.$extend({
 
             //Add cell's id to end of cell list.
             this.cell_list.push(cell_id);
+            
+            //We trigger the keypress event on the Cell's InputArea so that it
+            //won't be automatically removed. We don't want the last Cell in the
+            //Worksheet to be auto-removed if not modified to give user a hint
+            //as to where to type next.
+            cell.input_area.$el.keypress();
         }
 
         return cell;
