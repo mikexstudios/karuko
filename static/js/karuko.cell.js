@@ -25,6 +25,24 @@ var Cell = Class.$extend({
     },
 
     /**
+     * Returns int of Cell's position in the Worksheet. If this Cell is not
+     * part of the Worksheet, returns undefined.
+     */
+    get_position: function() {
+        return this.worksheet.get_cell_position(this.id);
+    },
+
+    /**
+     * Returns true if this Cell is the last one in the Worksheet (that is, it's
+     * at the end of the worksheet). Otherwise, returns false.
+     */
+    is_last: function() {
+        var position = this.get_position();
+        var last_cell_position = this.worksheet.get_num_cells() - 1;
+        return position == last_cell_position;
+    },
+
+    /**
      * Removes this Cell from DOM. 
      * //NOTE: Does not remove Cell from Worksheet's cell_list.
      */
@@ -149,9 +167,16 @@ var Cell = Class.$extend({
 
         //Display notification that calculation is running.
         
-        //Put cursor on the InsertCell div that comes after this cell. This
-        //sets the stage if the user wants to input the next calculation.
-        this.next_insertcell().focus();
+        //If this is currently the last Cell on the page, then we will create a
+        //new Cell after this and put our cursor there. Otherwise, we put the
+        //cursor on the InsertCell div that comes after this cell. This sets
+        //the stage if the user wants to input the next calculation.
+        if (this.is_last()) {
+            var cell = this.worksheet.add_cell(); //Add new Cell to end.
+            cell.focus();
+        } else {
+            this.next_insertcell().focus();
+        }
         
         //Send calculation to server. The callback function is responsible for
         //creating the output cell.
