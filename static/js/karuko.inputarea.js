@@ -73,17 +73,10 @@ var InputArea = Class.$extend({
         //from the worksheet when focus is removed. Note that we don't want the
         //first and only Cell in the Worksheet or the last Cell in the Worksheet
         //to be removed. We do that by manually triggering keypresses on them.
+        //NOTE: We don't include code for where we will focus next. That is 
+        //      handled in the on_up/on_down methods.
         if (this.is_modified == false) {
-            //Get the previous InsertCell before we remove this Cell. (Otherwise,
-            //the index of the previous InsertCell will be wrong.)
-            var prev_insertcell = this.cell.prev_insertcell();
-
             this.cell.remove();
-
-            //Now place focus on the InsertCell element before this Cell.
-            //NOTE: If user clicks on something else, then this focus won't
-            //      apply. This is expected behavior; we want this to happen.
-            prev_insertcell.focus();
         }
     },
 
@@ -161,6 +154,22 @@ var InputArea = Class.$extend({
      */
     on_up: function(e) {
         //console.log('up');
+
+        //New cells that have never been typed in should be automatically removed
+        //from the worksheet when focus is removed. We handle the removing part
+        //in on_focusout. We perform jumping to the next Cell here.
+        //NOTE: We don't place this in on_focusout since we need to know if the
+        //      user pressed up or down. This affects what Cell we will jump to
+        //      next.
+        if (this.is_modified == false) {
+            //Get the previous Cell and place focus there.
+            //NOTE: If user clicks on something else, then this focus won't
+            //      apply. This is expected behavior; we want this to happen.
+            var prev_cell = this.cell.prev_cell();
+            prev_cell.focus();
+
+            return; //Keep from continuing.
+        }
           
         //Need to determine if the start of the cursor selection is on the
         //first line. Using start takes into account selections in textarea.
@@ -189,6 +198,22 @@ var InputArea = Class.$extend({
      */
     on_down: function(e) {
         //console.log('down');
+
+        //New cells that have never been typed in should be automatically removed
+        //from the worksheet when focus is removed. We handle the removing part
+        //in on_focusout. We perform jumping to the next Cell here.
+        //NOTE: We don't place this in on_focusout since we need to know if the
+        //      user pressed up or down. This affects what Cell we will jump to
+        //      next.
+        if (this.is_modified == false) {
+            //Get the next Cell and place focus there.
+            //NOTE: If user clicks on something else, then this focus won't
+            //      apply. This is expected behavior; we want this to happen.
+            var next_cell = this.cell.next_cell();
+            next_cell.focus();
+
+            return; //Keep from continuing.
+        }
 
         //Using end takes into account selections in textarea.
         row = this.get_cursor_coordinates('end').y;
