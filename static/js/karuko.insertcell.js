@@ -109,7 +109,7 @@ var InsertCell = Class.$extend({
         //explained by the fact that our keypress was never on the newly added
         //Cell.  Therefore, we manually trigger that the InputArea is modified
         //here.
-        cell.input_area.is_modified = true;
+        cell.input_area.$el.keypress();
     },
 
     /**
