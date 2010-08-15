@@ -85,9 +85,8 @@ var InsertCell = Class.$extend({
     },
 
     /**
-     * Called when any keydown event is triggered. Checks to see if user's
-     * input is a non-modifier key (that is, not a shift, alt, arrow, etc. 
-     * key).
+     * Called when keypress event is triggered. That is, if user's input is a
+     * non-modifier key (that is, not a shift, alt, arrow, etc.  key).
      */
     on_keypress: function(e) {
         //POSSIBLE BUG: On Mac, Control+character key combination will
