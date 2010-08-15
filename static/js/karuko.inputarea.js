@@ -70,20 +70,10 @@ var InputArea = Class.$extend({
         this.$el.unbind('keydown.inputarea');
 
         //New cells that have never been typed in should be automatically removed
-        //from the worksheet when focus is removed EXCEPT for when this Cell is
-        //the last one in the Worksheet. Note that this also covers the case
-        //when this Cell is the first and only cell on the page. We don't want
-        //the Cell in this case to be removed either.
+        //from the worksheet when focus is removed. Note that we don't want the
+        //first and only Cell in the Worksheet or the last Cell in the Worksheet
+        //to be removed. We do that by manually triggering keypresses on them.
         if (this.is_modified == false) {
-            //Check if this Cell is the last one in the Worksheet. If so, then
-            //don't automatically remove.
-            var position = this.cell.worksheet.get_cell_position(this.cell.id);
-            var num_cells = this.cell.worksheet.get_num_cells();
-            if (position + 1 >= num_cells) {
-                return; //Don't continue with removing Cell.
-            }
-            //Otherwise, this is not the last Cell in the Worksheet.
-              
             //Get the previous InsertCell before we remove this Cell. (Otherwise,
             //the index of the previous InsertCell will be wrong.)
             var prev_insertcell = this.cell.prev_insertcell();

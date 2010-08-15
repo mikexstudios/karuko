@@ -44,6 +44,9 @@ var Worksheet = Class.$extend({
         //Add first Cell to page.
         cell = this.add_cell();
         cell.focus();
+        //We trigger the keypress event on the Cell's InputArea so that it won't
+        //be automatically removed.
+        cell.input_area.$el.keypress();
     },
 
     /**
