@@ -19,6 +19,10 @@ var InsertCell = Class.$extend({
         //functions.
         this.$el.bind('focusin.insertcell', $.proxy(this.on_focusin, this));
         this.$el.bind('focusout.insertcell', $.proxy(this.on_focusout, this));
+
+        //We also bind a click event to this InsertCell. This will presist and
+        //will not be unbound.
+        this.$el.bind('click.insertcell', $.proxy(this.on_click, this));
     },
 
     /**
@@ -82,6 +86,23 @@ var InsertCell = Class.$extend({
 
         //Remove display bar.
         this.$el.removeClass('insert_cell_hover');
+    },
+
+    /**
+     * Called when this div gets clicked. This means that the user intends to
+     * insert a new Cell here.
+     */
+    on_click: function(e) {
+        //TODO: This is a duplicate of code in the on_keypress method. Find
+        //a way to reconcile these.
+        //Insert new cell after this InsertCell and put cursor there. First,
+        //we need to get the position of this InsertCell.
+        var position = this.worksheet.get_cell_position(this.id);
+        //Note that get_cell_position returns -1 for top of page, 0 for
+        //InsertCell between the first and second cell, 1 for the InsertCell
+        //between the 2nd and 3rd Cell, etc.
+        var cell = this.worksheet.add_cell(position);
+        cell.focus();
     },
 
     /**
