@@ -167,16 +167,11 @@ var Cell = Class.$extend({
 
         //Display notification that calculation is running.
         
-        //If this is currently the last Cell on the page, then we will create a
-        //new Cell after this and put our cursor there. Otherwise, we put the
-        //cursor on the InsertCell div that comes after this cell. This sets
-        //the stage if the user wants to input the next calculation.
-        if (this.is_last()) {
-            var cell = this.worksheet.add_cell(); //Add new Cell to end.
-            cell.focus();
-        } else {
-            this.next_insertcell().focus();
-        }
+        //Create a new Cell after this and put our cursor there. Because of the
+        //way `add_cell` works, if the given position is at the end of the page, 
+        //then the newly created Cell won't be automatically deleted if empty.
+        var cell = this.worksheet.add_cell(this.get_position());
+        cell.focus();
         
         //Send calculation to server. The callback function is responsible for
         //creating the output cell.
