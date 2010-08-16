@@ -1117,7 +1117,7 @@ input.span-24, textarea.span-24, select.span-24 {
 
 /* line 8, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.2/frameworks/blueprint/stylesheets/blueprint/_debug.scss */
 .showgrid {
-  background: url('/images/grid.png?1280845298');
+  background: url('../images/grid.png?1280845298');
 }
 
 /* line 4, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.2/frameworks/blueprint/stylesheets/blueprint/_interaction.scss */
@@ -1407,7 +1407,7 @@ body #content #worksheet .cell .input .entry {
 }
 /* line 166, ../src/screen.sass */
 body #content #worksheet .cell .input .entry textarea {
-  width: 97%;
+  width: 98%;
   height: auto;
   padding: 0;
   margin: 0;
@@ -1418,31 +1418,37 @@ body #content #worksheet .cell .input .entry textarea {
   overflow: hidden;
   resize: none;
   outline: none;
+  background-position: right center;
+  background-repeat: no-repeat;
 }
-/* line 187, ../src/screen.sass */
+/* line 194, ../src/screen.sass */
+body #content #worksheet .cell .input .entry textarea.processing {
+  background-image: url('../images/spinner.gif?1281905090');
+}
+/* line 198, ../src/screen.sass */
 body #content #worksheet .calculation {
   border-right: 3px solid #cccccc;
 }
-/* line 190, ../src/screen.sass */
+/* line 201, ../src/screen.sass */
 body #content #worksheet .calculation .input .line {
   color: #549a38;
 }
-/* line 194, ../src/screen.sass */
+/* line 205, ../src/screen.sass */
 body #content #worksheet .calculation .output .line {
   color: #e57564;
 }
-/* line 198, ../src/screen.sass */
+/* line 209, ../src/screen.sass */
 body #content #sidebar {
   vertical-align: top;
   font-family: Georgia, Times, Times New Roman, serif;
   width: 145px;
   padding-left: 0.8em;
 }
-/* line 203, ../src/screen.sass */
+/* line 214, ../src/screen.sass */
 body #content #sidebar .button {
   margin-bottom: 0.5em;
 }
-/* line 206, ../src/screen.sass */
+/* line 217, ../src/screen.sass */
 body #content #sidebar input[type=text] {
   display: block;
   width: 97%;
@@ -1451,7 +1457,7 @@ body #content #sidebar input[type=text] {
   font-size: 0.7em;
   padding: 4px 3px;
 }
-/* line 213, ../src/screen.sass */
+/* line 224, ../src/screen.sass */
 body #content #sidebar ul {
   margin: 0;
   padding: 0;
@@ -1466,25 +1472,25 @@ body #content #sidebar ul li {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 221, ../src/screen.sass */
+/* line 232, ../src/screen.sass */
 body #content #sidebar ul li {
   padding-left: 0.3em;
   margin-bottom: 0.1em;
   color: #80878d;
 }
-/* line 228, ../src/screen.sass */
+/* line 239, ../src/screen.sass */
 body #content #sidebar ul li a {
   color: #9ba0a5;
 }
-/* line 230, ../src/screen.sass */
+/* line 241, ../src/screen.sass */
 body #content #sidebar ul li a:hover {
   color: #80878d;
 }
-/* line 233, ../src/screen.sass */
+/* line 244, ../src/screen.sass */
 body #content #sidebar ul.last {
   border-bottom: none;
 }
-/* line 236, ../src/screen.sass */
+/* line 247, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1494,7 +1500,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 245, ../src/screen.sass */
+/* line 256, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }

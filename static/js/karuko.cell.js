@@ -165,7 +165,10 @@ var Cell = Class.$extend({
         var in_num = this.worksheet.get_next_calculation_id();
         this.set_in_number(in_num);
 
-        //Display notification that calculation is running.
+        //Display notification that calculation is running by setting the class
+        //of the Cell to be '.processing' since that will show the spinner.
+        //Once the results come back, '.processing' will be removed.
+        this.input_area.$el.addClass('processing');
         
         //Create a new Cell after this and put our cursor there. Because of the
         //way `add_cell` works, if the given position is at the end of the page, 
@@ -192,6 +195,9 @@ var Cell = Class.$extend({
         //If there is no output, then don't show output cell
         if (data.out != '') {
             //console.log(data.out);
+
+            //Once the resuts come back, no need to display spinner anymore.
+            this.input_area.$el.removeClass('processing');
 
             //Insert output tr after input tr.
             this.set_output($.trim(data.out));
