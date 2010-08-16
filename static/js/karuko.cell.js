@@ -192,12 +192,13 @@ var Cell = Class.$extend({
      * Called when calculation is returned from server.
      */
     on_result: function(data) {
+        //Once the resuts come back, no need to display spinner anymore. This
+        //is regardless if there is data or not.
+        this.input_area.$el.removeClass('processing');
+
         //If there is no output, then don't show output cell
         if (data.out != '') {
             //console.log(data.out);
-
-            //Once the resuts come back, no need to display spinner anymore.
-            this.input_area.$el.removeClass('processing');
 
             //Insert output tr after input tr.
             this.set_output($.trim(data.out));
