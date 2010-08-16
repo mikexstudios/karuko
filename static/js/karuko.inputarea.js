@@ -243,7 +243,7 @@ var InputArea = Class.$extend({
      * on_keypress method.
      */
     on_keypress: function(e) {
-        console.log('keypress inputarea');
+        //console.log('keypress inputarea');
 
         //Set flag that this InputArea has been typed in.
         this.is_modified = true;

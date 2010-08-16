@@ -159,7 +159,7 @@ var Cell = Class.$extend({
      * Is also called from shift+return keydown binding (set in InputArea).
      */
     execute: function() {
-        console.log('cell execute');
+        //console.log('cell execute');
 
         //Assign In number to cell.
         var in_num = this.worksheet.get_next_calculation_id();
