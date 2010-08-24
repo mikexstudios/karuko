@@ -1420,12 +1420,12 @@ body #content #worksheet .calculation2 .line {
   padding-top: 0.3em;
 }
 /* line 193, ../src/screen.sass */
-body #content #worksheet .calculation2 span.entry {
+body #content #worksheet .calculation2 .entry {
   line-height: 1;
   white-space: pre;
 }
 /* line 198, ../src/screen.sass */
-body #content #worksheet .calculation2 textarea {
+body #content #worksheet .calculation2 .entry textarea {
   width: 690px;
   height: auto;
   padding: 0;
@@ -1442,7 +1442,7 @@ body #content #worksheet .calculation2 textarea {
   background-repeat: no-repeat;
 }
 /* line 223, ../src/screen.sass */
-body #content #worksheet .calculation2 textarea.processing {
+body #content #worksheet .calculation2 .entry textarea.processing {
   background-image: url('../images/spinner.gif?1281905090');
 }
 /* line 226, ../src/screen.sass */
