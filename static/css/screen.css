@@ -1334,25 +1334,24 @@ body #templates {
 /* line 88, ../src/screen.sass */
 body #container {
   margin: 0 auto;
-  min-width: 800px;
-  max-width: 960px;
+  width: 960px;
   padding: 0 1em 0 1.5em;
 }
-/* line 98, ../src/screen.sass */
+/* line 100, ../src/screen.sass */
 body #content th, body #content td {
   padding: 0;
 }
-/* line 102, ../src/screen.sass */
+/* line 104, ../src/screen.sass */
 body #content #worksheet_header {
   font-family: Georgia, Times, Times New Roman, serif;
   padding-bottom: 0.5em;
 }
-/* line 105, ../src/screen.sass */
+/* line 107, ../src/screen.sass */
 body #content #worksheet_header h1 {
   font-size: 1.7em;
   margin-bottom: 0;
 }
-/* line 109, ../src/screen.sass */
+/* line 111, ../src/screen.sass */
 body #content #worksheet {
   vertical-align: top;
   background-color: white;
@@ -1362,7 +1361,7 @@ body #content #worksheet {
   -o-box-shadow: #999999 1px 1px 5px;
   box-shadow: #999999 1px 1px 5px;
 }
-/* line 121, ../src/screen.sass */
+/* line 123, ../src/screen.sass */
 body #content #worksheet .insert_cell {
   margin-top: 0.1em;
   height: 0.2em;
@@ -1372,11 +1371,11 @@ body #content #worksheet .insert_cell {
   cursor: text;
   outline: none;
 }
-/* line 136, ../src/screen.sass */
+/* line 138, ../src/screen.sass */
 body #content #worksheet .insert_cell:hover, body #content #worksheet .insert_cell_hover, body #content #worksheet .insert:hover, body #content #worksheet .insert_hover {
   background-color: #cccccc;
 }
-/* line 139, ../src/screen.sass */
+/* line 141, ../src/screen.sass */
 body #content #worksheet .insert {
   margin-top: -0.2em;
   height: 0.3em;
@@ -1386,29 +1385,29 @@ body #content #worksheet .insert {
   cursor: text;
   outline: none;
 }
-/* line 154, ../src/screen.sass */
+/* line 156, ../src/screen.sass */
 body #content #worksheet .insert:hover, body #content #worksheet .insert_hover {
   background-color: #cccccc;
 }
-/* line 158, ../src/screen.sass */
+/* line 160, ../src/screen.sass */
 body #content #worksheet .cell2 {
   font-family: Monaco, Courier New, DejaVu Sans Mono, Bitstream Vera Sans Mono, monospace;
   font-size: 0.9em;
 }
-/* line 163, ../src/screen.sass */
+/* line 165, ../src/screen.sass */
 body #content #worksheet .input2 .line {
   color: #549a38;
 }
-/* line 167, ../src/screen.sass */
+/* line 169, ../src/screen.sass */
 body #content #worksheet .output2 .line {
   color: #e57564;
 }
-/* line 171, ../src/screen.sass */
+/* line 173, ../src/screen.sass */
 body #content #worksheet .calculation2 {
   border-right: 3px solid #cccccc;
   margin-bottom: 0.25em;
 }
-/* line 175, ../src/screen.sass */
+/* line 177, ../src/screen.sass */
 body #content #worksheet .calculation2 .line {
   display: block;
   float: left;
@@ -1420,13 +1419,14 @@ body #content #worksheet .calculation2 .line {
   vertical-align: top;
   padding-top: 0.3em;
 }
-/* line 191, ../src/screen.sass */
+/* line 193, ../src/screen.sass */
 body #content #worksheet .calculation2 span.entry {
   line-height: 1;
   white-space: pre;
 }
-/* line 196, ../src/screen.sass */
+/* line 198, ../src/screen.sass */
 body #content #worksheet .calculation2 textarea {
+  width: 690px;
   height: auto;
   padding: 0;
   margin: 0;
@@ -1441,21 +1441,21 @@ body #content #worksheet .calculation2 textarea {
   background-position: right center;
   background-repeat: no-repeat;
 }
-/* line 221, ../src/screen.sass */
+/* line 223, ../src/screen.sass */
 body #content #worksheet .calculation2 textarea.processing {
   background-image: url('../images/spinner.gif?1281905090');
 }
-/* line 224, ../src/screen.sass */
+/* line 226, ../src/screen.sass */
 body #content #worksheet .cell {
   font-family: Monaco, Courier New, DejaVu Sans Mono, Bitstream Vera Sans Mono, monospace;
   font-size: 0.9em;
   margin-bottom: 0;
 }
-/* line 231, ../src/screen.sass */
+/* line 233, ../src/screen.sass */
 body #content #worksheet .cell td {
   padding-bottom: 0.4em;
 }
-/* line 234, ../src/screen.sass */
+/* line 236, ../src/screen.sass */
 body #content #worksheet .cell td.line {
   width: 60px;
   padding-right: 1em;
@@ -1465,16 +1465,16 @@ body #content #worksheet .cell td.line {
   vertical-align: top;
   padding-top: 2px;
 }
-/* line 244, ../src/screen.sass */
+/* line 246, ../src/screen.sass */
 body #content #worksheet .cell td.entry {
   line-height: 1;
   white-space: pre;
 }
-/* line 248, ../src/screen.sass */
+/* line 250, ../src/screen.sass */
 body #content #worksheet .cell .input .entry {
   font-weight: bold;
 }
-/* line 250, ../src/screen.sass */
+/* line 252, ../src/screen.sass */
 body #content #worksheet .cell .input .entry textarea {
   width: 98%;
   height: auto;
@@ -1490,34 +1490,34 @@ body #content #worksheet .cell .input .entry textarea {
   background-position: right center;
   background-repeat: no-repeat;
 }
-/* line 278, ../src/screen.sass */
+/* line 280, ../src/screen.sass */
 body #content #worksheet .cell .input .entry textarea.processing {
   background-image: url('../images/spinner.gif?1281905090');
 }
-/* line 282, ../src/screen.sass */
+/* line 284, ../src/screen.sass */
 body #content #worksheet .calculation {
   border-right: 3px solid #cccccc;
 }
-/* line 285, ../src/screen.sass */
+/* line 287, ../src/screen.sass */
 body #content #worksheet .calculation .input .line {
   color: #549a38;
 }
-/* line 289, ../src/screen.sass */
+/* line 291, ../src/screen.sass */
 body #content #worksheet .calculation .output .line {
   color: #e57564;
 }
-/* line 293, ../src/screen.sass */
+/* line 295, ../src/screen.sass */
 body #content #sidebar {
   vertical-align: top;
   font-family: Georgia, Times, Times New Roman, serif;
   width: 145px;
   padding-left: 0.8em;
 }
-/* line 298, ../src/screen.sass */
+/* line 300, ../src/screen.sass */
 body #content #sidebar .button {
   margin-bottom: 0.5em;
 }
-/* line 301, ../src/screen.sass */
+/* line 303, ../src/screen.sass */
 body #content #sidebar input[type=text] {
   display: block;
   width: 97%;
@@ -1526,7 +1526,7 @@ body #content #sidebar input[type=text] {
   font-size: 0.7em;
   padding: 4px 3px;
 }
-/* line 308, ../src/screen.sass */
+/* line 310, ../src/screen.sass */
 body #content #sidebar ul {
   margin: 0;
   padding: 0;
@@ -1541,25 +1541,25 @@ body #content #sidebar ul li {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 316, ../src/screen.sass */
+/* line 318, ../src/screen.sass */
 body #content #sidebar ul li {
   padding-left: 0.3em;
   margin-bottom: 0.1em;
   color: #80878d;
 }
-/* line 323, ../src/screen.sass */
+/* line 325, ../src/screen.sass */
 body #content #sidebar ul li a {
   color: #9ba0a5;
 }
-/* line 325, ../src/screen.sass */
+/* line 327, ../src/screen.sass */
 body #content #sidebar ul li a:hover {
   color: #80878d;
 }
-/* line 328, ../src/screen.sass */
+/* line 330, ../src/screen.sass */
 body #content #sidebar ul.last {
   border-bottom: none;
 }
-/* line 331, ../src/screen.sass */
+/* line 333, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1569,7 +1569,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 340, ../src/screen.sass */
+/* line 342, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }
