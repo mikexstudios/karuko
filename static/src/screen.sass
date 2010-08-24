@@ -190,38 +190,38 @@ body
           padding-top: 0.3em
         //The textarea should NOT have a line-height of 1 or else it will cut
         //off text sometimes.
-        .entry
+        span.entry
           //Removes pesky whitespace from textareas and regular text output.
           line-height: 1
           white-space: pre
 
-          textarea
-            width: 690px
-            height: auto
-            padding: 0
-            margin: 0
-            //Hackish: Whitespace corrections to align the textarea with the
-            //         In/Out
-            margin-bottom: -0.25em
+        textarea
+          width: 690px
+          height: auto
+          padding: 0
+          margin: 0
+          //Hackish: Whitespace corrections to align the textarea with the
+          //         In/Out
+          margin-bottom: -0.25em
 
-            font-family: $monospace_font
-            font-size: 1.0em
-            font-weight: bold
+          font-family: $monospace_font
+          font-size: 1.0em
+          font-weight: bold
 
-            //Remove the look of textarea box
-            border: none
-            overflow: hidden
-            //Remove the resize handle on textarea
-            resize: none
-            outline: none
+          //Remove the look of textarea box
+          border: none
+          overflow: hidden
+          //Remove the resize handle on textarea
+          resize: none
+          outline: none
 
-            //We place the spinner as a background image of the textarea.
-            background-position: right center
-            background-repeat: no-repeat
-          //When the input textarea is send to calc server and response hasn't
-          //been received yet, we set this class to show the spinner.
-          textarea.processing
-            background-image: image-url('spinner.gif')
+          //We place the spinner as a background image of the textarea.
+          background-position: right center
+          background-repeat: no-repeat
+        //When the input textarea is send to calc server and response hasn't
+        //been received yet, we set this class to show the spinner.
+        textarea.processing
+          background-image: image-url('spinner.gif')
 
       .cell
         font-family: $monospace_font
