@@ -1362,7 +1362,7 @@ body #content #worksheet {
   box-shadow: #999999 1px 1px 5px;
 }
 /* line 123, ../src/screen.sass */
-body #content #worksheet .insert_cell {
+body #content #worksheet .insertcell {
   margin-top: 0.1em;
   height: 0.2em;
   margin-bottom: 0.3em;
@@ -1372,7 +1372,7 @@ body #content #worksheet .insert_cell {
   outline: none;
 }
 /* line 138, ../src/screen.sass */
-body #content #worksheet .insert_cell:hover, body #content #worksheet .insert_cell_hover, body #content #worksheet .insert:hover, body #content #worksheet .insert_hover {
+body #content #worksheet .insertcell:hover, body #content #worksheet .insertcell_hover {
   background-color: #cccccc;
 }
 /* line 141, ../src/screen.sass */
@@ -1390,25 +1390,29 @@ body #content #worksheet .insert:hover, body #content #worksheet .insert_hover {
   background-color: #cccccc;
 }
 /* line 160, ../src/screen.sass */
-body #content #worksheet .cell2 {
+body #content #worksheet .cell {
   font-family: Monaco, Courier New, DejaVu Sans Mono, Bitstream Vera Sans Mono, monospace;
   font-size: 0.9em;
 }
 /* line 165, ../src/screen.sass */
-body #content #worksheet .input2 .line {
+body #content #worksheet .input .line {
   color: #549a38;
 }
 /* line 169, ../src/screen.sass */
-body #content #worksheet .output2 .line {
+body #content #worksheet .output .line {
   color: #e57564;
 }
-/* line 173, ../src/screen.sass */
-body #content #worksheet .calculation2 {
+/* line 174, ../src/screen.sass */
+body #content #worksheet .output textarea.entry {
+  display: none;
+}
+/* line 177, ../src/screen.sass */
+body #content #worksheet .calculation {
   border-right: 3px solid #cccccc;
   margin-bottom: 0.25em;
 }
-/* line 177, ../src/screen.sass */
-body #content #worksheet .calculation2 .line {
+/* line 181, ../src/screen.sass */
+body #content #worksheet .calculation .line {
   display: block;
   float: left;
   width: 60px;
@@ -1419,13 +1423,13 @@ body #content #worksheet .calculation2 .line {
   vertical-align: top;
   padding-top: 0.3em;
 }
-/* line 193, ../src/screen.sass */
-body #content #worksheet .calculation2 span.entry {
+/* line 197, ../src/screen.sass */
+body #content #worksheet .calculation .formatted {
   line-height: 1;
   white-space: pre;
 }
-/* line 198, ../src/screen.sass */
-body #content #worksheet .calculation2 textarea {
+/* line 202, ../src/screen.sass */
+body #content #worksheet .calculation textarea.entry {
   width: 690px;
   height: auto;
   padding: 0;
@@ -1441,83 +1445,22 @@ body #content #worksheet .calculation2 textarea {
   background-position: right center;
   background-repeat: no-repeat;
 }
-/* line 223, ../src/screen.sass */
-body #content #worksheet .calculation2 textarea.processing {
+/* line 227, ../src/screen.sass */
+body #content #worksheet .calculation textarea.processing {
   background-image: url('../images/spinner.gif?1281905090');
 }
-/* line 226, ../src/screen.sass */
-body #content #worksheet .cell {
-  font-family: Monaco, Courier New, DejaVu Sans Mono, Bitstream Vera Sans Mono, monospace;
-  font-size: 0.9em;
-  margin-bottom: 0;
-}
-/* line 233, ../src/screen.sass */
-body #content #worksheet .cell td {
-  padding-bottom: 0.4em;
-}
-/* line 236, ../src/screen.sass */
-body #content #worksheet .cell td.line {
-  width: 60px;
-  padding-right: 1em;
-  text-align: right;
-  font-size: 0.7em;
-  line-height: 1;
-  vertical-align: top;
-  padding-top: 2px;
-}
-/* line 246, ../src/screen.sass */
-body #content #worksheet .cell td.entry {
-  line-height: 1;
-  white-space: pre;
-}
-/* line 250, ../src/screen.sass */
-body #content #worksheet .cell .input .entry {
-  font-weight: bold;
-}
-/* line 252, ../src/screen.sass */
-body #content #worksheet .cell .input .entry textarea {
-  width: 98%;
-  height: auto;
-  padding: 0;
-  margin: 0;
-  font-family: Monaco, Courier New, DejaVu Sans Mono, Bitstream Vera Sans Mono, monospace;
-  font-size: 1em;
-  font-weight: bold;
-  border: none;
-  overflow: hidden;
-  resize: none;
-  outline: none;
-  background-position: right center;
-  background-repeat: no-repeat;
-}
-/* line 280, ../src/screen.sass */
-body #content #worksheet .cell .input .entry textarea.processing {
-  background-image: url('../images/spinner.gif?1281905090');
-}
-/* line 284, ../src/screen.sass */
-body #content #worksheet .calculation {
-  border-right: 3px solid #cccccc;
-}
-/* line 287, ../src/screen.sass */
-body #content #worksheet .calculation .input .line {
-  color: #549a38;
-}
-/* line 291, ../src/screen.sass */
-body #content #worksheet .calculation .output .line {
-  color: #e57564;
-}
-/* line 295, ../src/screen.sass */
+/* line 230, ../src/screen.sass */
 body #content #sidebar {
   vertical-align: top;
   font-family: Georgia, Times, Times New Roman, serif;
   width: 145px;
   padding-left: 0.8em;
 }
-/* line 300, ../src/screen.sass */
+/* line 235, ../src/screen.sass */
 body #content #sidebar .button {
   margin-bottom: 0.5em;
 }
-/* line 303, ../src/screen.sass */
+/* line 238, ../src/screen.sass */
 body #content #sidebar input[type=text] {
   display: block;
   width: 97%;
@@ -1526,7 +1469,7 @@ body #content #sidebar input[type=text] {
   font-size: 0.7em;
   padding: 4px 3px;
 }
-/* line 310, ../src/screen.sass */
+/* line 245, ../src/screen.sass */
 body #content #sidebar ul {
   margin: 0;
   padding: 0;
@@ -1541,25 +1484,25 @@ body #content #sidebar ul li {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 318, ../src/screen.sass */
+/* line 253, ../src/screen.sass */
 body #content #sidebar ul li {
   padding-left: 0.3em;
   margin-bottom: 0.1em;
   color: #80878d;
 }
-/* line 325, ../src/screen.sass */
+/* line 260, ../src/screen.sass */
 body #content #sidebar ul li a {
   color: #9ba0a5;
 }
-/* line 327, ../src/screen.sass */
+/* line 262, ../src/screen.sass */
 body #content #sidebar ul li a:hover {
   color: #80878d;
 }
-/* line 330, ../src/screen.sass */
+/* line 265, ../src/screen.sass */
 body #content #sidebar ul.last {
   border-bottom: none;
 }
-/* line 333, ../src/screen.sass */
+/* line 268, ../src/screen.sass */
 body #footer {
   clear: both;
   margin-top: 20px;
@@ -1569,7 +1512,7 @@ body #footer {
   font-family: Georgia, Times, Times New Roman, serif;
   color: #cccccc;
 }
-/* line 342, ../src/screen.sass */
+/* line 277, ../src/screen.sass */
 body #footer a {
   color: #cccccc;
 }

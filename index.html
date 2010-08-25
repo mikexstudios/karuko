@@ -20,9 +20,11 @@
     <script type="text/javascript" src="static/js/jquery.caret.1.02.js"></script>
     <script type="text/javascript" src="static/js/jquery.hotkeys.js"></script>
 
+    <script type="text/javascript" src="static/js/karuko.element.js"></script>
     <script type="text/javascript" src="static/js/karuko.inputarea.js"></script>
     <script type="text/javascript" src="static/js/karuko.insertcell.js"></script>
     <script type="text/javascript" src="static/js/karuko.cell.js"></script>
+    <script type="text/javascript" src="static/js/karuko.inputcell.js"></script>
     <script type="text/javascript" src="static/js/karuko.worksheet.js"></script>
     <script type="text/javascript" src="static/js/karuko.main.js"></script>
 </head>
@@ -52,61 +54,7 @@
 </tr>
 
 <tr>
-    <td id="worksheet">
-        <div id="el-0" class="insert" tabindex="0"></div>
-
-        <div id="el-1" class="cell2 input2 calculation2">
-            <span class="line">In [1]:</span>
-            <textarea rows="1" class="entry">1+1</textarea>
-        </div>
-        <div id="el-2" class="cell2 output2 calculation2">
-            <span class="line">Out[1]:</span>
-            <span class="entry">2</span>
-        </div>
-
-        <div id="el-3" class="insert" tabindex="0"></div>
-
-        <div id="el-4" class="cell2 input2 calculation2">
-            <span class="line">In [2]:</span>
-            <textarea rows="1" class="entry">1+1</textarea>
-        </div>
-        <div id="el-5" class="cell2 output2 calculation2">
-            <span class="line">Out[2]:</span>
-            <span class="entry">2</span>
-        </div>
-
-        <div id="el-6" class="insert" tabindex="0"></div>
-
-        <br />
-        <br />
-
-        <table id="cell-1" class="cell calculation">
-        <tbody>
-            <tr class="input">
-                <td class="line">In [1]:</td>
-                <td class="entry"><textarea rows="1" class="">1+1</textarea></td>
-            </tr>
-            <tr class="output">
-                <td class="line">Out[1]:</td>
-                <td class="entry">2</td>
-            </tr>
-        </tbody>
-        </table>
-        <div id="insert_cell-1" class="insert_cell" tabindex="0"></div>
-        <table id="cell-2" class="cell calculation">
-        <tbody>
-            <tr class="input">
-                <td class="line">In [1]:</td>
-                <td class="entry"><textarea rows="1" class="">1+1</textarea></td>
-            </tr>
-            <tr class="output">
-                <td class="line">Out[1]:</td>
-                <td class="entry">2</td>
-            </tr>
-        </tbody>
-        </table>
-
-    </td>
+    <td id="worksheet"></td>
 
     <td id="sidebar">
         <a href="" id="save_worksheet" class="button smaller light">Save Now</a>
@@ -134,25 +82,11 @@
 </div> <!-- container -->
 
 <div id="templates">
-    <table id="new_cell_template" class="cell">
-    <tbody>
-        <tr class="input">
-            <td class="line"></td>
-            <td class="entry"></td>
-        </tr>
-    </tbody>
-    </table>
+    <div id="cell_template" class="cell">
+        <span class="line"></span>
+    </div>
 
-    <table id="output_tr_template">
-    <tbody>
-        <tr class="output">
-            <td class="line"></td>
-            <td class="entry"></td>
-        </tr>
-    </tbody>
-    </table>
-
-    <div id="insert_cell_template" class="insert_cell" tabindex="0"></div>
+    <div id="insertcell_template" class="insertcell" tabindex="0"></div>
 </div>
 
 </body>

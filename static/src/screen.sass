@@ -120,7 +120,7 @@ body
       //      necessary.
       //height: 500px
 
-      .insert_cell
+      .insertcell
         //The margin and the height must add up to 0.6em, the spacing between cells.
         margin-top: 0.1em
         //TODO: If we make the hover area larger (including the whitespace around
@@ -135,7 +135,7 @@ body
         outline: none
       //Since we can't trigger CSS hover with jQuery, we instead use the hack of
       //adding/removing class attr to the insert_cell div.
-      .insert_cell:hover, .insert_cell_hover, .insert:hover, .insert_hover
+      .insertcell:hover, .insertcell_hover
         background-color: #ccc
 
       .insert
@@ -157,20 +157,24 @@ body
         background-color: #ccc
 
       //Styles common to all cells regardless if they are calculation or text.
-      .cell2
+      .cell
         font-family: $monospace_font
         font-size: 0.9em
 
-      .input2
+      .input
         .line
           //Green
           color: #549a38
-      .output2
+      .output
         .line
           //Red
           color: #e57564
+        //Initially, we want to hide the textarea until we focus on the output
+        //cell.
+        textarea.entry
+          display: none
 
-      .calculation2
+      .calculation
         border-right: 3px solid #ccc
         margin-bottom: 0.25em
 
@@ -190,12 +194,12 @@ body
           padding-top: 0.3em
         //The textarea should NOT have a line-height of 1 or else it will cut
         //off text sometimes.
-        span.entry
+        .formatted
           //Removes pesky whitespace from textareas and regular text output.
           line-height: 1
           white-space: pre
 
-        textarea
+        textarea.entry
           width: 690px
           height: auto
           padding: 0
@@ -222,75 +226,6 @@ body
         //been received yet, we set this class to show the spinner.
         textarea.processing
           background-image: image-url('spinner.gif')
-
-      .cell
-        font-family: $monospace_font
-        font-size: 0.9em
-        //We do not set margin-bottom since the new-cell divs handle the spacing
-        //between cells.
-        //margin-bottom: 0.6em
-        margin-bottom: 0
-        td
-          padding-bottom: 0.4em
-        //This is the In [0]/Out[0] line.
-        td.line
-          width: 60px
-          padding-right: 1em
-          text-align: right
-          //Smaller monospace font gives lighter typeface.
-          font-size: 0.7em
-          line-height: 1
-          //Align vertically since the input may be multilined.
-          vertical-align: top
-          padding-top: 2px
-        td.entry
-          line-height: 1
-          white-space: pre
-        .input
-          .entry
-            font-weight: bold
-            textarea
-              width: 98%
-              //We set height of 19px to temporarily fix the expanding textarea
-              //problem caused by the autoresize plugin.
-              //height: 1em
-              //height: 19px
-              height: auto
-              padding: 0
-              margin: 0
-
-              font-family: $monospace_font
-              font-size: 1.0em
-              font-weight: bold
-
-              //Remove the look of textarea box
-              border: none
-              overflow: hidden
-              //Remove the resize handle on textarea
-              resize: none
-              outline: none
-
-              //We place the spinner as a background image of the textarea.
-              background-position: right center
-              background-repeat: no-repeat
-              //background-image: image-url('spinner.gif')
-
-            //When the input textarea is send to calc server and response hasn't
-            //been received yet, we set this class to show the spinner.
-            textarea.processing
-              background-image: image-url('spinner.gif')
-              
-
-      .calculation
-        border-right: 3px solid #ccc
-        .input
-          .line
-            //Green
-            color: #549a38
-        .output
-          .line
-            //Red
-            color: #e57564
 
     #sidebar
       vertical-align: top

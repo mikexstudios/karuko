@@ -11,11 +11,11 @@ var InputArea = Class.$extend({
         //Create textarea element and store it as a jQuery wrapped class var.
         //IDEA: Maybe move this textarea snippet out to a template instead of
         //      hard coding this in JS?
-        this.cell.$input_entry.append('<textarea rows="1"></textarea>');
+        this.cell.$el.append('<textarea rows="1" class="entry"></textarea>');
         //Create DOM <-> Object bridge. This enables us to easily access the
         //DOM/jQuery obj from this class. Conversely, we can also access this
         //class from a DOM/jQ obj.
-        this.$el = this.cell.$input_entry.children('textarea');
+        this.$el = this.cell.$el.children('textarea');
         this.$el.data('InputArea', this);
 
         //Add events to this input area. We use proxy to pass `this` to the
@@ -26,6 +26,13 @@ var InputArea = Class.$extend({
         //We add this keypress event here since we want it to be a one-time
         //event that is removed once it is called.
         this.$el.bind('keypress.inputarea', $.proxy(this.on_keypress, this));
+    },
+
+    /**
+     * Triggers focus on the textarea.
+     */
+    focus: function() {
+        this.$el.focus();
     },
 
     /**

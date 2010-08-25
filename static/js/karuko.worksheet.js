@@ -11,25 +11,25 @@ var Worksheet = Class.$extend({
 
     //Class vars
     //==========
-    last_cell_id: 0, //keeps track of our last cell id
+    last_element_id: 0, //a counter that keeps track of our last used el id
     //A counter for numbering the In [_] calculation cells. `In` numbering 
     //should start at 1. Thus, this counter is initialized to 0 and will
     //increment to 1 upon calling get_next_calculation_id(). Because cells
     //may not necessarily be calculations (they can be text), we can't just
     //use the cell's id to number the calculations.
     last_calculation_id: 0,
-    //An array of cell ids in the order in which they exist on the page.
-    cell_list: [],
+    //An array of Element ids in the order in which they exist on the page.
+    element_list: [],
 
 
     __init__: function(selector /* $('#worksheet') */, options) {
+        $.extend(this.settings, options);
+
         //Create DOM <-> Object bridge. This enables us to easily access the
         //DOM/jQuery obj from this class. Conversely, we can also access this
         //class from a DOM/jQ obj.
         this.$el = selector; //jQuery object that selects #worksheet
         this.$el.data('Worksheet', this);
-
-        $.extend(this.settings, options);
         
         //TODO: Replace individual focus events on textarea to live/dispatch
         //events on #worksheet.
@@ -44,6 +44,23 @@ var Worksheet = Class.$extend({
         //Add first Cell to page.
         cell = this.add_cell();
         cell.focus();
+    },
+
+    /**
+     * Returns int of the next cell's id.
+     */
+    get_next_element_id: function() {
+        this.last_element_id += 1;
+        return this.last_element_id;
+    },
+
+    /**
+     * Given an Element id (int), returns the Element's position on the page starting
+     * from 1 (being the first Element on the page). If Element with given id
+     * does not exist, returns undefined.
+     */
+    get_position: function(id) {
+        return this.element_list.indexOf(id);
     },
 
     /**
@@ -62,11 +79,12 @@ var Worksheet = Class.$extend({
     },
 
     /**
-     * Returns int of number of Cells in Worksheet's cell_list.
+     * Returns int of number of Elements in Worksheet's element_list.
      */
-    get_num_cells: function() {
-        return this.cell_list.length;
+    get_num_elements: function() {
+        return this.element_list.length;
     },
+
 
     /**
      * Given a cell_id (int), returns Cell object associated with that id.
@@ -173,14 +191,6 @@ var Worksheet = Class.$extend({
 
 
     /**
-     * Returns int of the next cell's id.
-     */
-    get_next_cell_id: function() {
-        this.last_cell_id += 1;
-        return this.last_cell_id;
-    },
-
-    /**
      * Returns int of the next numbering for `In [_]` calculation cells.
      */
     get_next_calculation_id: function() {
@@ -189,7 +199,7 @@ var Worksheet = Class.$extend({
     },
       
     /**
-     * Creates and adds a new Cell and InsertCell object to the Worksheet
+     * Creates and adds a new InputCell and InsertCell object to the Worksheet
      * (along with the DOM object). If position is given, then the new objects
      * will be inserted at after that position in the cell_list with -1 being the
      * first/top-most position. If no position is given, then the new objs
@@ -199,17 +209,18 @@ var Worksheet = Class.$extend({
      */
     add_cell: function(position) {
         //Create new Cell object with a new ID.
-        var cell_id = this.get_next_cell_id();
-        var cell = new Cell(this, cell_id);
+        var cell_id = this.get_next_element_id();
+        var cell = new InputCell(this, cell_id);
 
         //Create new InsertCell obj with the same id as the Cell.
-        var insert_cell = new InsertCell(this, cell_id);
+        var insertcell_id = this.get_next_element_id();
+        var insertcell = new InsertCell(this, insertcell_id);
 
         //If position is given, new objects will be inserted there. Otherwise,
         //will be inserted at the end of the Worksheet if position is undefined
         //OR if position specifies adding a cell to the end of the Worksheet.
-        var position_of_last_cell = this.get_num_cells() - 1;
-        if (position != undefined && position < position_of_last_cell) {
+        var position_of_last_element = this.get_num_elements() - 1;
+        if (position != undefined && position < position_of_last_element) {
             //If position is -1, then we insert at the top of the worksheet.
             //Otherwise, insert the objs *after* the existing cell at the given
             //position. For instance, position = 0 means inserting the new
@@ -245,18 +256,17 @@ var Worksheet = Class.$extend({
             this.$el.append(cell.$el);
               
             //Also insert an InsertCell after this Cell.
-            //NOTE: The InsertCell should have the same id as the cell it comes
-            //      after. This is necessary for traversing.
-            this.$el.append(insert_cell.$el);
+            this.$el.append(insertcell.$el);
 
-            //Add cell's id to end of cell list.
-            this.cell_list.push(cell_id);
+            //Add Cell's id and InsertCell's id to end of element list.
+            this.element_list.push(cell_id);
+            this.element_list.push(insertcell_id);
             
             //We trigger the keypress event on the Cell's InputArea so that it
             //won't be automatically removed. We don't want the last Cell in the
             //Worksheet to be auto-removed if not modified to give user a hint
             //as to where to type next.
-            cell.input_area.$el.keypress();
+            //cell.input_area.$el.keypress();
         }
 
         return cell;
