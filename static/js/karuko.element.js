@@ -40,7 +40,7 @@ var Element = Class.$extend({
      * part of the Worksheet, returns undefined.
      */
     get_position: function() {
-        return this.worksheet.get_position(this.id);
+        return this.worksheet.get_position_for_id(this.id);
     },
 
     /**

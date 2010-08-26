@@ -35,6 +35,7 @@ var Worksheet = Class.$extend({
         //all new cells create an InsertCell *after* itself, but we have a 
         //single case here where we want to put an InsertCell in the Worksheet
         //when there are no Cells created yet.
+        this.element_list.push(0); //0 is the InsertCell's ID.
         var insert_cell = new InsertCell(this, 0);
         this.$el.append(insert_cell.$el);
           
@@ -63,20 +64,50 @@ var Worksheet = Class.$extend({
      * from 1 (being the first Element on the page). If Element with given id
      * does not exist, returns undefined.
      */
-    get_position: function(id) {
+    get_position_for_id: function(id) {
         return this.element_list.indexOf(id);
+    },
+
+    /**
+     * Given a position returns the Element at that position. If does not
+     * exist, returns undefined.
+     */
+    get_element_at_position: function(position) {
+        //Get Element's ID at given position
+        var id = this.element_list[position];
+        //Return the Element associated with the Cell's ID.
+        return this.get_element(id);
+    },
+
+    /**
+     * Returns the Element object associated with the given id. If does not
+     * exist, returns undefined.
+     *
+     * Note, the returned object *can* be the subclassed Element object. That
+     * is, it can be a Cell or InsertCell object.
+     */
+    get_element: function(id) {
+        //We use jQ's selector to grab the Element DOM. Then we use the DOM to
+        //Obj bridge to get the object.
+        return $('#el-' + id).data('Element');
     },
 
     /**
      * Creates and adds a new InputCell and InsertCell object to the Worksheet
      * (along with the DOM object). If position is given, then the new objects
-     * will be inserted at after that position in the cell_list with -1 being the
-     * first/top-most position. If no position is given, then the new objs
+     * will be inserted at after that position in the element_list with 0 being
+     * the first/top-most position. If no position is given, then the new objs
      * will be inserted at the end of the list.
      *
      * @return Cell The newly added Cell object.
      */
     add_cell: function(position) {
+        //Position should never be <= 0 since that would mean inserting a new Cell
+        //and InsertCell element at the top of the Worksheet above the first
+        //InsertCell (with ID = 0). We do not allow this since that InsertCell
+        //(with ID = 0) should *always* be at the top of the Worksheet.
+        if (position <= 0) return;
+
         //Create new Cell object with a new ID.
         var cell_id = this.get_next_element_id();
         var cell = new InputCell(this, cell_id);
@@ -85,15 +116,28 @@ var Worksheet = Class.$extend({
         var insertcell_id = this.get_next_element_id();
         var insertcell = new InsertCell(this, insertcell_id);
 
-        //We have three cases:
-        //1. No position is given. Then new elements will be inserted at end
-        //   of worksheet.
-        //2. Position of -1 is given. New elements will be inserted at top
-        //   of worksheet.
-        //3. Position is > -1. We insert the element at that position.
+        //If position is specified, we insert cell and insertcell there. That is
+        //suppose we have a list of element ids: [0, 1, 2, 3, 4], then we insert
+        //5 at position/index 2. The list now would be: [0, 1, 5, 2, 3, 4].
+        if (position != undefined) {
+            //Add the element ids to the list. 
+            this.element_list.splice(position, 0, cell_id);
+            this.element_list.splice(position + 1, 0, insertcell_id);
 
-        //Case #1: No position is given. Insert at end.
-        if (position == undefined) {
+            //We insert the DOM Cell and InsertCell elements *after* the 
+            //DOM element in the `position - 1` position. 
+            //NOTE: This fails when position = 0 because there is no DOM
+            //element before that. However, we never add cells with 
+            //position <= 0.
+            var existing = this.get_element_at_position(position - 1);
+            //NOTE: To have the InsertCell appear *after* the Cell, we insert
+            //it before we insert the Cell so that it gets pushed down when we
+            //insert the Cell.
+            existing.$el.after(insertcell.$el);
+            existing.$el.after(cell.$el);
+        }
+        //Otherwise, we insert at the end of the worksheet.
+        else {
             //Add cell's DOM element to end of worksheet.
             this.$el.append(cell.$el);
               
@@ -109,56 +153,6 @@ var Worksheet = Class.$extend({
             //Worksheet to be auto-removed if not modified to give user a hint
             //as to where to type next.
             cell.input_area.$el.keypress();
-        }
-
-        //Case #2: Position of -1 is given. Insert at top.
-        else if (position <= -1) {
-
-        }
-
-        //Case #3: Insert element at that position
-        else {
-
-        }
-
-        return cell;
-
-        //If position is given, new objects will be inserted there. Otherwise,
-        //will be inserted at the end of the Worksheet if position is undefined
-        //OR if position specifies adding a cell to the end of the Worksheet.
-        var position_of_last_element = this.get_num_elements() - 1;
-        if (position != undefined && position < position_of_last_element) {
-            //If position is -1, then we insert at the top of the worksheet.
-            //Otherwise, insert the objs *after* the existing cell at the given
-            //position. For instance, position = 0 means inserting the new
-            //cell after the first Cell in the worksheet (in position = 1).
-            if (position <= -1) {
-                //The InsertCell with id of 0 serves as our top anchor point to
-                //insert after. Note that to have the InsertCell appear *after*
-                //the Cell, we insert it before the Cell so that it gets pushed
-                //down when we insert the Cell.
-                $('#insert_cell-0').after(insert_cell.$el);
-                $('#insert_cell-0').after(cell.$el);
-
-            } else {
-                //Otherwise, we insert *after* the existing Cell's InsertCell
-                //with the given position. First, we need to get the existing
-                //InsertCell at that position.
-                var existing_insertcell = this.get_insertcell_at_position(position);
-                //Now insert our new objects after this existing Cell. Note
-                //that to have the InsertCell appear *after* the Cell, we
-                //insert it before the Cell so that it gets pushed down when we
-                //insert the Cell.
-                existing_insertcell.$el.after(insert_cell.$el);
-                existing_insertcell.$el.after(cell.$el);
-            }
-              
-            //Add cell's id to cell list. Note that to make position work with
-            //splice indexes, we need to add 1 since we map position = -1 to
-            //splice index 0, position = 0 to splice index 1, etc.
-            this.cell_list.splice(position + 1, 0, cell_id);
-
-        } else {
         }
 
         return cell;
