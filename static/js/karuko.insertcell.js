@@ -7,6 +7,7 @@ var InsertCell = Element.$extend({
         this.$el = $('#insertcell_template').clone();
         this.$el.attr('id', 'el-' + id);
         this.$el.data('InsertCell', this); //DOM <-> obj bridge
+        this.$el.data('Element', this); //DOM <-> obj bridge
           
         //Add events to this div. We use `proxy` to pass `this` to the callback
         //functions.

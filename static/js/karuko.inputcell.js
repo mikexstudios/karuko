@@ -12,6 +12,7 @@ var InputCell = Cell.$extend({
 
         //Bridge from DOM to obj
         this.$el.data('InputCell', this);
+        this.$el.data('Element', this);
     }
 
 });

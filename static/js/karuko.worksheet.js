@@ -85,16 +85,36 @@ var Worksheet = Class.$extend({
         return this.element_list.length;
     },
 
+    /**
+     * Removes Element (given its id) from Worksheet's element_list.
+     */
+    remove: function(id) {
+        var element = this.get_element(id);
+        if (element) {
+            //Remove DOM object from #worksheet
+            //cell.remove();
+            cell.$el.remove();
+
+            //Remove from element_list
+            var i = this.get_position(id);
+            this.element_list.splice(i, 1); //Remove that element from array
+
+            //Also remove the corresponding InsertCell after this Cell
+            //var insertcell = this.get_insertcell(id);
+            //insertcell.$el.remove();
+        }
+    },
 
     /**
-     * Given a cell_id (int), returns Cell object associated with that id.
-     * Returns undefined if cell does not exist.
+     * Given an id (int), returns object associated with that id. Returns
+     * undefined if does not exist.
      */
-    get_cell: function(cell_id) {
-        //We use jQ's selector to grab the cell. Then we use the DOM to
-        //Obj bridge to get the object.
-        return $('#cell-' + cell_id).data('Cell');
+    get_element: function(id) {
+        //We use jQ's selector to grab the element. Then we use the DOM to Obj
+        //bridge to get the object.
+        return $('#el-' + id).data('Element');
     },
+
 
     /**
      * Given a position in the Worksheet cell_list, returns Cell object at that
