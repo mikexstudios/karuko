@@ -75,7 +75,6 @@ var InsertCell = Element.$extend({
         //a way to reconcile these.
 
         //Insert new cell after this InsertCell and put cursor there.
-        console.log(this.get_position());
         var cell = this.worksheet.add_cell(this.get_position() + 1);
         cell.focus();
     },

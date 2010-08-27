@@ -132,6 +132,10 @@ var Worksheet = Class.$extend({
         var insertcell_id = this.get_next_element_id();
         var insertcell = new InsertCell(this, insertcell_id);
 
+        //For later convenience, we tell the Cell what InsertCell obj is
+        //associated with it.
+        cell.insertcell = insertcell;
+
         //If position is specified, we insert cell and insertcell there. That is
         //suppose we have a list of element ids: [0, 1, 2, 3, 4], then we insert
         //5 at position/index 2. The list now would be: [0, 1, 5, 2, 3, 4].

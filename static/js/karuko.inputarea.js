@@ -84,6 +84,8 @@ var InputArea = Class.$extend({
         //      handled in the on_up/on_down methods.
         if (this.is_modified == false) {
             this.cell.remove();
+            //TODO: Note there is a bug in doing this. See #28!
+            this.cell.insertcell.remove();
         }
     },
 

@@ -7,6 +7,13 @@
  * want to generalize this class even further.
  */
 var Cell = Element.$extend({
+    //Class vars
+    //==========
+    //For convenience when working with the InsertCell paired/associated with 
+    //this Cell, we set this variable to the InsertCell obj reference when 
+    //adding a new Cell in Worksheet.
+    insertcell: null,
+      
     __init__: function(worksheet /* Worksheet obj */, id /* int */) {
         this.$super(worksheet, id);
 
