@@ -29,7 +29,8 @@ var Element = Class.$extend({
     /**
      * Removes this Element from the Worksheet and destroys it from the DOM.
      *
-     * NOTE: The Worksheet class calls this object's `destroy` method.
+     * NOTE: The Worksheet class calls this object's `destroy` method. This is
+     * just a wrapper around the same Worksheet method.
      */
     remove: function() {
         this.worksheet.remove(this.id);

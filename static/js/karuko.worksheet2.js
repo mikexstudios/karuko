@@ -93,6 +93,22 @@ var Worksheet = Class.$extend({
     },
 
     /**
+     * Removes Element (given its id) from Worksheet's element_list. Also
+     * removes the Element DOM from the page.
+     */
+    remove: function(id) {
+        var element = this.get_element(id);
+        if (element) {
+            //Remove from element_list
+            var i = this.get_position_for_id(id);
+            this.element_list.splice(i, 1); //Remove that element from array
+
+            //Remove DOM object from #worksheet
+            element.destroy();
+        }
+    },
+
+    /**
      * Creates and adds a new InputCell and InsertCell object to the Worksheet
      * (along with the DOM object). If position is given, then the new objects
      * will be inserted at after that position in the element_list with 0 being
@@ -119,7 +135,11 @@ var Worksheet = Class.$extend({
         //If position is specified, we insert cell and insertcell there. That is
         //suppose we have a list of element ids: [0, 1, 2, 3, 4], then we insert
         //5 at position/index 2. The list now would be: [0, 1, 5, 2, 3, 4].
-        if (position != undefined) {
+        //NOTE: If the given position is at the end of the worksheet, then we
+        //want to guide the execution into the `else` branch since in there, we
+        //also invoke the keypress to keep that Cell from automatically removed.
+        var position_of_last_element = this.get_num_elements() - 1;
+        if (position != undefined && position < position_of_last_element) {
             //Add the element ids to the list. 
             this.element_list.splice(position, 0, cell_id);
             this.element_list.splice(position + 1, 0, insertcell_id);
@@ -152,6 +172,7 @@ var Worksheet = Class.$extend({
             //won't be automatically removed. We don't want the last Cell in the
             //Worksheet to be auto-removed if not modified to give user a hint
             //as to where to type next.
+            //TODO: Review if this is a good idea.
             cell.input_area.$el.keypress();
         }
 
