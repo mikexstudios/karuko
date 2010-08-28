@@ -61,11 +61,12 @@ var Cell = Element.$extend({
     },
 
     /**
-     * Sets the entry's value. Currently not implemented since not used.
+     * Sets the entry's value.
      *
      * NOTE: Entry always refers to the textarea.
      */
-    set_entry: function() {
+    set_entry: function(val) {
+        return this.input_area.set_value(val);
     },
 
     /**
@@ -97,13 +98,13 @@ var Cell = Element.$extend({
         //Create a new Cell after this and put our cursor there. Because of the
         //way `add_cell` works, if the given position is at the end of the page, 
         //then the newly created Cell won't be automatically deleted if empty.
-        var cell = this.worksheet.add_cell(this.get_position());
+        var cell = this.worksheet.add_cell(this.get_position() + 2);
         cell.focus();
         
         //Send calculation to server. The callback function is responsible for
         //creating the output cell.
         var payload = {
-            statement: this.get_input(),
+            statement: this.get_entry(),
             session: this.worksheet.settings.session_key
         };
         //We use JSONP to get around cross-domain issues.
@@ -113,26 +114,28 @@ var Cell = Element.$extend({
     },
 
     /**
-     * Called when calculation is returned from server.
+     * Called when calculation is returned from server. A new OutputCell after
+     * this Cell is created and populated with the calculation results.
      */
     on_result: function(data) {
         //Once the resuts come back, no need to display spinner anymore. This
         //is regardless if there is data or not.
         this.input_area.$el.removeClass('processing');
 
-        //If there is no output, then don't show output cell
+        //If there is no output, then don't create output cell
         if (data.out != '') {
             //console.log(data.out);
+            var cell = this.worksheet.add_cell(this.get_position() + 2, OutputCell);
 
             //Insert output tr after input tr.
-            this.set_output($.trim(data.out));
+            //TODO: Make formatted show LaTeX.
+            cell.set_entry($.trim(data.out));
+            cell.set_formatted($.trim(data.out));
               
             //Assign Out[_] number to cell. It should be what the server
-            //returns. However, for now, we will just set it to the In 
-            //cell number.
-            //NOTE: This must come after `this.set_output` since that method
-            //      creates the output sub-cell if it doesn't already exist.
-            this.set_number(this.in_number, 'Out');
+            //returns. However, for now, we will just set it to the In cell
+            //number.
+            cell.set_number(this.number, 'Out');
         }
     }
 

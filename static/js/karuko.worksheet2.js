@@ -115,9 +115,13 @@ var Worksheet = Class.$extend({
      * the first/top-most position. If no position is given, then the new objs
      * will be inserted at the end of the list.
      *
+     * @param position int The index in element_list at which the new Cell
+     *                     should be inserted.
+     * @param CellClass object The class that the new Cell should be created 
+     *                         from. Defaults to InputCell.
      * @return Cell The newly added Cell object.
      */
-    add_cell: function(position) {
+    add_cell: function(position, CellClass) {
         //Position should never be <= 0 since that would mean inserting a new Cell
         //and InsertCell element at the top of the Worksheet above the first
         //InsertCell (with ID = 0). We do not allow this since that InsertCell
@@ -126,7 +130,11 @@ var Worksheet = Class.$extend({
 
         //Create new Cell object with a new ID.
         var cell_id = this.get_next_element_id();
-        var cell = new InputCell(this, cell_id);
+        if (CellClass != undefined) {
+            var cell = new CellClass(this, cell_id);
+        } else {
+            var cell = new InputCell(this, cell_id);
+        }
 
         //Create new InsertCell obj with the same id as the Cell.
         var insertcell_id = this.get_next_element_id();
@@ -181,5 +189,13 @@ var Worksheet = Class.$extend({
         }
 
         return cell;
+    },
+
+    /**
+     * Returns int of the next numbering for `In [_]` calculation cells.
+     */
+    get_next_calculation_id: function() {
+        this.last_calculation_id += 1;
+        return this.last_calculation_id;
     }
 });

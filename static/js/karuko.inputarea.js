@@ -43,6 +43,13 @@ var InputArea = Class.$extend({
     },
 
     /**
+     * Sets value of the textarea.
+     */
+    set_value: function(val) {
+        return this.$el.val(val);
+    },
+
+    /**
      * Returns value of the textarea.
      */
     get_value: function() {
