@@ -21,7 +21,14 @@ var InputArea = Class.$extend({
         //Add events to this input area. We use proxy to pass `this` to the
         //callback functions.
         this.$el.bind('focusin.inputarea', $.proxy(this.on_focusin, this));
-        this.$el.bind('focusout.inputarea', $.proxy(this.on_focusout, this));
+        //NOTE: We are defering the execution of this callback very slightly.
+        //The reason for this is that there is an edge case where if a
+        //non-modified Cell is defocused by clicking the corresponding
+        //InsertCell DOM element, that Cell and the InsertCell object will be
+        //deleted before the click event triggers! So the current solution is
+        //to slightly delay the defocus callback event so that the click event
+        //can be triggered first. See ticket #28 for more info.
+        this.$el.bind('focusout.inputarea', $.defer(50, $.proxy(this.on_focusout, this)));
 
         //We add this keypress event here since we want it to be a one-time
         //event that is removed once it is called.

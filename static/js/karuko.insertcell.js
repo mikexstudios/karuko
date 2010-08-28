@@ -14,9 +14,17 @@ var InsertCell = Element.$extend({
         this.$el.bind('focusin.insertcell', $.proxy(this.on_focusin, this));
         this.$el.bind('focusout.insertcell', $.proxy(this.on_focusout, this));
 
-        //We also bind a click event to this InsertCell. This will presist and
-        //will not be unbound.
-        this.$el.bind('click.insertcell', $.proxy(this.on_click, this));
+        //We also bind a mousedown click event to this InsertCell. This will
+        //presist and will not be unbound. The reason why this is a mousedown
+        //instead of a 'click' event is that because of an edge case where if
+        //a non-modified Cell is defocused by clicking the corresponding
+        //InsertCell DOM element, that Cell and the InsertCell object will be
+        //deleted before the click event triggers! So the current solution is
+        //to slightly delay the defocus callback event so that the click event
+        //can be triggered first. So we use 'mousedown' to immediately parse
+        //the click rather than wait for the 'mouseup' that needs to occur in
+        //the regular 'click' event. See ticket #28 for more info.
+        this.$el.bind('mousedown.insertcell', $.proxy(this.on_mousedown, this));
     },
 
     /**
@@ -70,7 +78,11 @@ var InsertCell = Element.$extend({
      * Called when this div gets clicked. This means that the user intends to
      * insert a new Cell here.
      */
-    on_click: function(e) {
+    on_mousedown: function(e) {
+        //If we don't prevent the mousedown, the newly created cell can't be
+        //focused.
+        e.preventDefault();
+
         //TODO: This is a duplicate of code in the on_keypress method. Find
         //a way to reconcile these.
 
