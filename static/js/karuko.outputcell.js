@@ -26,5 +26,16 @@ var OutputCell = Cell.$extend({
         return this.$formatted.text(val);
     },
 
+    /**
+     * Triggers focus on the OutputCell's textarea. Since the textarea is normally
+     * hidden, we need to show it first. And also hide the .formatted span.
+     */
+    focus: function() {
+        this.$formatted.hide();
+        this.input_area.show();
+
+        this.$super();
+    },
+
 
 });

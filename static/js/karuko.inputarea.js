@@ -44,6 +44,13 @@ var InputArea = Class.$extend({
     },
 
     /**
+     * Un-hides the textarea if hidden.
+     */
+    show: function() {
+        this.$el.show();
+    },
+
+    /**
      * Triggers focus on the textarea.
      */
     focus: function() {
