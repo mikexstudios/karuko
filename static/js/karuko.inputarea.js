@@ -217,6 +217,7 @@ var InputArea = Class.$extend({
 
         //Using end takes into account selections in textarea.
         row = this.get_cursor_coordinates('end').y;
+
         //We subtract 1 from the textarea's rows since our row count starts at 0.
         if (row >= this.$el.get(0).rows - 1) {
             //Need to prevent default so that the caret position remains set.
@@ -224,11 +225,12 @@ var InputArea = Class.$extend({
             e.preventDefault();
 
             //Focus on next InsertCell.
-            try {
-                this.cell.next_insertcell().focus();
-                //We want to catch undefined method error in case the next
-                //InsertCell does not exist.
-            } catch (error) {}
+            this.cell.next().focus();
+            //try {
+            //    this.cell.next_insertcell().focus();
+            //    //We want to catch undefined method error in case the next
+            //    //InsertCell does not exist.
+            //} catch (error) {}
         }
     },
 
