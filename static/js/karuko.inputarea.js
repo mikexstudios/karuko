@@ -61,7 +61,8 @@ var InputArea = Class.$extend({
      * Sets value of the textarea.
      */
     set_value: function(val) {
-        return this.$el.val(val);
+        this.$el.val(val);
+        this.is_modified = true;
     },
 
     /**
