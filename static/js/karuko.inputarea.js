@@ -22,12 +22,20 @@ var InputArea = Class.$extend({
         //callback functions.
         this.$el.bind('focusin.inputarea', $.proxy(this.on_focusin, this));
         //NOTE: We are defering the execution of this callback very slightly.
-        //The reason for this is that there is an edge case where if a
-        //non-modified Cell is defocused by clicking the corresponding
-        //InsertCell DOM element, that Cell and the InsertCell object will be
-        //deleted before the click event triggers! So the current solution is
-        //to slightly delay the defocus callback event so that the click event
-        //can be triggered first. See ticket #28 for more info.
+        //The reason for this is to handle cases where this InputArea/Cell 
+        //would be removed on focusout *before* an event that requires that this
+        //InputArea/Cell still exist. 
+        //
+        //An example is if a non-modified Cell is defocused by clicking the
+        //corresponding InsertCell DOM element, that Cell and the InsertCell
+        //object will be deleted before the click event triggers! So the
+        //current solution is to slightly delay the defocus callback event so
+        //that the click event can be triggered first. See ticket #28 for more
+        //info.
+        //
+        //Another example is if the up arrow is pressed on a non-modified Cell.
+        //Without deferring, the Cell would be removed before the code to focus
+        //on the prev element fires. So this defer trick works rather well!
         this.$el.bind('focusout.inputarea', $.defer(50, $.proxy(this.on_focusout, this)));
 
         //We add this keypress event here since we want it to be a one-time
@@ -178,22 +186,6 @@ var InputArea = Class.$extend({
     on_up: function(e) {
         //console.log('up');
 
-        //New cells that have never been typed in should be automatically removed
-        //from the worksheet when focus is removed. We handle the removing part
-        //in on_focusout. We perform jumping to the next Cell here.
-        //NOTE: We don't place this focusing code in on_focusout since we need
-        //to know if the user pressed up or down. This affects what Cell we
-        //will jump to next.
-        if (this.is_modified == false) {
-            //Get the previous Cell and place focus there.
-            //NOTE: If user clicks on something else, then this focus won't
-            //      apply. This is expected behavior; we want this to happen.
-            var prev_cell = this.cell.prev_cell();
-            prev_cell.focus();
-
-            return; //Keep from continuing.
-        }
-          
         //Need to determine if the start of the cursor selection is on the
         //first line. Using start takes into account selections in textarea.
         row = this.get_cursor_coordinates('start').y;
@@ -222,22 +214,6 @@ var InputArea = Class.$extend({
      */
     on_down: function(e) {
         //console.log('down');
-
-        //New cells that have never been typed in should be automatically removed
-        //from the worksheet when focus is removed. We handle the removing part
-        //in on_focusout. We perform jumping to the next Cell here.
-        //NOTE: We don't place this in on_focusout since we need to know if the
-        //      user pressed up or down. This affects what Cell we will jump to
-        //      next.
-        if (this.is_modified == false) {
-            //Get the next Cell and place focus there.
-            //NOTE: If user clicks on something else, then this focus won't
-            //      apply. This is expected behavior; we want this to happen.
-            var next_cell = this.cell.next_cell();
-            next_cell.focus();
-
-            return; //Keep from continuing.
-        }
 
         //Using end takes into account selections in textarea.
         row = this.get_cursor_coordinates('end').y;
