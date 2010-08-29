@@ -120,18 +120,17 @@ var InsertCell = Element.$extend({
     },
 
     /**
-     * Called when up keydown event is triggered. Skips to previous cell.
+     * Called when up keydown event is triggered. Skips to previous element.
      */
     on_up: function(e) {
         //console.log('up');
-        //The previous cell is the cell with this InsertCell's same id. So
-        //we don't use the worksheet.prev_cell method (which will skip us 
-        //two cells back).
-        try {
-            this.worksheet.get_cell(this.id).focus();
-            //We want to catch undefined method error in case the previous
-            //cell does not exist.
-        } catch (error) {}
+
+        this.prev().focus();
+        //try {
+        //    this.worksheet.get_cell(this.id).focus();
+        //    //We want to catch undefined method error in case the previous
+        //    //cell does not exist.
+        //} catch (error) {}
     },
 
     /**
@@ -139,11 +138,13 @@ var InsertCell = Element.$extend({
      */
     on_down: function(e) {
         //console.log('down');
-        try {
-            this.worksheet.next_cell(this.id).focus();
-            //We want to catch undefined method error in case the previous
-            //cell does not exist.
-        } catch (error) {}
+
+        this.next().focus();
+        //try {
+        //    this.worksheet.next_cell(this.id).focus();
+        //    //We want to catch undefined method error in case the previous
+        //    //cell does not exist.
+        //} catch (error) {}
     }
     
 });
