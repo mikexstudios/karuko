@@ -144,10 +144,16 @@ body
         font-size: 0.9em
 
       .input
+        //We pull up the bottom of the input cell to correct for the space caused
+        //by the InsertCell after it.
+        margin-bottom: -0.25em
         .line
           //Green
           color: #549a38
       .output
+        //We pull up the top of the output cell to correct for the space caused
+        //by the InsertCell before it.
+        margin-top: -0.25em
         .line
           //Red
           color: #e57564
@@ -158,8 +164,6 @@ body
 
       .calculation
         border-right: 3px solid #ccc
-        margin-bottom: 0.25em
-
         .line
           display: block
           float: left
