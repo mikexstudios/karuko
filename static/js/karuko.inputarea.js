@@ -181,9 +181,9 @@ var InputArea = Class.$extend({
         //New cells that have never been typed in should be automatically removed
         //from the worksheet when focus is removed. We handle the removing part
         //in on_focusout. We perform jumping to the next Cell here.
-        //NOTE: We don't place this in on_focusout since we need to know if the
-        //      user pressed up or down. This affects what Cell we will jump to
-        //      next.
+        //NOTE: We don't place this focusing code in on_focusout since we need
+        //to know if the user pressed up or down. This affects what Cell we
+        //will jump to next.
         if (this.is_modified == false) {
             //Get the previous Cell and place focus there.
             //NOTE: If user clicks on something else, then this focus won't
@@ -206,11 +206,12 @@ var InputArea = Class.$extend({
             e.preventDefault();
 
             //Focus on prev InsertCell.
-            try {
-                this.cell.prev_insertcell().focus();
-                //We want to catch undefined method error in case the previous
-                //InsertCell does not exist.
-            } catch (error) {}
+            this.cell.prev().focus();
+            //try {
+            //    this.cell.prev().focus();
+            //    //We want to catch undefined method error in case the previous
+            //    //InsertCell does not exist.
+            //} catch (error) {}
         }
     },
 

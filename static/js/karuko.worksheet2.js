@@ -197,5 +197,19 @@ var Worksheet = Class.$extend({
     get_next_calculation_id: function() {
         this.last_calculation_id += 1;
         return this.last_calculation_id;
-    }
+    },
+
+
+    /**
+     * Returns prev element before the given element id. If does not exist,
+     * returns undefined.
+     */
+    get_prev_element: function(id) {
+        //Determine the index of the given id
+        var i = this.get_position_for_id(id);
+        //Now, get prev element id
+        var prev_id = this.element_list[i-1];
+
+        return this.get_element(prev_id);
+    },
 });

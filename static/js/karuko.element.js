@@ -49,7 +49,7 @@ var Element = Class.$extend({
      * above this Element. If does not exist, returns undefined.
      */
     prev: function() {
-        return this.worksheet.get_prev_el(this.id);
+        return this.worksheet.get_prev_element(this.id);
     },
 
     /**
@@ -57,6 +57,6 @@ var Element = Class.$extend({
      * below this Element. If does not exist, returns undefined.
      */
     next: function() {
-        return this.worksheet.get_next_el(this.id);
+        return this.worksheet.get_next_element(this.id);
     }
 });
