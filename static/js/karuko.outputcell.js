@@ -17,6 +17,10 @@ var OutputCell = Cell.$extend({
         this.$el.append('<span class="formatted"></span>');
         //Add helpful class variable
         this.$formatted = this.$el.find('.formatted');
+
+        //Events
+        //TODO: Make this a delegate/live event.
+        this.$el.bind('focusout.outputcell', $.proxy(this.on_focusout, this));
     },
 
     /**
@@ -37,5 +41,15 @@ var OutputCell = Cell.$extend({
         this.$super();
     },
 
+    /**
+     * Called when cell loses focus. We want to hide the textarea and re-show
+     * .formatted span.
+     */
+    on_focusout: function(e) {
+        //console.log('focusout');
+
+        this.$formatted.show();
+        this.input_area.hide();
+    }
 
 });

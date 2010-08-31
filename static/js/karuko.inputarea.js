@@ -20,6 +20,7 @@ var InputArea = Class.$extend({
 
         //Add events to this input area. We use proxy to pass `this` to the
         //callback functions.
+        //TODO: Make this a delegate/live event.
         this.$el.bind('focusin.inputarea', $.proxy(this.on_focusin, this));
         //NOTE: We are defering the execution of this callback very slightly.
         //The reason for this is to handle cases where this InputArea/Cell 
@@ -48,6 +49,13 @@ var InputArea = Class.$extend({
      */
     show: function() {
         this.$el.show();
+    },
+
+    /**
+     * Hides the textarea if not already hidden.
+     */
+    hide: function() {
+        this.$el.hide();
     },
 
     /**
@@ -97,7 +105,7 @@ var InputArea = Class.$extend({
     /**
      * Called when textarea loses focus.
      */
-    on_focusout: function(e) {
+    on_focusout: function(e, callback) {
         //console.log('focusout');
 
         //Unbind the textarea auto-expander.
