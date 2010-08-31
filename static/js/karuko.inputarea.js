@@ -240,8 +240,14 @@ var InputArea = Class.$extend({
             //Otherwise, the caret will jump to end of line.
             e.preventDefault();
 
-            //Focus on next InsertCell.
-            this.cell.next().focus();
+            //Focus on the InsertCell after this Cell. However, if the Cell is 
+            //not modified, then we need to focus on the Cell after this one since
+            //the InsertCell will be removed.
+            if (this.is_modified) {
+                this.cell.next().focus();
+            } else {
+                this.cell.next().next().focus(); //focus on next Cell
+            }
             //try {
             //    this.cell.next_insertcell().focus();
             //    //We want to catch undefined method error in case the next

@@ -98,7 +98,7 @@ var InsertCell = Element.$extend({
     on_keypress: function(e) {
         //POSSIBLE BUG: On Mac, Control+character key combination will
         //trigger keypress.
-        console.log('keypress');
+        //console.log('keypress');
 
         //Insert new cell after this InsertCell and put cursor there.
         var cell = this.worksheet.add_cell(this.get_position() + 1);
