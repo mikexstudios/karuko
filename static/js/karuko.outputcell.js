@@ -21,6 +21,7 @@ var OutputCell = Cell.$extend({
         //Events
         //TODO: Make this a delegate/live event.
         this.$el.bind('focusout.outputcell', $.proxy(this.on_focusout, this));
+        this.$el.bind('mousedown.insertcell', $.proxy(this.on_mousedown, this));
     },
 
     /**
@@ -50,6 +51,19 @@ var OutputCell = Cell.$extend({
 
         this.$formatted.show();
         this.input_area.hide();
+    },
+
+    /**
+     * Called when cell gets clicked. We show the input area.
+     */
+    on_mousedown: function(e) {
+        //If we don't prevent the mousedown, the textarea can't be focused.
+        e.preventDefault();
+
+        this.$formatted.hide();
+        this.input_area.show();
+
+        this.input_area.focus();
     }
 
 });
