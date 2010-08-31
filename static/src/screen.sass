@@ -181,9 +181,14 @@ body
         //The textarea should NOT have a line-height of 1 or else it will cut
         //off text sometimes.
         .formatted
+          display: block
           //Removes pesky whitespace from textareas and regular text output.
-          line-height: 1
+          //line-height: 1
           white-space: pre
+          //Slight correction. We push the bottom of down slightly so that when
+          //we switch between .formatted and textarea (which has bolded text), 
+          //the cells below don't shift.
+          margin-bottom: 2px
 
         textarea.entry
           width: 690px
