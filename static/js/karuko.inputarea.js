@@ -4,14 +4,24 @@ var InputArea = Class.$extend({
     //if the Cell should be auto-removed. That is, new Cells that have never been
     //typed in yet should be removed when focus is lost.
     is_modified: false,
+    //TODO: Find a way to auto-detect the columns in a textarea.
+    //Hard-coded value describing the number of columns in the textarea. We need
+    //this value for creating the textarea HTML and also for detecting line wraps
+    //in the get_cursor_coordinates method.
+    cols: 76,
 
     __init__: function(cell /* Cell obj */) {
         this.cell = cell; //Cell obj this InputArea is associated with
         
         //Create textarea element and store it as a jQuery wrapped class var.
         //IDEA: Maybe move this textarea snippet out to a template instead of
-        //      hard coding this in JS?
-        this.cell.$el.append('<textarea rows="1" class="entry"></textarea>');
+        //hard coding this in JS?
+        //NOTE: The cols=77 is hardcoded for now to work with the
+        //autogrowtextarea plugin, which is totally a hack. We should find a way
+        //to auto-detect the cols, if possible.
+        //HACK: For some reason, there is disagreement between num of chars in
+        //textarea and the cols. cols (in textarea) is always num of chars + 1.
+        this.cell.$el.append('<textarea rows="1" cols="' + (this.cols + 1) + '" class="entry"></textarea>');
         //Create DOM <-> Object bridge. This enables us to easily access the
         //DOM/jQuery obj from this class. Conversely, we can also access this
         //class from a DOM/jQ obj.
@@ -153,6 +163,30 @@ var InputArea = Class.$extend({
      */
     get_cursor_coordinates: function(type) {
         var lines = this.get_value().split('\n');
+        //HACK: Add newlines back in.
+        $.each(lines, function(row, line) {
+            lines[row] = line + '\n';
+        });
+
+        //We correct for line-wrapping in the textarea by breaking each
+        //line-wrap into separate lines (rather than one really long line). The
+        //reason we do this is so that our line-detection algorithm below can
+        //work with line-wrapped lines.
+        //NOTE: lines.length is called each time through the loop. We *want* this
+        //to occur since we will be modifying the lines array.
+        for (var i = 0; i < lines.length; i++) {
+            //If our line is too long, then we break it up into two lines.
+            if (lines[i].length > this.cols) {
+                //Add, in-place, new element for next line.
+                lines.splice(i+1, 0, lines[i].substring(this.cols));
+
+                //Modify existing line
+                //NOTE: We don't add a newline here or else caret() will be wrong.
+                lines[i] = lines[i].substring(0, this.cols);
+                console.log('mod line');
+            }
+        }
+
         //This position is counted from the start of the textbox. We use this
         //and the split lines to determine x, y position.
         if (type != 'end') {
@@ -168,18 +202,19 @@ var InputArea = Class.$extend({
         //line.
         var line_position = {start: 0, end: 0}; //initialize
         var coords = {x: 0, y: 0}; //initialize
+        //NOT CURRENTLY USED:
+        //In order to handle line wrapping while using `each`. We need some way
+        //to correct for more rows than `each` reports. So we use this var:
+        //var row_correction = 0;
         $.each(lines, function(row, line) {
             line_position.end += line.length;
-            //Correction since each "newline" also takes a position. When we 
-            //split by newline, the newline is removed from the split strings.
-            line_position.end += 1;
             
             //Now determine if the cursor position is within the calculated
             //position for the current line. We subtract 1 since we start 
             //counting position from 0.
             if (cursor_position <= line_position.end - 1) {
                 //Yes, the cursor position is in this line.
-                coords.y = row;
+                coords.y = row;// + row_correction;
                 coords.x = cursor_position - line_position.start;
                   
                 //Break from the each
@@ -233,6 +268,8 @@ var InputArea = Class.$extend({
 
         //Using end takes into account selections in textarea.
         row = this.get_cursor_coordinates('end').y;
+        console.log(this.get_cursor_coordinates('end').y);
+        //console.log(this.get_cursor_coordinates('end').x);
 
         //We subtract 1 from the textarea's rows since our row count starts at 0.
         if (row >= this.$el.get(0).rows - 1) {
