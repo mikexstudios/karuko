@@ -64,6 +64,28 @@ var OutputCell = Cell.$extend({
         this.input_area.show();
 
         this.input_area.focus();
+    },
+
+    /**
+     * In addition to the .execute method of the parent Cell class, also
+     * converts the current cell into an InputCell. Triggered by shift+return
+     * keydown binding (set in InputArea). 
+     */
+    execute: function() {
+        //We create a new InputCell right after this OutputCell and populate it
+        //with the exact same contents. Then we delete this OutputCell.
+        var this_position = this.worksheet.get_position_for_id(this.id);
+        cell = this.worksheet.add_cell(this_position + 1); //Add after the InsertCell
+        //Set contents of new cell with contents of this cell.
+        cell.set_entry(this.get_entry());
+
+        //Remove this cell
+        this.worksheet.delete_cell(this_position);
+
+        //Execute the new cell
+        cell.execute();
+
+        //this.$super();
     }
 
 });

@@ -190,6 +190,23 @@ var Worksheet = Class.$extend({
 
         return cell;
     },
+    
+    /**
+     * Deletes Cell and associated InsertCell given the Cell's position.
+     *
+     * This is essentially a shortcut for calling `remove` on the Cell and
+     * the InsertCell at position + 1.
+     */
+    delete_cell: function(position) {
+        //remove requires the ID, so we need to get it first.
+        var cell_id = this.element_list[position];
+        this.remove(cell_id);
+        delete cell_id;
+        
+        var insertcell_id = this.element_list[position+1];
+        this.remove(insertcell_id);
+        delete insertcell_id;
+    },
 
     /**
      * Returns int of the next numbering for `In [_]` calculation cells.
