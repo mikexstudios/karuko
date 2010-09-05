@@ -85,7 +85,8 @@ var OutputCell = Cell.$extend({
         //Execute the new cell
         cell.execute();
 
-        //this.$super();
+        //NOTE: We don't call $super since everything is now done by the new cell.
+        delete this;
     }
 
 });
